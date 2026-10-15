@@ -1,0 +1,1 @@
+ALTER TABLE public.training_blocks ADD COLUMN IF NOT EXISTS shooting_sets jsonb NOT NULL DEFAULT '[]'::jsonb;

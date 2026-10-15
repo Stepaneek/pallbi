@@ -1,0 +1,1 @@
+UPDATE public.training_blocks SET slot = 'dopoledne' WHERE slot = 'rano';

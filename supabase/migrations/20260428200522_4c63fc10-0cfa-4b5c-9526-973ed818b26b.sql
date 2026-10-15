@@ -1,0 +1,1 @@
+ALTER TABLE public.runs ADD COLUMN sport_type text NOT NULL DEFAULT 'Run';

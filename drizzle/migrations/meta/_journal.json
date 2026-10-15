@@ -1,0 +1,34 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1789218574022,
+      "tag": "0000_add_bike_hr_zones",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1789534611616,
+      "tag": "0001_add_shooting_intensity",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1790881056925,
+      "tag": "0002_admin_unlimited_athletes",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1791655173331,
+      "tag": "0003_shooting_zeroings",
+      "breakpoints": true
+    }
+  ]
+}

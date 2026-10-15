@@ -1,0 +1,155 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* PallBi — clean analytical light theme, blue accent */
+@layer base {
+  :root {
+    --background: 210 40% 98%;          /* #F8FAFC */
+    --foreground: 222 47% 11%;          /* #0F172A */
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    --primary: 221 83% 53%;             /* #2563EB */
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 217 91% 60%;
+
+    --secondary: 210 40% 96%;           /* #F1F5F9 */
+    --secondary-foreground: 222 47% 11%;
+
+    --muted: 210 40% 96%;               /* #F1F5F9 */
+    --muted-foreground: 215 25% 35%;    /* #475569 */
+
+    --accent: 214 32% 91%;              /* #E2E8F0 */
+    --accent-foreground: 222 47% 11%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 210 40% 98%;
+
+    --success: 142 71% 38%;
+    --warning: 38 92% 50%;
+
+    --border: 214 32% 91%;              /* #E2E8F0 */
+    --input: 214 32% 91%;
+    --ring: 224 76% 33%;
+
+    --radius: 0.5rem;
+
+    /* Yarmill intensity zones */
+    --zone-volna: 0 0% 92%;
+    --zone-volna-fg: 222 47% 11%;
+    --zone-i1: 142 70% 45%;          /* green */
+    --zone-i1-fg: 0 0% 100%;
+    --zone-i2: 187 80% 45%;          /* cyan */
+    --zone-i2-fg: 0 0% 100%;
+    --zone-i3: 217 91% 50%;          /* blue */
+    --zone-i3-fg: 0 0% 100%;
+    --zone-i4: 28 92% 52%;           /* orange */
+    --zone-i4-fg: 0 0% 100%;
+    --zone-i5: 0 78% 52%;            /* red */
+    --zone-i5-fg: 0 0% 100%;
+    --zone-i6: 322 78% 60%;          /* pink */
+    --zone-i6-fg: 0 0% 100%;
+  }
+
+  .dark {
+    --background: 220 35% 7%;         /* #0B0F17 */
+    --foreground: 210 40% 96%;        /* #F1F5F9 */
+
+    --card: 217 33% 12%;              /* #151D2A */
+    --card-foreground: 210 40% 96%;
+
+    --popover: 217 33% 12%;
+    --popover-foreground: 210 40% 96%;
+
+    --primary: 224 76% 48%;           /* brighter blue for dark bg */
+    --primary-foreground: 210 40% 98%;
+    --primary-glow: 224 76% 60%;
+
+    --secondary: 217 33% 16%;
+    --secondary-foreground: 210 40% 96%;
+
+    --muted: 217 33% 15%;
+    --muted-foreground: 215 20% 72%;
+
+    --accent: 217 33% 20%;
+    --accent-foreground: 210 40% 96%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217 33% 17%;            /* #1E293B (slate-800) */
+    --input: 217 33% 17%;
+    --ring: 224 76% 48%;
+
+    --zone-volna: 217 33% 20%;
+    --zone-volna-fg: 210 40% 96%;
+  }
+}
+
+@layer base {
+  * { @apply border-border; }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "cv11", "ss01";
+    text-rendering: optimizeLegibility;
+  }
+}
+
+@layer utilities {
+  .zone-volna { background-color: hsl(210 40% 94%); color: hsl(215 25% 27%); border: 1px solid hsl(214 32% 86%); }
+  .zone-I1   { background-color: hsl(142 76% 91%); color: hsl(142 72% 25%); border: 1px solid hsl(142 55% 78%); }
+  .zone-I2   { background-color: hsl(187 85% 91%); color: hsl(190 82% 25%); border: 1px solid hsl(187 62% 78%); }
+  .zone-I3   { background-color: hsl(214 95% 93%); color: hsl(221 75% 38%); border: 1px solid hsl(214 78% 84%); }
+  .zone-I4   { background-color: hsl(33 100% 91%); color: hsl(25 85% 34%); border: 1px solid hsl(31 88% 80%); }
+  .zone-I5   { background-color: hsl(0 93% 94%); color: hsl(0 72% 40%); border: 1px solid hsl(0 76% 86%); }
+  .zone-I6   { background-color: hsl(345 82% 92%); color: hsl(345 75% 31%); border: 1px solid hsl(345 62% 80%); }
+
+  .dark .zone-volna { background-color: hsl(var(--zone-volna)); color: hsl(var(--zone-volna-fg)); border-color: transparent; }
+  .dark .zone-I1 { background-color: hsl(var(--zone-i1)); color: hsl(var(--zone-i1-fg)); border-color: transparent; }
+  .dark .zone-I2 { background-color: hsl(var(--zone-i2)); color: hsl(var(--zone-i2-fg)); border-color: transparent; }
+  .dark .zone-I3 { background-color: hsl(var(--zone-i3)); color: hsl(var(--zone-i3-fg)); border-color: transparent; }
+  .dark .zone-I4 { background-color: hsl(var(--zone-i4)); color: hsl(var(--zone-i4-fg)); border-color: transparent; }
+  .dark .zone-I5 { background-color: hsl(var(--zone-i5)); color: hsl(var(--zone-i5-fg)); border-color: transparent; }
+  .dark .zone-I6 { background-color: hsl(var(--zone-i6)); color: hsl(var(--zone-i6-fg)); border-color: transparent; }
+
+  .zone-bar-I1 { background-color: hsl(var(--zone-i1) / 0.18); border-left: 3px solid hsl(var(--zone-i1)); }
+  .zone-bar-I2 { background-color: hsl(var(--zone-i2) / 0.18); border-left: 3px solid hsl(var(--zone-i2)); }
+  .zone-bar-I3 { background-color: hsl(var(--zone-i3) / 0.18); border-left: 3px solid hsl(var(--zone-i3)); }
+  .zone-bar-I4 { background-color: hsl(var(--zone-i4) / 0.18); border-left: 3px solid hsl(var(--zone-i4)); }
+  .zone-bar-I5 { background-color: hsl(var(--zone-i5) / 0.18); border-left: 3px solid hsl(var(--zone-i5)); }
+  .zone-bar-I6 { background-color: hsl(var(--zone-i6) / 0.18); border-left: 3px solid hsl(var(--zone-i6)); }
+  .zone-bar-VOLNA { background-color: hsl(var(--muted)); border-left: 3px solid hsl(var(--border)); }
+
+  /* Inline intensity tags inside free-text plan notes */
+  .itag-i1  { background-color: hsl(142 70% 45% / 0.18); color: hsl(142 72% 28%); }
+  .itag-i2  { background-color: hsl(174 72% 42% / 0.18); color: hsl(174 80% 25%); }
+  .itag-i3  { background-color: hsl(28 92% 52% / 0.20);  color: hsl(28 90% 34%); }
+  .itag-i4  { background-color: hsl(0 78% 52% / 0.18);   color: hsl(0 74% 40%); }
+  .itag-i5  { background-color: hsl(292 60% 45% / 0.18); color: hsl(292 70% 36%); }
+  .itag-i6  { background-color: hsl(345 85% 30% / 0.30); color: hsl(345 85% 26%); }
+  .itag-vol { background-color: hsl(var(--muted)); color: hsl(var(--muted-foreground)); border: 1px solid hsl(var(--border)); }
+
+  .dark .itag-i1  { color: hsl(142 70% 62%); }
+  .dark .itag-i2  { color: hsl(174 72% 60%); }
+  .dark .itag-i3  { color: hsl(28 95% 62%); }
+  .dark .itag-i4  { color: hsl(0 85% 68%); }
+  .dark .itag-i5  { color: hsl(292 80% 72%); }
+  .dark .itag-i6  { background-color: hsl(345 85% 40% / 0.40); color: hsl(345 90% 78%); }
+
+  /* PallBi data tables: row hover highlight (wins over sticky bg-card/bg-muted cells) */
+  .pallbi-table td { transition: background-color 0.15s ease; }
+  .pallbi-table thead th { background-color: hsl(var(--muted)); color: hsl(var(--foreground)); }
+  .pallbi-table .data-row:hover > td {
+    background-color: hsl(214 95% 97%);
+  }
+  .dark .pallbi-table .data-row:hover > td {
+    background-color: hsl(217 33% 19%);
+  }
+
+}
+

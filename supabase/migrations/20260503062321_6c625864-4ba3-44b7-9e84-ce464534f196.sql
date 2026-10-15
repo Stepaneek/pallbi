@@ -1,0 +1,1 @@
+ALTER TYPE public.sport_kind ADD VALUE IF NOT EXISTS 'plavani';
