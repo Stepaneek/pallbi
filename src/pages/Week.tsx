@@ -357,7 +357,7 @@ export default function Week() {
               </SelectContent>
             </Select>
           )}
-          <div className="inline-flex w-full items-center gap-0.5 rounded-md border bg-muted p-0.5 shadow-sm sm:w-auto">
+          <div className="inline-flex w-full items-center gap-1 rounded-xl border border-border/60 bg-muted p-1 shadow-sm sm:w-auto">
             <Button
               type="button"
               variant="ghost"
