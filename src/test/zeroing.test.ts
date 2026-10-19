@@ -1,7 +1,19 @@
 import { describe, it, expect } from "vitest";
-import { clockHour, corrections, groupCenter, offsetMm } from "@/lib/zeroing";
+import { BLACK_DIAMETER_MM, appendZeroingShot, clockHour, corrections, formatClock, groupCenter, offsetMm } from "@/lib/zeroing";
 
 describe("zeroing", () => {
+  it("black diameters are 45 mm prone and 115 mm standing", () => {
+    expect(BLACK_DIAMETER_MM).toEqual({ prone: 45, standing: 115 });
+  });
+  it("accepts shots 1–10 and rejects the eleventh", () => {
+    let shots: { x: number; y: number }[] = [];
+    for (let i = 0; i < 10; i++) shots = appendZeroingShot(shots, { x: i, y: 0 });
+    expect(shots).toHaveLength(10);
+    expect(appendZeroingShot(shots, { x: 99, y: 99 })).toEqual(shots);
+  });
+  it("rounds clock direction to half hours", () => {
+    expect(formatClock(clockHour({ x: 10, y: 10 }))).toBe("1:30");
+  });
   it("group center is the mean of shots", () => {
     expect(groupCenter([{ x: 2, y: 4 }, { x: 4, y: 8 }])).toEqual({ x: 3, y: 6 });
   });
