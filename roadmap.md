@@ -41,7 +41,7 @@
 - [x] Vybraný sportovec je sdílený napříč záložkami (už existovalo)
 - [x] Odznak Stravy u spárovaných bloků (už existovalo)
 - [ ] Synchronizovaný crosshair + mini-karta v tooltipu + filtry 30/90 dní v Analytice
-- [ ] Týmový denní checklist v Týmu
+- [x] Týmový denní checklist v Týmu
 - [ ] Kopírování tréninku do jiného dne/sportovce, šablony pro skupinu
 - [ ] Optimistické ukládání s Ctrl+Z
 - [ ] Celoobrazovkový režim terče, tmavší texty pastelových štítků ve světlém režimu

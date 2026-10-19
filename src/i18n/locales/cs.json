@@ -773,7 +773,15 @@
     "completion": "Splnění",
     "sessions": "{{done}} z {{planned}} plánovaných tréninků",
     "openDiary": "Otevřít deník",
-    "weekProgress": "Průběh týdne"
+    "weekProgress": "Průběh týdne",
+    "roster": {
+      "title": "Denní přehled týmu",
+      "athlete": "Sportovec",
+      "readiness": "Připravenost",
+      "plan": "Plán",
+      "real": "Skutečnost",
+      "shooting": "Střelba"
+    }
   },
   "pdf": {
     "planVsActual": "Plán vs. skutečnost",

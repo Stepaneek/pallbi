@@ -11,6 +11,7 @@ import { Input } from "@/components/ui/input";
 import { useAuth } from "@/hooks/useAuth";
 import { useRole } from "@/hooks/useRole";
 import { useAthleteGroups } from "@/hooks/useAthleteGroups";
+import DailyRoster from "@/components/team/DailyRoster";
 import BulkPlanDialog from "@/components/team/BulkPlanDialog";
 import { publicDb } from "@/lib/db";
 import { ClickHint } from "@/components/ui/info-popover";
@@ -283,6 +284,10 @@ export default function Team() {
             <Skeleton key={i} className="h-44 w-full rounded-2xl" />
           ))}
         </div>
+      )}
+
+      {!loading && rows.length > 0 && (
+        <DailyRoster rows={rows} blocks={blocks} dayIso={isoDate(days[dayIndex])} dayIndex={dayIndex} onOpen={(id) => { setViewingAthleteId(id); navigate(`/?d=${isoDate(days[dayIndex])}`); }} />
       )}
 
       {!loading && rows.length === 0 ? (
