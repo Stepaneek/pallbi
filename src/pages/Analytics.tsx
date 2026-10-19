@@ -32,9 +32,6 @@ import { Sport, SPORT_ROW_LABEL, SPORT_COLOR } from "@/lib/sports";
 import { MetaData } from "@/hooks/useWeeklyMeta";
 import VolumeComparison from "@/components/analytics/VolumeComparison";
 import FitnessFatigue from "@/components/analytics/FitnessFatigue";
-import ShootingAnalytics from "@/components/analytics/ShootingAnalytics";
-import { useShootingSessions } from "@/hooks/useShootingSessions";
-import { parseShootingSets } from "@/lib/shooting";
 import { isSeasonSeedBlock } from "@/lib/seasonSeed";
 import { useTranslation } from "react-i18next";
 import { dateLocale } from "@/lib/dateLocale";
@@ -242,7 +239,6 @@ export default function Analytics() {
     return { start, end };
   }, [season.start, season.end, last30Days, last12Weeks]);
 
-  const shootingSessions = useShootingSessions(viewingAthleteId, isoDate(fetchRange.start), isoDate(fetchRange.end));
 
   useEffect(() => {
     if (!viewingAthleteId) return;
@@ -275,10 +271,6 @@ export default function Analytics() {
     return () => { cancelled = true; };
   }, [viewingAthleteId, fetchRange.start.getTime(), fetchRange.end.getTime()]);
 
-  const hasShooting = useMemo(
-    () => (shootingSessions.data?.length ?? 0) > 0 || blocks.some((b) => parseShootingSets((b as { shooting_sets?: unknown }).shooting_sets).length > 0),
-    [blocks, shootingSessions.data],
-  );
 
   // ---------- STATISTIKY ----------
   const seasonBlocks = useMemo(
@@ -713,10 +705,6 @@ export default function Analytics() {
       {/* FORMA A ÚNAVA (CTL / ATL / TSB) */}
       <FitnessFatigue blocks={blocks} start={season.start} end={season.end} />
 
-      {hasShooting && (
-        <ShootingAnalytics blocks={blocks} sessions={shootingSessions.data ?? []} seasonStart={season.start} seasonEnd={season.end} />
-      )}
-      {shootingSessions.isError && <p role="alert" className="text-destructive">{t("zeroing.analyticsError")}</p>}
 
       <VolumeComparison athleteId={viewingAthleteId ?? null} />
 

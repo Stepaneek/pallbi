@@ -1,5 +1,7 @@
 {
   "zeroing": {
+    "sectionRecord": "Záznam & Historie",
+    "sectionAnalytics": "Střelecká analytika",
     "intensity": "Intenzita zátěže",
     "hits": "Zásahy",
     "missPercentage": "Podíl minel",
