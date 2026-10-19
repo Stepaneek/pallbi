@@ -27,3 +27,8 @@
 - [x] Týdenní tabulka: bílé tělo, šedé hlavičky (bg-muted), šedý nádech sloupce Celkem, zaoblení + shadow-md
 - [x] Popisek VOLNÁ v grafech čitelný (--zone-volna v light = #94A3B8)
 - [x] Ověřeno v náhledu (light: body #E2E8F0, karta bílá s #CBD5E1; dark beze změny) + typecheck čistý
+
+## Logo Stravy v patičce — oranžové i v tmavém režimu — hotovo
+- [x] Nové assety powered-orange-dark.svg / compatible-orange-dark.svg (oficiální logo, jen popisek bíle místo černé, slovo STRAVA zůstává oficiální oranžová #FC5200)
+- [x] StravaBadge používá v tmavém režimu tyto varianty (dřív čistě bílé), ve světlém bez změny
+- [x] Ověřeno: tmavý režim volí new asset, raster na tmavém pozadí = bílý popisek + oranžové STRAVA; typecheck čistý
