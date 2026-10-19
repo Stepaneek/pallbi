@@ -116,29 +116,33 @@ export default function AdminUserWeek() {
         </div>
       </div>
 
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <div className="flex items-center gap-2">
+      <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
+        <div className="flex w-full items-center gap-2 sm:w-auto">
+
           <Button variant="outline" size="icon" onClick={() => setAnchor(prevWeek(anchor))}>
             <ChevronLeft className="h-4 w-4" />
           </Button>
-          <div className="min-w-[240px] text-center">
-            <p className="text-base font-bold">{weekHeader(anchor)}</p>
+          <div className="min-w-0 flex-1 text-center sm:min-w-[240px] sm:flex-none">
+            <p className="text-sm leading-tight font-bold sm:text-base">{weekHeader(anchor)}</p>
+
           </div>
           <Button variant="outline" size="icon" onClick={() => setAnchor(nextWeek(anchor))}>
             <ChevronRight className="h-4 w-4" />
           </Button>
           <Button variant="ghost" size="sm" onClick={() => setAnchor(new Date())}>{t("misc.adminUserWeek.today")}</Button>
         </div>
-        <div className="inline-flex overflow-hidden rounded-md border">
+        <div className="inline-flex w-full overflow-hidden rounded-md border sm:w-auto">
           <button
             type="button"
             onClick={() => setPlanOrReal("plan")}
-            className={`px-3 py-1.5 text-xs font-semibold ${planOrReal === "plan" ? "bg-primary text-primary-foreground" : "bg-card"}`}
+            className={`flex-1 px-3 py-1.5 text-xs font-semibold sm:flex-none ${planOrReal === "plan" ? "bg-primary text-primary-foreground" : "bg-card"}`}
+
           >{t("misc.adminUserWeek.plan")}</button>
           <button
             type="button"
             onClick={() => setPlanOrReal("real")}
-            className={`px-3 py-1.5 text-xs font-semibold ${planOrReal === "real" ? "bg-primary text-primary-foreground" : "bg-card"}`}
+            className={`flex-1 px-3 py-1.5 text-xs font-semibold sm:flex-none ${planOrReal === "real" ? "bg-primary text-primary-foreground" : "bg-card"}`}
+
           >{t("misc.adminUserWeek.actual")}</button>
         </div>
       </div>

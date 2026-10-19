@@ -5,3 +5,4 @@
 - [x] Oficiální branding Strava: tlačítko propojení, označení přehledů a nastavení; originální loga a mobilní štítek ověřeny v obou režimech, propojení ověřeno bez odpojení skutečného účtu.
 - [x] Počáteční stav sezóny: vyřazen z týdenních grafů, započten jen do celkových součtů (ověřeno v náhledu)
 - [x] PLÁN režim: ranní tep + připravenost skryty v detailu dne i týdenní tabulce (ověřeno v náhledu)
+- [x] Mobilní horní lišta týdenního přehledu: ovládání rozděleno do tří řádků (týden + Dnes, Export + výběr sportovce, PLÁN/SKUTEČNOST), hlavička aplikace už nepřetéká; ověřeno 360/390 px česky i anglicky, desktop beze změny.

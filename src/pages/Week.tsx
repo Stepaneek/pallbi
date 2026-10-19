@@ -316,13 +316,15 @@ export default function Week() {
 
 
       {/* Top toolbar */}
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <div className="flex items-center gap-2">
+      <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
+        <div className="flex w-full items-center gap-2 sm:w-auto">
+
           <Button variant="outline" size="icon" onClick={() => setAnchor(prevWeek(anchor))}>
             <ChevronLeft className="h-4 w-4" />
           </Button>
-          <div className="min-w-[240px] text-center">
-            <p className="text-base font-bold">
+          <div className="min-w-0 flex-1 text-center sm:min-w-[240px] sm:flex-none">
+            <p className="text-sm leading-tight font-bold sm:text-base">
+
               {t("week.header", {
                 n: seasonWeek(anchor),
                 range: `${format(days[0], "d.M.")} – ${format(days[6], "d.M.yyyy")}`,
@@ -337,8 +339,9 @@ export default function Week() {
         </div>
 
 
-        <div className="flex items-center gap-2">
-          <Button variant="outline" size="sm" onClick={handleExportPdf} disabled={exporting}>
+        <div className="flex w-full flex-wrap items-center gap-2 sm:w-auto sm:flex-nowrap">
+          <Button variant="outline" size="sm" onClick={handleExportPdf} disabled={exporting} className="flex-1 justify-center sm:flex-none">
+
             <FileDown className="mr-1.5 h-4 w-4" />
             {t("common.exportPdf")}
           </Button>
@@ -346,7 +349,7 @@ export default function Week() {
 
           {athletes.length > 1 && (
             <Select value={athleteId} onValueChange={setViewingAthleteId}>
-              <SelectTrigger className="w-[180px] dark:bg-slate-800/80 dark:border-white/[0.08]"><SelectValue /></SelectTrigger>
+              <SelectTrigger className="min-w-[140px] flex-1 sm:w-[180px] sm:flex-none dark:bg-slate-800/80 dark:border-white/[0.08]"><SelectValue /></SelectTrigger>
               <SelectContent>
                 {athletes.map((a) => (
                   <SelectItem key={a.id} value={a.id}>{a.name ?? "—"}</SelectItem>
@@ -354,13 +357,14 @@ export default function Week() {
               </SelectContent>
             </Select>
           )}
-          <div className="inline-flex items-center gap-0.5 rounded-md border bg-muted p-0.5 shadow-sm">
+          <div className="inline-flex w-full items-center gap-0.5 rounded-md border bg-muted p-0.5 shadow-sm sm:w-auto">
             <Button
               type="button"
               variant="ghost"
               size="sm"
               onClick={() => setPlanOrReal("plan")}
-              className={`h-7 rounded px-3.5 text-xs ${
+              className={`h-7 flex-1 rounded px-3.5 text-xs sm:flex-none ${
+
                 planOrReal === "plan"
                   ? "bg-primary text-primary-foreground shadow-sm hover:bg-primary/90 hover:text-primary-foreground"
                   : "text-muted-foreground hover:bg-accent/60 hover:text-foreground"
@@ -373,7 +377,7 @@ export default function Week() {
               variant="ghost"
               size="sm"
               onClick={() => setPlanOrReal("real")}
-              className={`h-7 rounded px-3.5 text-xs ${
+              className={`h-7 flex-1 rounded px-3.5 text-xs sm:flex-none ${
                 planOrReal === "real"
                   ? "bg-primary text-primary-foreground shadow-sm hover:bg-primary/90 hover:text-primary-foreground"
                   : "text-muted-foreground hover:bg-accent/60 hover:text-foreground"
