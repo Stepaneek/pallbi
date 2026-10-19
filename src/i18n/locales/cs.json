@@ -77,7 +77,8 @@
     "lightMode": "Přepnout na světlý režim",
     "darkMode": "Přepnout na tmavý režim",
     "language": "Jazyk",
-    "team": "Tým"
+    "team": "Tým",
+    "more": "Více"
   },
   "roles": {
     "athlete": "Sportovec",
@@ -720,7 +721,12 @@
     "useBikeZones": "Používat samostatné zóny pro cyklistiku",
     "bikeZones": "Tepové zóny – cyklistika",
     "bikeZonesHint": "Prahy platné pro aktivity typu Kolo. Používají se místo obecných zón při výpočtu času v zónách.",
-    "bikeZonesSaved": "Cyklistické zóny uloženy"
+    "bikeZonesSaved": "Cyklistické zóny uloženy",
+    "proDiscount": "EARLY BIRD SLEVA 33 %",
+    "proB1": "Neomezená střelba a historie",
+    "proB2": "Analytika formy (TSB)",
+    "proB3": "Synchronizace se Stravou",
+    "proB4": "Exporty do PDF"
   },
   "races": {
     "title": "Termínovka",

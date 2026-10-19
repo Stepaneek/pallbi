@@ -525,6 +525,27 @@ export default function Profile() {
         <p className="mb-4 text-xs text-muted-foreground">
           {t("profile.hrZonesHint")}
         </p>
+        {(() => {
+          const keys = ["free", "i1", "i2", "i3", "i4", "i5"] as const;
+          const colors = ["#94A3B8", "#34D399", "#38BDF8", "#FACC15", "#FB923C", "#F43F5E"];
+          const vals = keys.map((k) => Number(hrZones[k]) || 0);
+          if (vals.filter(Boolean).length < 2) return null;
+          let prev = Math.max(0, (vals[0] || vals.find(Boolean)!) - 25);
+          return (
+            <div className="mb-4">
+              <div className="flex h-3 overflow-hidden rounded-full">
+                {keys.map((k, i) => {
+                  const w = vals[i] ? Math.max(1, vals[i] - prev) : 0;
+                  const from = prev; if (vals[i]) prev = vals[i];
+                  return w ? <div key={k} title={`${k === "free" ? "VOL" : k.toUpperCase()} ${from}–${vals[i]}`} style={{ flexGrow: w, background: colors[i] }} className="transition-all duration-300" /> : null;
+                })}
+              </div>
+              <div className="mt-1.5 flex text-[10px] font-semibold tabular-nums text-muted-foreground">
+                {keys.map((k, i) => vals[i] ? <span key={k} className="flex-1 text-center"><span style={{ color: colors[i] }}>{k === "free" ? "VOL" : k.toUpperCase()}</span> ≤{vals[i]}</span> : null)}
+              </div>
+            </div>
+          );
+        })()}
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-6">
           {(["free", "i1", "i2", "i3", "i4", "i5"] as const).map((k) => (
             <div key={k} className="space-y-1">
@@ -722,7 +743,16 @@ export default function Profile() {
             }
 
             return (
-              <div className="space-y-4">
+              <div className="space-y-4 rounded-2xl border border-warning/40 bg-gradient-to-br from-warning/10 via-transparent to-primary/10 p-4 shadow-[0_0_24px_hsl(var(--warning)/0.15)]">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <span className="text-base font-extrabold tracking-wide">PallBi <span className="text-warning">PRO</span></span>
+                  <Badge className="border-warning/50 bg-warning text-xs font-bold text-warning-foreground hover:bg-warning">{t("profile.proDiscount", { defaultValue: "EARLY BIRD SLEVA 33 %" })}</Badge>
+                </div>
+                <ul className="grid gap-1.5 text-sm sm:grid-cols-2">
+                  {(["proB1", "proB2", "proB3", "proB4"] as const).map((k, i) => (
+                    <li key={k} className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-warning" />{t(`profile.${k}`, { defaultValue: ["Neomezená střelba a historie", "Analytika formy (TSB)", "Synchronizace se Stravou", "Exporty do PDF"][i] })}</li>
+                  ))}
+                </ul>
                 <Badge className="w-full justify-center gap-1.5 border-warning/45 bg-warning/15 py-1.5 text-warning sm:w-auto">
                   <Clock className="h-3.5 w-3.5" />
                   {t("profile.earlyBirdBadge")}
