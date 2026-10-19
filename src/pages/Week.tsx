@@ -11,6 +11,7 @@ import { useRole } from "@/hooks/useRole";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
+import AthleteBar from "@/components/AthleteBar";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { seasonWeek, weekRange, weekDays, isoDate, nextWeek, prevWeek, fromIso } from "@/lib/week";
 import { supabase } from "@/integrations/supabase/client";
@@ -235,6 +236,17 @@ export default function Week() {
         if (!days.some((d) => isoDate(d) === isoDate(next))) setAnchor(next);
         return;
       }
+      if (e.key === "t" || e.key === "T") {
+        e.preventDefault();
+        setAnchor(new Date());
+        setSelectedDay(new Date());
+        return;
+      }
+      if (e.key === "p" || e.key === "P") {
+        e.preventDefault();
+        setPlanOrReal((v) => (v === "plan" ? "real" : "plan"));
+        return;
+      }
       if (e.key === "n" || e.key === "N") {
         if (!canEdit) return;
         e.preventDefault();
@@ -351,16 +363,6 @@ export default function Week() {
           </Button>
 
 
-          {athletes.length > 1 && (
-            <Select value={athleteId} onValueChange={setViewingAthleteId}>
-              <SelectTrigger className="min-w-[140px] flex-1 sm:w-[180px] sm:flex-none dark:bg-slate-800/80 dark:border-white/[0.08]"><SelectValue /></SelectTrigger>
-              <SelectContent>
-                {athletes.map((a) => (
-                  <SelectItem key={a.id} value={a.id}>{a.name ?? "—"}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          )}
           <div className="inline-flex w-full items-center gap-1 rounded-xl border border-border/60 bg-muted p-1 shadow-sm sm:w-auto">
             <Button
               type="button"
