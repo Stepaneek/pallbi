@@ -29,6 +29,13 @@
       "when": 1791655173331,
       "tag": "0003_shooting_zeroings",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1792390396502,
+      "tag": "0004_create_shooting_sessions",
+      "breakpoints": true
     }
   ]
 }
