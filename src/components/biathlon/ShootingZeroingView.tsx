@@ -55,7 +55,7 @@ export function ShootingZeroingView() {
       const { error } = await publicDb.from("shooting_sessions").insert({
         athlete_id: athleteId, author_id: user.id, session_date: date, item_type: itemType, stance,
         shots, center_x_mm: center.x, center_y_mm: center.y, offset_mm: offsetMm(center), clock_hour: clockHour(center),
-        intensity: itemType === "training" ? intensity : null, notes: notes.trim() || null,
+        intensity: itemType === "race" ? "i5" : itemType === "training" ? intensity : null, notes: notes.trim() || null,
       });
       if (error) throw error;
       await client.invalidateQueries({ queryKey: ["shooting-sessions", athleteId] });
@@ -81,6 +81,7 @@ export function ShootingZeroingView() {
             <div className="space-y-1.5"><Label htmlFor="zeroing-type">{t("zeroing.type")}</Label><Select value={itemType} onValueChange={v => setItemType(v as ItemType)} disabled={saving}><SelectTrigger id="zeroing-type"><SelectValue /></SelectTrigger><SelectContent>{(["zeroing", "training", "race"] as const).map(type => <SelectItem key={type} value={type}>{t(`zeroing.types.${type}`)}</SelectItem>)}</SelectContent></Select></div>
           </div>
           {itemType === "training" && <div className="space-y-2"><Label>{t("zeroing.intensity")}</Label><div className="grid grid-cols-5 gap-1" role="group" aria-label={t("zeroing.intensity")}>{["i1", "i2", "i3", "i4", "i5"].map(value => <Button key={value} variant={intensity === value ? "default" : "outline"} disabled={saving} aria-pressed={intensity === value} onClick={() => setIntensity(value)}>{value.toUpperCase()}</Button>)}</div></div>}
+          {itemType === "race" && <div className="space-y-2"><Label>{t("zeroing.intensity")}</Label><div className="inline-flex items-center rounded-md border px-3 py-2 text-sm font-semibold" aria-label={t("zeroing.intensity")}>I5</div></div>}
           <div className="space-y-2"><Label>{t("zeroing.stance")}</Label><div className="grid grid-cols-2 gap-2">{(["prone", "standing"] as const).map(s => <Button key={s} variant={stance === s ? "default" : "outline"} className="h-auto min-h-14 flex-col gap-0.5 whitespace-normal" disabled={saving} aria-pressed={stance === s} onClick={() => { if (s !== stance) { setStance(s); setShots([]); } }}><span>{t(`zeroing.stances.${s}`)}</span><span className="text-xs font-normal">{s === "prone" ? "45" : "115"} mm</span></Button>)}</div></div>
           <div className="flex gap-2"><Button variant="outline" className="flex-1" disabled={!shots.length || saving} onClick={() => setShots(prev => prev.slice(0, -1))}><Undo2 />{t("zeroing.undo")}</Button><Button variant="outline" className="flex-1" disabled={!shots.length || saving} onClick={() => setShots([])}><RotateCcw />{t("zeroing.clear")}</Button></div>
           <div className="border-y py-4">

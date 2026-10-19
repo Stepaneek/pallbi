@@ -1,7 +1,7 @@
 /** Biathlon zeroing math. Coordinates in mm, origin = target centre, x → right, y → up. */
 export type ZeroStance = "prone" | "standing";
 export type Shot = { x: number; y: number };
-export const MAX_ZEROING_SHOTS = 10;
+export const MAX_ZEROING_SHOTS = 5;
 export function appendZeroingShot(shots: Shot[], shot: Shot): Shot[] {
   return shots.length >= MAX_ZEROING_SHOTS ? shots : [...shots, shot];
 }
