@@ -40,7 +40,8 @@
 - [x] EN překlad „Ø čas 1. rány"
 - [x] Vybraný sportovec je sdílený napříč záložkami (už existovalo)
 - [x] Odznak Stravy u spárovaných bloků (už existovalo)
-- [ ] Synchronizovaný crosshair + mini-karta v tooltipu + filtry 30/90 dní v Analytice
+- [x] Synchronizovaný crosshair (Forma + Kilometry) + filtry 30/90 dní/sezóna v Analytice
+- [ ] Mini-karta tréninku v tooltipu grafu
 - [x] Týmový denní checklist v Týmu
 - [ ] Kopírování tréninku do jiného dne/sportovce, šablony pro skupinu
 - [ ] Optimistické ukládání s Ctrl+Z

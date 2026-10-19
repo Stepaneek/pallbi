@@ -427,6 +427,12 @@
       "tsbNeutral": "-10 to +5: Neutral / Balanced state (maintenance).",
       "tsbTraining": "-10 to -30: Productive training (optimal fitness building).",
       "tsbRisk": "Below -30: High risk zone (acute overload / injury risk)."
+    },
+    "range": {
+      "label": "Range",
+      "d30": "30 days",
+      "d90": "90 days",
+      "season": "Season"
     }
   },
   "diary": {

@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { addDays, addWeeks, endOfISOWeek, format, getISOWeek, getISOWeekYear, isBefore, parseISO, startOfISOWeek, subDays } from "date-fns";
 import {
@@ -219,7 +220,8 @@ export default function Analytics() {
     }
     return weeks;
   }, [season.start, season.end]);
-  const last12Weeks = seasonWeeks;
+  const [range, setRange] = useState<"4" | "13" | "all">("all");
+  const last12Weeks = useMemo(() => (range === "all" ? seasonWeeks : seasonWeeks.slice(-Number(range))), [seasonWeeks, range]);
 
   // Last 30 days
   const last30Days = useMemo(() => {
@@ -459,7 +461,7 @@ export default function Analytics() {
 
   // Horizontal scroll containers for time-series charts; scroll to the rightmost (most recent) week on load.
   const PX_PER_WEEK = 64;
-  const chartInnerWidth = Math.max(seasonWeeks.length * PX_PER_WEEK, 320);
+  const chartInnerWidth = Math.max(last12Weeks.length * PX_PER_WEEK, 320);
   const formaScrollRef = useRef<HTMLDivElement>(null);
   const kmScrollRef = useRef<HTMLDivElement>(null);
   useLayoutEffect(() => {
@@ -483,6 +485,14 @@ export default function Analytics() {
               </SelectContent>
             </Select>
           )}
+          <div className="inline-flex items-center gap-1 rounded-xl border border-border/60 bg-muted p-1" role="group" aria-label={t("analytics.range.label")}>
+            {(["4", "13", "all"] as const).map((r) => (
+              <Button key={r} type="button" size="sm" variant="ghost" aria-pressed={range === r} onClick={() => setRange(r)}
+                className={`h-7 rounded-lg px-3 text-xs ${range === r ? "btn-primary text-primary-foreground hover:text-primary-foreground" : "text-muted-foreground"}`}>
+                {t(`analytics.range.${r === "4" ? "d30" : r === "13" ? "d90" : "season"}`)}
+              </Button>
+            ))}
+          </div>
           <Select value={String(seasonStart)} onValueChange={(v) => setSeasonStart(Number(v))}>
             <SelectTrigger className="w-[180px] dark:bg-slate-800/80 dark:border-white/[0.08]">
               <SelectValue />
@@ -530,7 +540,7 @@ export default function Analytics() {
           <div ref={formaScrollRef} className="h-full overflow-x-auto overflow-y-hidden px-4">
             <div style={{ width: chartInnerWidth }} className="h-full">
               <ResponsiveContainer width="100%" height="100%">
-                <ComposedChart data={formaData} margin={{ top: 8, right: 16, left: 0, bottom: 0 }}>
+                <ComposedChart syncId="season-weeks" data={formaData} margin={{ top: 8, right: 16, left: 0, bottom: 0 }}>
                   <defs>
                     <linearGradient id="formaGradient" x1="0" y1="0" x2="0" y2="1">
                       <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.5} />
@@ -613,7 +623,7 @@ export default function Analytics() {
           <div ref={kmScrollRef} className="h-full overflow-x-auto overflow-y-hidden px-4">
             <div style={{ width: chartInnerWidth }} className="h-full">
               <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={kmData} barCategoryGap="20%" margin={{ top: 8, right: 16, left: 0, bottom: 0 }}>
+                <BarChart syncId="season-weeks" data={kmData} barCategoryGap="20%" margin={{ top: 8, right: 16, left: 0, bottom: 0 }}>
                   <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
                   <XAxis dataKey="week" stroke="hsl(var(--muted-foreground))" fontSize={12} tick={<WeekTick />} height={40} interval={0} />
                   <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} unit="km" />
