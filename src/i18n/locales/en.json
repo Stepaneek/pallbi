@@ -249,7 +249,7 @@
     "dayOff": "Rest",
     "deleted": "Deleted",
     "blockTotal": "Total",
-    "shortcutsHint": "← → switch days · N new workout"
+    "shortcutsHint": "← → days · T today · P plan/actual · N new"
   },
   "table": {
     "nemoc": "ILLNESS",
@@ -828,7 +828,9 @@
       "pripravna": "Warm-up"
     },
     "intensityAll": "All intensities",
-    "tableIntensity": "Intensity"
+    "tableIntensity": "Intensity",
+    "avgFirstShot": "Avg 1st shot time",
+    "firstShotTime": "1st shot time (s)"
   },
   "readiness": {
     "title": "Readiness",
@@ -884,5 +886,10 @@
       "group": "Group",
       "custom": "Selected"
     }
+  },
+  "athleteBar": {
+    "done": "Today logged",
+    "pending": "Nothing logged today",
+    "label": "Athletes"
   }
 }
