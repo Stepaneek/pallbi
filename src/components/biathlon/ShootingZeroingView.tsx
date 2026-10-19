@@ -119,9 +119,21 @@ export function ShootingZeroingView() {
         </div>
       </div> : <div className="space-y-4">
         {history.isLoading ? <Loader2 className="h-6 w-6 animate-spin" /> : history.isError ? <div role="alert"><p>{t("zeroing.loadError")}</p><Button variant="outline" onClick={() => history.refetch()}>{t("zeroing.retry")}</Button></div> : !history.data?.rows.length ? <p className="py-12 text-center text-muted-foreground">{t("zeroing.emptyHistory")}</p> : history.data.rows.map(row => <details key={row.id} className="rounded-md border bg-card p-4">
-          <summary className="cursor-pointer"><span className="inline-flex flex-wrap items-center gap-x-5 gap-y-2 text-sm"><span className="font-semibold">{format(new Date(`${row.session_date}T12:00:00`), "dd.MM.yyyy")}</span><span>{t(`zeroing.types.${row.item_type}`)} · {t(`zeroing.stances.${row.stance}`)}{row.intensity ? ` · ${row.intensity.toUpperCase()}` : ""}</span><span>{parseShots(row.shots).length} {t("zeroing.shotsShort")} · {decimal(row.offset_mm)} mm · {formatClock(row.clock_hour)}</span></span></summary>
+          <summary className="flex cursor-pointer flex-wrap items-center justify-between gap-2"><span className="inline-flex flex-wrap items-center gap-x-5 gap-y-2 text-sm"><span className="font-semibold">{format(new Date(`${row.session_date}T12:00:00`), "dd.MM.yyyy")}</span><span>{t(`zeroing.types.${row.item_type}`)} · {t(`zeroing.stances.${row.stance}`)}{row.intensity ? ` · ${row.intensity.toUpperCase()}` : ""}</span><span>{parseShots(row.shots).length} {t("zeroing.shotsShort")} · {decimal(row.offset_mm)} mm · {formatClock(row.clock_hour)}</span></span><Button variant="ghost" size="icon" className="h-8 w-8 shrink-0 text-muted-foreground hover:text-destructive" aria-label={t("zeroing.delete")} onClick={e => { e.preventDefault(); e.stopPropagation(); setDeleteId(row.id); }}><Trash2 className="h-4 w-4" /></Button></summary>
           <div className="mt-4 grid gap-4 sm:grid-cols-2"><div className="max-w-[320px] overflow-hidden rounded-md"><ZeroingTarget stance={row.stance === "standing" ? "standing" : "prone"} shots={parseShots(row.shots)} /></div><div className="space-y-3 text-sm"><p>{t("zeroing.center")}: X {decimal(row.center_x_mm)}, Y {decimal(row.center_y_mm)} mm</p><ol className="space-y-1 tabular-nums">{parseShots(row.shots).map((s, i) => <li key={i}>#{i + 1}: X {decimal(s.x)}, Y {decimal(s.y)} mm</li>)}</ol>{row.notes && <p className="whitespace-pre-wrap break-words text-muted-foreground">{row.notes}</p>}</div></div>
         </details>)}
+        <AlertDialog open={!!deleteId} onOpenChange={open => { if (!open) setDeleteId(null); }}>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>{t("zeroing.deleteTitle")}</AlertDialogTitle>
+              <AlertDialogDescription>{t("zeroing.deleteConfirm")}</AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel disabled={deleting}>{t("zeroing.cancel")}</AlertDialogCancel>
+              <AlertDialogAction onClick={e => { e.preventDefault(); confirmDelete(); }} className="bg-destructive text-white hover:bg-destructive/90" disabled={deleting}>{deleting ? <Loader2 className="animate-spin" /> : <Trash2 className="h-4 w-4" />}{t("zeroing.delete")}</AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
         {(history.data?.count ?? 0) > 20 && <div className="flex items-center justify-center gap-4"><Button variant="outline" disabled={page === 0} onClick={() => setPage(p => p - 1)}>{t("zeroing.previous")}</Button><span>{page + 1}</span><Button variant="outline" disabled={(page + 1) * 20 >= (history.data?.count ?? 0)} onClick={() => setPage(p => p + 1)}>{t("zeroing.next")}</Button></div>}
       </div>}
   </section>;
