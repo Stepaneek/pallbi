@@ -47,3 +47,10 @@
 - [ ] Optimistické ukládání s Ctrl+Z
 - [x] Celoobrazovkový režim terče, tmavší texty pastelových štítků ve světlém režimu
 - [x] Kopírování tréninku celé skupině (rychlý výběr skupiny)
+
+### Ověření v náhledu (Playwright, 19. 10.)
+- [x] Zkratky: P přepne PLÁN/SKUTEČNOST, T přesune výběr na dnešek (st21 → po19)
+- [x] Kopírovací dialog: datum + 3 sportovci + „Všichni", zavření Escape; skupinová tlačítka se nezobrazují, protože trenér zatím nemá žádnou skupinu (0 řádků v athlete_groups)
+- [x] Analytika: 30 dní zúží graf ze 180 na 24 sloupců, „Celá sezóna" vrátí zpět; mini-karta v tooltipu funguje
+- [x] Denní checklist (4 řádky) a lišta svěřenců (3 chipy) se zobrazují
+- [x] Oprava celoobrazovkového terče: renderuje se do portálu na document.body (karta s backdrop-blur z ní dělala „fixed" jen uvnitř siebie → terč přetékal přes horní lištu a tlačítko Zavřít šlo překryté); now ověřeno 1280×1800 i 390×844 — zápis ran i zavření fungují
