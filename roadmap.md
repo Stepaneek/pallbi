@@ -46,3 +46,4 @@
 - [x] Kopírování tréninku do jiného dne a více sportovcům najednou
 - [ ] Optimistické ukládání s Ctrl+Z
 - [x] Celoobrazovkový režim terče, tmavší texty pastelových štítků ve světlém režimu
+- [x] Kopírování tréninku celé skupině (rychlý výběr skupiny)
