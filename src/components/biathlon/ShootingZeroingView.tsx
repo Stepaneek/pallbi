@@ -67,6 +67,19 @@ export function ShootingZeroingView() {
     } catch { toast.error(t("zeroing.saveError")); }
     finally { setSaving(false); }
   };
+  const confirmDelete = async () => {
+    if (!deleteId || deleting) return;
+    setDeleting(true);
+    try {
+      const { error } = await publicDb.from("shooting_sessions").delete().eq("id", deleteId);
+      if (error) throw error;
+      if (history.data?.rows.length === 1 && page > 0) setPage(p => p - 1);
+      await client.invalidateQueries({ queryKey: ["shooting-sessions", athleteId] });
+      toast.success(t("zeroing.deleted"));
+      setDeleteId(null);
+    } catch { toast.error(t("zeroing.deleteError")); }
+    finally { setDeleting(false); }
+  };
   return <section className="space-y-5">
     <div className="flex flex-wrap items-center justify-between gap-3 border-b pb-4">
       <h2 className="flex items-center gap-2 text-xl font-bold"><Target className="h-6 w-6 text-primary" />{t("zeroing.title")}</h2>
