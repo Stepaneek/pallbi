@@ -59,7 +59,10 @@
     "deleteConfirm": "Položka bude trvale odstraněna z deníku. Tuto akci nelze vrátit zpět.",
     "cancel": "Zrušit",
     "deleted": "Položka byla smazána.",
-    "deleteError": "Položku se nepodařilo smazat. Zkuste to znovu."
+    "deleteError": "Položku se nepodařilo smazat. Zkuste to znovu.",
+    "fieldMode": "Terč přes celou obrazovku",
+    "closeField": "Zavřít",
+    "saveShort": "Uložit"
   },
   "nav": {
     "zeroing": "Střelba",
