@@ -724,16 +724,6 @@
     "newComment": "Uusi valmentajan kommentti",
     "planUpdated": "Valmentaja päivitti suunnitelmaa"
   },
-  "announcements": {
-    "title": "🚀 Uusia ominaisuuksia PallBissa!",
-    "close": "Ymmärrän",
-    "points": [
-      "🎯 Kehittynyt ampuma-analytiikka: Tarkat ohilaukausten kartoitukset kellotaululla ja erilliset maalilämpökartat makuu- ja pystyasennolle.",
-      "📊 Kunto- ja väsymysanalyysi (PMC-malli): Seuraa pitkäaikaista kuntoasi (CTL), akuuttia väsymystä (ATL) ja nykyistä virettä (TSB) suoraan Analytiikka-välilehdellä.",
-      "🔋 Valmiusseuranta: Kirjaa aamuinen syke ja arvioi uni, väsymys ja lihaskipu välittömää palautumispalautetta varten.",
-      "👥 Valmentajaryhmät ja joukkosuunnittelu: Valmentajat voivat suodattaa joukkueita ryhmittäin ja suunnitella harjoituksia useille urheilijoille kerralla."
-    ]
-  },
   "shooting": {
     "title": "Shooting",
     "stance": {
