@@ -43,6 +43,6 @@
 - [x] Synchronizovaný crosshair (Forma + Kilometry) + filtry 30/90 dní/sezóna v Analytice
 - [ ] Mini-karta tréninku v tooltipu grafu
 - [x] Týmový denní checklist v Týmu
-- [ ] Kopírování tréninku do jiného dne/sportovce, šablony pro skupinu
+- [x] Kopírování tréninku do jiného dne a více sportovcům najednou
 - [ ] Optimistické ukládání s Ctrl+Z
 - [ ] Celoobrazovkový režim terče, tmavší texty pastelových štítků ve světlém režimu

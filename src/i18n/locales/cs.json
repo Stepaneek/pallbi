@@ -905,5 +905,14 @@
     "done": "Dnes zapsáno",
     "pending": "Dnes zatím nic",
     "label": "Svěřenci"
+  },
+  "copyBlock": {
+    "title": "Kopírovat trénink",
+    "date": "Datum",
+    "athletes": "Sportovci",
+    "all": "Všichni",
+    "submit": "Kopírovat",
+    "done": "Zkopírováno ({{count}})",
+    "partial": "Zkopírováno {{ok}} z {{total}}"
   }
 }

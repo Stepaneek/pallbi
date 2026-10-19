@@ -1,3 +1,4 @@
+import { Copy } from "lucide-react";
 import { format } from "date-fns";
 import { parseShootingSets } from "@/lib/shooting";
 import { useTranslation } from "react-i18next";
@@ -27,6 +28,7 @@ interface Props {
   blocks: Block[];
   onAdd: (slot: Slot) => void;
   onOpen: (block: Block) => void;
+  onCopy?: (block: Block) => void;
   canEdit: boolean;
   morningHr: number;
   onMorningHrChange: (val: string) => void;
@@ -85,7 +87,7 @@ const EVENT_STYLE: Record<string, { cls: string; icon: string }> = {
   volno: { cls: "bg-green-500/15 text-green-700 dark:text-green-300 border-green-500/40", icon: "🌿" },
 };
 
-export default function DailyDetail({ date, blocks, onAdd, onOpen, canEdit, morningHr, onMorningHrChange, event, sleep = 0, fatigue = 0, soreness = 0, onReadinessChange, readiness, showMorningData = true }: Props) {
+export default function DailyDetail({ date, blocks, onAdd, onOpen, onCopy, canEdit, morningHr, onMorningHrChange, event, sleep = 0, fatigue = 0, soreness = 0, onReadinessChange, readiness, showMorningData = true }: Props) {
   const { t, i18n } = useTranslation();
   const loc = dateLocale(i18n.language);
   const evStyle = event ? EVENT_STYLE[event.event_type] : null;
@@ -132,8 +134,8 @@ export default function DailyDetail({ date, blocks, onAdd, onOpen, canEdit, morn
                   {slotBlocks.map((b) => {
                     const segs = getBlockSegments(b);
                     return (
+                    <div key={b.id} className="group relative">
                     <button
-                      key={b.id}
                       type="button"
                       onClick={() => onOpen(b)}
                       className={`flex w-full items-center justify-between gap-2 px-3 py-2.5 text-left hover:bg-accent/50 ${zoneBarClass(b.zone as Zone)}`}
@@ -199,6 +201,13 @@ export default function DailyDetail({ date, blocks, onAdd, onOpen, canEdit, morn
                         )}
                       </div>
                     </button>
+                    {onCopy && canEdit && (
+                      <button type="button" aria-label={t("copyBlock.title")} title={t("copyBlock.title")} onClick={() => onCopy(b)}
+                        className="absolute right-2 top-2 rounded-md border bg-card p-1 text-muted-foreground opacity-70 hover:text-foreground group-hover:opacity-100">
+                        <Copy className="h-3.5 w-3.5" />
+                      </button>
+                    )}
+                    </div>
                     );
                   })}
                 </div>
