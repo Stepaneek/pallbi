@@ -54,3 +54,4 @@
 - [x] Analytika: 30 dní zúží graf ze 180 na 24 sloupců, „Celá sezóna" vrátí zpět; mini-karta v tooltipu funguje
 - [x] Denní checklist (4 řádky) a lišta svěřenců (3 chipy) se zobrazují
 - [x] Oprava celoobrazovkového terče: renderuje se do portálu na document.body (karta s backdrop-blur z ní dělala „fixed" jen uvnitř siebie → terč přetékal přes horní lištu a tlačítko Zavřít šlo překryté); teď ověřeno 1280×1800 i 390×844 — zápis ran i zavření fungují
+- [x] Přehazení řádků v týdenní matici: Hodiny zatížení (I1–I6) nahoře, pod nimi sjednocená Regenerace, pak Bia. start a Nemoc
