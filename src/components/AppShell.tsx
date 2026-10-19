@@ -93,7 +93,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   const roleLabel = isCoach && isAthlete ? t("roles.athleteCoach") : isCoach ? t("roles.coach") : t("roles.athlete");
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-canvas">
       <OnboardingModal />
       <header className="sticky top-0 z-40 border-b bg-card/95 shadow-sm backdrop-blur dark:shadow-none">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-3 py-2.5 sm:px-4">

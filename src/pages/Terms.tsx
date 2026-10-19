@@ -3,7 +3,7 @@ import { Activity } from "lucide-react";
 
 export default function Terms() {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-canvas">
       <header className="mx-auto flex max-w-4xl items-center justify-between px-6 py-5">
         <Link to="/" className="flex items-center gap-2 text-foreground">
           <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary text-primary-foreground">

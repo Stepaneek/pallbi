@@ -37,11 +37,11 @@ export default function WeeklyTable({ weekStart, planOrReal, blocks, canEdit, me
   const suchyMinutes = useMemo(() => aggregateMinutesForSport(blocks, "strelba", dateToCol), [blocks, dayIso]);
 
   return (
-    <div className="max-h-[calc(100vh-200px)] overflow-y-auto overflow-x-auto rounded-lg border bg-card shadow-sm dark:border-white/[0.08] dark:shadow-none">
+    <div className="max-h-[calc(100vh-200px)] overflow-y-auto overflow-x-auto rounded-2xl border border-border bg-card shadow-md dark:border-white/[0.08] dark:shadow-none">
       <table className="pallbi-table w-full min-w-[640px] border-collapse text-xs [&_td]:border-foreground/15 [&_th]:border-foreground/15 dark:[&_td]:border-border dark:[&_th]:border-border [&_.data-row_td]:border-b-2 [&_.data-row_td]:border-r-2 dark:[&_.data-row_td]:border-b dark:[&_.data-row_td]:border-r">
-        <thead className="sticky top-0 z-20 bg-muted/60">
+        <thead className="sticky top-0 z-20 bg-muted">
           <tr>
-            <th className="sticky top-0 left-0 z-30 w-[180px] bg-muted/60 border-b border-r px-2 py-2 text-left font-semibold">
+            <th className="sticky top-0 left-0 z-30 w-[180px] bg-muted border-b border-r px-2 py-2 text-left font-semibold">
               {t("common.week")} {iso_week}
             </th>
             {[0, 1, 2, 3, 4, 5, 6].map((i) => (
@@ -57,7 +57,7 @@ export default function WeeklyTable({ weekStart, planOrReal, blocks, canEdit, me
             <th className="sticky top-0 z-20 w-[70px] border-b border-l bg-muted px-2 py-2 text-center font-bold">{t("common.total")}</th>
           </tr>
         </thead>
-        <tbody className="[&>tr:nth-child(even)]:bg-muted/30">
+        <tbody className="[&>tr:nth-child(even)]:bg-muted/50">
           {/* Counter rows */}
           {([
             ["NEMOC", "table.nemoc"],
@@ -221,7 +221,7 @@ function ZoneRow({ label, zone, values, indent, selectedDayIndex }: { label: str
           {v ? fmtMin(v) : ""}
         </td>
       ))}
-      <td className="bg-muted/40 px-2 py-1.5 text-center font-semibold">{total ? fmtMin(total) : ""}</td>
+      <td className="bg-muted/70 px-2 py-1.5 text-center font-semibold">{total ? fmtMin(total) : ""}</td>
     </tr>
   );
 }
@@ -254,7 +254,7 @@ function CounterRow({
           />
         </td>
       ))}
-      <td className="bg-muted/40 px-2 py-1.5 text-center font-semibold">{total || ""}</td>
+      <td className="bg-muted/70 px-2 py-1.5 text-center font-semibold">{total || ""}</td>
     </tr>
   );
 }
@@ -281,7 +281,7 @@ function KmRow({ values, selectedDayIndex }: { values: number[]; selectedDayInde
           {fmtKm(v)}
         </td>
       ))}
-      <td className="bg-muted/40 px-2 py-1.5 text-center font-semibold">{fmtKm(total)}</td>
+      <td className="bg-muted/70 px-2 py-1.5 text-center font-semibold">{fmtKm(total)}</td>
     </tr>
   );
 }
