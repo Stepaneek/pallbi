@@ -5,7 +5,7 @@
 /* PallBi — clean analytical light theme, blue accent */
 @layer base {
   :root {
-    --canvas: 214 32% 91%;              /* #E2E8F0 — výrazně šedivé pozadí aplikace */
+    --canvas: 214 32% 91.4%;            /* #E2E8F0 — výrazně šedivé pozadí aplikace */
     --background: 0 0% 100%;            /* #FFFFFF — čistě bílé povrchy (inputs, dialogy, popisky) */
 
     --foreground: 222 47% 11%;          /* #0F172A */
@@ -35,8 +35,8 @@
     --success: 142 71% 38%;
     --warning: 38 92% 50%;
 
-    --border: 215 20% 65%;              /* #CBD5E1 — viditelné tmavší ohraničení */
-    --input: 215 20% 65%;               /* #CBD5E1 */
+    --border: 213 27% 84%;              /* #CBD5E1 — viditelné tmavší ohraničení */
+    --input: 213 27% 84%;               /* #CBD5E1 */
     --ring: 224 76% 33%;
 
     --radius: 0.75rem;
