@@ -905,5 +905,14 @@
     "done": "Today logged",
     "pending": "Nothing logged today",
     "label": "Athletes"
+  },
+  "copyBlock": {
+    "title": "Copy training",
+    "date": "Date",
+    "athletes": "Athletes",
+    "all": "All",
+    "submit": "Copy",
+    "done": "Copied ({{count}})",
+    "partial": "Copied {{ok}} of {{total}}"
   }
 }

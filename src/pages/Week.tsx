@@ -11,6 +11,7 @@ import { useRole } from "@/hooks/useRole";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
+import CopyBlockDialog from "@/components/biathlon/CopyBlockDialog";
 import AthleteBar from "@/components/AthleteBar";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { seasonWeek, weekRange, weekDays, isoDate, nextWeek, prevWeek, fromIso } from "@/lib/week";
@@ -73,6 +74,7 @@ export default function Week() {
   const [blocksLoading, setBlocksLoading] = useState(false);
   const [dbTestResult, setDbTestResult] = useState<string | null>(null);
   const [exporting, setExporting] = useState(false);
+  const [copyBlock, setCopyBlock] = useState<Block | null>(null);
 
 
   const athleteId = viewingAthleteId;
@@ -329,6 +331,7 @@ export default function Week() {
 
   return (
     <div className="space-y-4">
+      <CopyBlockDialog block={copyBlock} athletes={athletes} onClose={() => setCopyBlock(null)} onDone={() => { invalidateWeekCache(); setReloadKey((k) => k + 1); }} />
       {athletes.length > 1 && <AthleteBar athletes={athletes} value={athleteId} onChange={setViewingAthleteId} />}
 
 
@@ -476,6 +479,7 @@ export default function Week() {
             
             onAdd={openAdd}
             onOpen={openExisting}
+            onCopy={setCopyBlock}
             canEdit={canEdit}
             morningHr={ensureArr(meta.MORNING_HR)[selectedDayIndex] || 0}
             onMorningHrChange={(v) => setMetaCell("MORNING_HR", selectedDayIndex, v)}
