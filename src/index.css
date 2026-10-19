@@ -5,7 +5,8 @@
 /* PallBi — clean analytical light theme, blue accent */
 @layer base {
   :root {
-    --background: 210 40% 96%;          /* #F1F5F9 — jemně šedavé, karty vystoupí */
+    --canvas: 214 32% 91%;              /* #E2E8F0 — výrazně šedivé pozadí aplikace */
+    --background: 0 0% 100%;            /* #FFFFFF — čistě bílé povrchy (inputs, dialogy, popisky) */
 
     --foreground: 222 47% 11%;          /* #0F172A */
 
@@ -19,10 +20,10 @@
     --primary-foreground: 0 0% 100%;
     --primary-glow: 217 91% 60%;
 
-    --secondary: 210 40% 96%;           /* #F1F5F9 */
+    --secondary: 214 32% 94%;           /* #EBEFF5 — jemně šedý povrch na bílé kartě */
     --secondary-foreground: 222 47% 11%;
 
-    --muted: 210 40% 96%;               /* #F1F5F9 */
+    --muted: 214 32% 94%;               /* #EBEFF5 — šedý nádech hlaviček a neaktivních buněk */
     --muted-foreground: 215 25% 35%;    /* #475569 */
 
     --accent: 214 32% 91%;              /* #E2E8F0 */
@@ -34,8 +35,8 @@
     --success: 142 71% 38%;
     --warning: 38 92% 50%;
 
-    --border: 214 32% 91%;              /* #E2E8F0 */
-    --input: 214 32% 91%;
+    --border: 215 20% 65%;              /* #CBD5E1 — viditelné tmavší ohraničení */
+    --input: 215 20% 65%;               /* #CBD5E1 */
     --ring: 224 76% 33%;
 
     --radius: 0.75rem;
@@ -63,6 +64,7 @@
   }
 
   .dark {
+    --canvas: 220 35% 7%;             /* #0B0F17 — tmavý režim beze změny */
     --background: 220 35% 7%;         /* #0B0F17 */
     --foreground: 210 40% 96%;        /* #F1F5F9 */
 
@@ -100,7 +102,7 @@
 @layer base {
   * { @apply border-border; }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-canvas text-foreground;
     font-feature-settings: "cv11", "ss01";
     text-rendering: optimizeLegibility;
   }
@@ -154,9 +156,9 @@
   .dark .itag-i5  { color: hsl(292 80% 72%); }
   .dark .itag-i6  { background-color: hsl(345 85% 40% / 0.40); color: hsl(345 90% 78%); }
 
-  /* Premium card surface: soft layered shadow, subtle edge */
+  /* Premium card surface: crisp white card, visible edge + medium shadow */
   .card-shadow {
-    box-shadow: 0 1px 2px hsl(222 47% 11% / 0.06), 0 4px 10px -4px hsl(222 47% 11% / 0.08), 0 12px 28px -12px hsl(222 47% 11% / 0.16);
+    box-shadow: 0 1px 2px hsl(215 25% 27% / 0.08), 0 4px 8px -2px hsl(215 25% 27% / 0.14), 0 14px 28px -10px hsl(215 25% 27% / 0.28);
   }
 
   .dark .card-shadow {
@@ -207,7 +209,7 @@
   .pallbi-table td { transition: background-color 0.15s ease; font-variant-numeric: tabular-nums; }
   .pallbi-table thead th { background-color: hsl(var(--muted)); color: hsl(var(--foreground)); }
   .pallbi-table .data-row:hover > td {
-    background-color: hsl(214 95% 97%);
+    background-color: hsl(214 50% 93%);
   }
   .dark .pallbi-table .data-row:hover > td {
     background-color: hsl(217 33% 19%);
