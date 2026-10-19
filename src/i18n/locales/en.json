@@ -1,5 +1,7 @@
 {
   "zeroing": {
+    "sectionRecord": "Log & History",
+    "sectionAnalytics": "Shooting analytics",
     "intensity": "Training intensity",
     "hits": "Hits",
     "missPercentage": "Miss percentage",
