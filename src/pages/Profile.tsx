@@ -746,7 +746,7 @@ export default function Profile() {
               <div className="space-y-4 rounded-2xl border border-warning/40 bg-gradient-to-br from-warning/10 via-transparent to-primary/10 p-4 shadow-[0_0_24px_hsl(var(--warning)/0.15)]">
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <span className="text-base font-extrabold tracking-wide">PallBi <span className="text-warning">PRO</span></span>
-                  <Badge className="border-warning/50 bg-warning text-xs font-bold text-warning-foreground hover:bg-warning">{t("profile.proDiscount", { defaultValue: "EARLY BIRD SLEVA 33 %" })}</Badge>
+                  <Badge className="border-warning/50 bg-warning text-xs font-bold text-background hover:bg-warning">{t("profile.proDiscount", { defaultValue: "EARLY BIRD SLEVA 33 %" })}</Badge>
                 </div>
                 <ul className="grid gap-1.5 text-sm sm:grid-cols-2">
                   {(["proB1", "proB2", "proB3", "proB4"] as const).map((k, i) => (
