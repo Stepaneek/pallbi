@@ -29,7 +29,7 @@ import { publicDb } from "@/lib/db";
 import { Database } from "@/integrations/supabase/types";
 import { isoDate } from "@/lib/week";
 import { TRAINING_ZONES, Zone, zoneLabel } from "@/lib/zones";
-import { Sport, SPORT_ROW_LABEL, SPORT_COLOR } from "@/lib/sports";
+import { Sport, SPORT_ROW_LABEL, SPORT_COLOR, sportLabel } from "@/lib/sports";
 import { MetaData } from "@/hooks/useWeeklyMeta";
 import VolumeComparison from "@/components/analytics/VolumeComparison";
 import FitnessFatigue from "@/components/analytics/FitnessFatigue";
