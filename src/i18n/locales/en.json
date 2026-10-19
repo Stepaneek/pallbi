@@ -723,10 +723,11 @@
     "bikeZonesHint": "Thresholds used for cycling activities instead of the general zones when computing time in zones.",
     "bikeZonesSaved": "Cycling zones saved",
     "proDiscount": "EARLY BIRD 33 % OFF",
-    "proB1": "Unlimited shooting & history",
-    "proB2": "Form analytics (TSB)",
-    "proB3": "Strava sync",
-    "proB4": "PDF exports"
+    "proSubtitle": "For coaches: train your whole team with no athlete limit. PallBi is free for athletes.",
+    "proB1": "Unlimited athletes (free plan: 1 athlete)",
+    "proB2": "Bulk planning & training copy",
+    "proB3": "Team daily readiness overview",
+    "proB4": "Analytics & shooting for all athletes"
   },
   "races": {
     "title": "Race calendar",

@@ -748,6 +748,7 @@ export default function Profile() {
                   <span className="text-base font-extrabold tracking-wide">PallBi <span className="text-warning">PRO</span></span>
                   <Badge className="border-warning/50 bg-warning text-xs font-bold text-background hover:bg-warning">{t("profile.proDiscount", { defaultValue: "EARLY BIRD SLEVA 33 %" })}</Badge>
                 </div>
+                <p className="text-sm text-muted-foreground">{t("profile.proSubtitle", { defaultValue: "Pro trenéry: trénuj celý tým bez omezení počtu sportovců. Pro sportovce je PallBi zdarma." })}</p>
                 <ul className="grid gap-1.5 text-sm sm:grid-cols-2">
                   {(["proB1", "proB2", "proB3", "proB4"] as const).map((k, i) => (
                     <li key={k} className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-warning" />{t(`profile.${k}`, { defaultValue: ["Neomezená střelba a historie", "Analytika formy (TSB)", "Synchronizace se Stravou", "Exporty do PDF"][i] })}</li>
