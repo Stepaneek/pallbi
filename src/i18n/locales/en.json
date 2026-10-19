@@ -59,7 +59,10 @@
     "deleteConfirm": "The entry will be permanently removed from the diary. This action cannot be undone.",
     "cancel": "Cancel",
     "deleted": "Entry deleted.",
-    "deleteError": "Could not delete the entry. Please try again."
+    "deleteError": "Could not delete the entry. Please try again.",
+    "fieldMode": "Full-screen target",
+    "closeField": "Close",
+    "saveShort": "Save"
   },
   "nav": {
     "zeroing": "Shooting",

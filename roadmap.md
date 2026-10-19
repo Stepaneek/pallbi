@@ -45,4 +45,4 @@
 - [x] Týmový denní checklist v Týmu
 - [x] Kopírování tréninku do jiného dne a více sportovcům najednou
 - [ ] Optimistické ukládání s Ctrl+Z
-- [ ] Celoobrazovkový režim terče, tmavší texty pastelových štítků ve světlém režimu
+- [x] Celoobrazovkový režim terče, tmavší texty pastelových štítků ve světlém režimu
