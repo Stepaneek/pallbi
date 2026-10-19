@@ -348,19 +348,28 @@ export default function Analytics() {
   // ---------- FORMA V ČASE (hours per week, all season weeks) ----------
   const formaData = useMemo(() => {
     return last12Weeks.map((w, index) => {
-      const min = blocks
-        .filter((b) => {
+      const wb = blocks.filter((b) => {
           if (b.sport === "strelba") return false;
           if (isSeasonSeedBlock(b)) return false;
+          if (b.plan_or_real !== "real") return false;
           const d = parseISO(b.block_date);
           return d >= w.start && d <= w.end;
-        })
-        .reduce((a, b) => a + blockTotalMinutes(b), 0);
+        });
+      const min = wb.reduce((a, b) => a + blockTotalMinutes(b), 0);
+      const bySport = new Map<string, { min: number; n: number; km: number }>();
+      for (const b of wb) {
+        const e = bySport.get(b.sport) ?? { min: 0, n: 0, km: 0 };
+        e.min += blockTotalMinutes(b); e.n += 1; e.km += Number(b.distance_km) || 0;
+        bySport.set(b.sport, e);
+      }
+      const sessions = [...bySport.entries()].sort((a, b) => b[1].min - a[1].min)
+        .map(([sport, e]) => ({ sport, ...e }));
       return {
         week: `T${w.label}`,
         range: w.range,
         hours: Math.round((min / 60) * 10) / 10,
         current: index === last12Weeks.length - 1,
+        sessions,
       };
     });
   }, [blocks, last12Weeks]);
@@ -560,8 +569,22 @@ export default function Analytics() {
                   <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} unit="h" />
                   <Tooltip
                     contentStyle={{ background: "hsl(var(--card))", border: "1px solid hsl(var(--border))", borderRadius: 6, fontSize: 12 }}
-                    itemStyle={{ color: "white" }}
-                    formatter={(v: number) => [`${v} h`, t("analytics.hours")]}
+                    content={({ active, payload }) => {
+                      const p = active && payload?.[0]?.payload as { week: string; range: string; hours: number; sessions: { sport: string; min: number; n: number; km: number }[] } | undefined;
+                      if (!p) return null;
+                      return (
+                        <div className="min-w-[180px] rounded-lg border bg-card p-3 text-xs text-card-foreground shadow-md">
+                          <p className="font-semibold">{p.week} · {p.range}</p>
+                          <p className="mb-1.5 text-base font-bold tabular-nums">{p.hours} h</p>
+                          {p.sessions.length ? p.sessions.map((s) => (
+                            <p key={s.sport} className="flex justify-between gap-3 tabular-nums">
+                              <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-full" style={{ background: SPORT_COLOR[s.sport as Sport] }} />{sportLabel(s.sport as Sport)} ×{s.n}</span>
+                              <span className="text-muted-foreground">{Math.round(s.min / 6) / 10} h{s.km ? ` · ${Math.round(s.km)} km` : ""}</span>
+                            </p>
+                          )) : <p className="text-muted-foreground">—</p>}
+                        </div>
+                      );
+                    }}
                   />
                   <Area
                     type="monotone"
