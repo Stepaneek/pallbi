@@ -8,7 +8,8 @@
     "results": "Výsledky položky", "shotCount": "Počet ran", "center": "Střední zásah", "offset": "Vzdálenost od středu", "clock": "Hodinová odchylka", "correction": "Doporučená korekce",
     "up": "{{count}} nahoru", "down": "{{count}} dolů", "left": "{{count}} doleva", "right": "{{count}} doprava", "noCorrection": "Bez korekce",
     "calibration": "1 klik = 1,5 mm na 50 m", "notes": "Poznámka (volitelná)", "save": "Uložit položku do deníku", "saving": "Ukládám…", "saved": "Položka uložena do deníku.", "saveError": "Položku se nepodařilo uložit. Zkuste to znovu.",
-    "shots": "Zaznamenané rány", "shotsShort": "ran", "noShots": "Žádné rány", "loadError": "Historii se nepodařilo načíst.", "retry": "Zkusit znovu", "emptyHistory": "Zatím žádné uložené položky.", "previous": "Předchozí", "next": "Další"
+"shots": "Zaznamenané rány", "shotsShort": "ran", "noShots": "Žádné rány", "loadError": "Historii se nepodařilo načíst.", "retry": "Zkusit znovu", "emptyHistory": "Zatím žádné uložené položky.", "previous": "Předchozí", "next": "Další",
+    "delete": "Smazat", "deleteTitle": "Smazat položku?", "deleteConfirm": "Položka bude trvale odstraněna z deníku. Tuto akci nelze vrátit zpět.", "cancel": "Zrušit", "deleted": "Položka byla smazána.", "deleteError": "Položku se nepodařilo smazat. Zkuste to znovu."
   },
   "nav": {
     "zeroing": "Střelba",
