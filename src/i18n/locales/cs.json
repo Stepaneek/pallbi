@@ -723,10 +723,10 @@
     "bikeZonesHint": "Prahy platné pro aktivity typu Kolo. Používají se místo obecných zón při výpočtu času v zónách.",
     "bikeZonesSaved": "Cyklistické zóny uloženy",
     "proDiscount": "EARLY BIRD SLEVA 33 %",
-    "proB1": "Neomezená střelba a historie",
-    "proB2": "Analytika formy (TSB)",
-    "proB3": "Synchronizace se Stravou",
-    "proB4": "Exporty do PDF"
+    "proB1": "Neomezený počet svěřenců (zdarma 1 sportovec)",
+    "proB2": "Hromadné plánování a kopírování tréninků",
+    "proB3": "Týmový denní přehled připravenosti",
+    "proB4": "Analytika a střelba všech svěřenců"
   },
   "races": {
     "title": "Termínovka",
