@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-import { Target, RotateCcw, Undo2, Save, History, Loader2 } from "lucide-react";
+import { Target, RotateCcw, Undo2, Save, History, Loader2, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import { format } from "date-fns";
 import { useAuth } from "@/hooks/useAuth";
@@ -13,6 +13,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { ZeroingTarget } from "./ZeroingTarget";
 import { appendZeroingShot, groupCenter, offsetMm, clockHour, formatClock, parseZeroingShots, MAX_ZEROING_SHOTS, type Shot, type ZeroStance } from "@/lib/zeroing";
 
@@ -35,6 +36,8 @@ export function ShootingZeroingView() {
   const [notes, setNotes] = useState("");
   const [saving, setSaving] = useState(false);
   const [page, setPage] = useState(0);
+  const [deleteId, setDeleteId] = useState<string | null>(null);
+  const [deleting, setDeleting] = useState(false);
   useEffect(() => { setShots([]); setNotes(""); setIntensity(null); setPage(0); }, [athleteId]);
   const history = useQuery({
     queryKey: ["shooting-sessions", athleteId, page],
