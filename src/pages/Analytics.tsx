@@ -62,10 +62,15 @@ const KM_SPORTS: { key: Sport; label: string; color: string }[] = [
 ];
 
 // ---- Sloupcový graf "Kilometry v čase": vzhled sloupců ----
-// Rohy se zaoblijí jen nahoře (u horního segmentu stohu), takže sloupec vypadá
-// jako jeden zaoblený celek a přitom přesně sedí na ose.
-const KM_BAR_RADIUS = 7;
+// Skládaný sloupec se zaoblijí jako celek, ne po jednotlivých dílcích: každý
+// dílek je obyčejný obdélník (spoje uvnitř zůstávají ostré a čisté) a celý
+// sloupec se ořízne clipPathem do tvaru s zaoblenou čepičkou. I tenký horní
+// dílek tak dostane stejnou čepičku jako ostatní sloupce a sloupec přitom
+// pořád přesně sedí na ose.
+const KM_BAR_RADIUS = 4;
 const KM_BAR_MAX_SIZE = 38;
+// Clip sahá hluboko pod osu, spodní hrany sloupců se ho nechytí.
+const KM_CAP_DEPTH = 3000;
 
 type KmBarShapeProps = {
   x?: number;
@@ -77,6 +82,23 @@ type KmBarShapeProps = {
   payload?: Record<string, string | number>;
 };
 
+/** Obdélník, případně se zaoblenými horními rohy. */
+function kmRectPath(x: number, y: number, w: number, h: number, r: number) {
+  if (r <= 0) return `M${x},${y}L${x + w},${y}L${x + w},${y + h}L${x},${y + h}Z`;
+  return (
+    `M${x},${y + h}L${x},${y + r}Q${x},${y} ${x + r},${y}` +
+    `L${x + w - r},${y}Q${x + w},${y} ${x + w},${y + r}L${x + w},${y + h}Z`
+  );
+}
+
+/** Id čepičky jednoho sloupce; bez spolehlivého indexu se ořez nepoužije. */
+function kmCapId(props: KmBarShapeProps): string | null {
+  const i = Number(props.index);
+  if (Number.isFinite(i)) return `km-cap-${i}`;
+  const week = props.payload?.week;
+  return typeof week === "string" && week ? `km-cap-${week.replace(/[^a-zA-Z0-9_-]/g, "")}` : null;
+}
+
 function kmStackedBarShape(
   props: KmBarShapeProps,
   dataKey: Sport,
@@ -86,19 +108,37 @@ function kmStackedBarShape(
   const y = Number(props.y) || 0;
   const w = Number(props.width) || 0;
   const h = Number(props.height) || 0;
-  if (w <= 0 || h <= 0) return <g />;
+  if (w <= 0) return <g />;
 
   const row = props.payload ?? data?.[Number(props.index)] ?? {};
-  // horní segment stohu = poslední sport s nenulovou hodnotou v pořadí Bar
+  // horní dílek sloupce = poslední sport s nenulovou hodnotou v pořadí Bar
   let topKey: Sport | null = null;
   for (const s of KM_SPORTS) if (Number(row[s.key]) > 0) topKey = s.key;
 
-  const r = topKey === dataKey ? Math.min(KM_BAR_RADIUS, w / 2, h) : 0;
-  const d =
-    r > 0
-      ? `M${x},${y + h}L${x},${y + r}Q${x},${y} ${x + r},${y}L${x + w - r},${y}Q${x + w},${y} ${x + w},${y + r}L${x + w},${y + h}Z`
-      : `M${x},${y}L${x + w},${y}L${x + w},${y + h}L${x},${y + h}Z`;
-  return <path d={d} fill={props.fill} stroke="none" />;
+  const r = Math.min(KM_BAR_RADIUS, w / 2);
+  const capId = kmCapId(props);
+  const clip = capId ? `url(#${capId})` : undefined;
+
+  if (topKey === dataKey) {
+    // čepičku definuje horní dílek – i když je sám jen pár pixelů vysoký
+    return (
+      <g>
+        {capId && (
+          <clipPath id={capId}>
+            <path d={kmRectPath(x, y, w, KM_CAP_DEPTH, r)} />
+          </clipPath>
+        )}
+        {h > 0 &&
+          (capId ? (
+            <rect x={x} y={y} width={w} height={h} fill={props.fill} clipPath={clip} />
+          ) : (
+            <path d={kmRectPath(x, y, w, h, Math.min(r, h))} fill={props.fill} stroke="none" />
+          ))}
+      </g>
+    );
+  }
+  if (h <= 0) return <g />;
+  return <rect x={x} y={y} width={w} height={h} fill={props.fill} clipPath={clip} />;
 }
 
 
