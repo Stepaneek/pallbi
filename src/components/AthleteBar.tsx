@@ -19,22 +19,27 @@ export default function AthleteBar({ athletes, value, onChange }: { athletes: At
     enabled: ids.length > 0,
     staleTime: 60_000,
     queryFn: async () => {
-      const { data } = await publicDb.from("training_blocks").select("athlete_id").in("athlete_id", ids).eq("block_date", today).eq("plan_or_real", "real");
-      return new Set((data ?? []).map((r: { athlete_id: string }) => r.athlete_id));
+      const { data } = await publicDb.from("training_blocks").select("athlete_id, plan_or_real").in("athlete_id", ids).eq("block_date", today);
+      const rows = (data ?? []) as { athlete_id: string; plan_or_real: string }[];
+      return {
+        done: new Set(rows.filter((r) => r.plan_or_real === "real").map((r) => r.athlete_id)),
+        planned: new Set(rows.filter((r) => r.plan_or_real === "plan").map((r) => r.athlete_id)),
+      };
     },
   });
   return (
     <div role="radiogroup" aria-label={t("athleteBar.label")} className="flex max-w-full gap-1.5 overflow-x-auto pb-1">
       {athletes.map((a) => {
         const active = a.id === value;
-        const done = status.data?.has(a.id);
+        const done = status.data?.done.has(a.id);
+        const pending = !done && status.data?.planned.has(a.id);
         return (
           <button
             key={a.id}
             type="button"
             role="radio"
             aria-checked={active}
-            title={`${a.name ?? "—"} · ${t(done ? "athleteBar.done" : "athleteBar.pending")}`}
+            title={done || pending ? `${a.name ?? "—"} · ${t(done ? "athleteBar.done" : "athleteBar.pending")}` : (a.name ?? "—")}
             onClick={() => onChange(a.id)}
             className={cn(
               "flex shrink-0 items-center gap-2 rounded-full border py-1 pl-1 pr-3.5 text-[13px] font-semibold transition-colors active:scale-95",
@@ -43,7 +48,7 @@ export default function AthleteBar({ athletes, value, onChange }: { athletes: At
           >
             <span className="relative flex h-8 w-8 items-center justify-center rounded-full bg-muted text-[11px] font-bold text-foreground">
               {initials(a.name)}
-              {status.data && (
+              {(done || pending) && (
                 <span className={cn("absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full border-2 border-card", done ? "bg-success" : "bg-warning")} />
               )}
             </span>
