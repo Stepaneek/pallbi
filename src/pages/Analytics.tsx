@@ -620,7 +620,7 @@ function StatCard({ label, value, suffix, icon: Icon }: { label: string; value: 
           {Icon && <Icon className="text-muted-foreground" size={14} />}
           <p className="text-[11px] uppercase tracking-wider text-muted-foreground">{label}</p>
         </div>
-        <p className="mt-0.5 text-2xl font-bold tabular-nums">
+        <p className="stat-number mt-0.5 text-2xl font-bold">
           {value}
           {suffix ? <span className="ml-1 text-sm font-medium text-muted-foreground">{suffix}</span> : null}
         </p>
