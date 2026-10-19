@@ -106,6 +106,13 @@
     font-feature-settings: "cv11", "ss01";
     text-rendering: optimizeLegibility;
   }
+  .dark body {
+    background-image:
+      radial-gradient(1200px 700px at 10% -10%, hsl(221 70% 30% / 0.22), transparent 60%),
+      radial-gradient(900px 600px at 100% 0%, hsl(199 80% 35% / 0.12), transparent 60%),
+      radial-gradient(1000px 800px at 50% 110%, hsl(230 50% 20% / 0.25), transparent 65%);
+    background-attachment: fixed;
+  }
 }
 
 @layer utilities {
@@ -113,9 +120,9 @@
   .zeroing-target .target-ring { fill: none; stroke: hsl(var(--target-black)); }
   .zeroing-target .target-black { fill: hsl(var(--target-black)); }
   .zeroing-target .target-grid { fill: none; stroke: hsl(var(--target-grid)); }
-  .zeroing-target .target-shot { fill: hsl(var(--target-shot)); stroke: hsl(var(--target-shot-number)); }
+  .zeroing-target .target-shot { fill: hsl(var(--target-shot)); stroke: hsl(var(--target-shot-number)); filter: url(#shot-glow); }
   .zeroing-target .target-number { fill: hsl(var(--target-shot-number)); }
-  .zeroing-target .target-center { fill: none; stroke: hsl(var(--destructive)); }
+  .zeroing-target .target-center { fill: none; stroke: hsl(var(--destructive)); filter: drop-shadow(0 0 1.5px hsl(var(--destructive) / 0.8)); }
   .zone-volna { background-color: hsl(210 40% 94%); color: hsl(215 25% 27%); border: 1px solid hsl(214 32% 86%); }
   .zone-I1   { background-color: hsl(142 76% 91%); color: hsl(142 72% 25%); border: 1px solid hsl(142 55% 78%); }
   .zone-I2   { background-color: hsl(187 85% 91%); color: hsl(190 82% 25%); border: 1px solid hsl(187 62% 78%); }

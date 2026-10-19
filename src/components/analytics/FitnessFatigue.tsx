@@ -133,7 +133,14 @@ export default function FitnessFatigue({
                   }}
                 />
                 <Legend wrapperStyle={{ fontSize: 12 }} />
-                <ReferenceLine y={0} stroke="hsl(var(--border))" />
+                <ReferenceLine
+                  y={0}
+                  stroke="hsl(var(--muted-foreground))"
+                  strokeOpacity={0.7}
+                  strokeWidth={1.25}
+                  strokeDasharray="6 4"
+                  label={{ value: "0", position: "insideLeft", fill: "hsl(var(--muted-foreground))", fontSize: 10 }}
+                />
                 <Area
                   type="monotone"
                   dataKey="tsb"
