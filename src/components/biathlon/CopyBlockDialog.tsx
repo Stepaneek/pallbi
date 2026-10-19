@@ -8,6 +8,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
+import { useAuth } from "@/hooks/useAuth";
+import { useRole } from "@/hooks/useRole";
+import { useAthleteGroups } from "@/hooks/useAthleteGroups";
 import type { Database } from "@/integrations/supabase/types";
 
 type Block = Database["public"]["Tables"]["training_blocks"]["Row"];
@@ -23,6 +26,9 @@ export default function CopyBlockDialog({ block, athletes, onClose, onDone }: {
   const [date, setDate] = useState("");
   const [targets, setTargets] = useState<string[]>([]);
   const [busy, setBusy] = useState(false);
+  const { user } = useAuth();
+  const { isCoach } = useRole();
+  const { groups, athleteIdsInGroup } = useAthleteGroups(user?.id, isCoach && !!block);
   useEffect(() => { if (block) { setDate(block.block_date); setTargets([block.athlete_id]); } }, [block]);
 
   const copy = async () => {
@@ -58,6 +64,9 @@ export default function CopyBlockDialog({ block, athletes, onClose, onDone }: {
             <div className="space-y-2">
               <div className="flex items-center justify-between"><Label>{t("copyBlock.athletes")}</Label>
                 <Button type="button" variant="ghost" size="sm" className="h-7 text-xs" onClick={() => setTargets(targets.length === athletes.length ? [] : athletes.map((a) => a.id))}>{t("copyBlock.all")}</Button></div>
+              {groups.length > 0 && <div className="flex flex-wrap gap-1.5">{groups.map((g) => (
+                <Button key={g.id} type="button" variant="outline" size="sm" className="h-7 text-xs" onClick={() => setTargets(athleteIdsInGroup(g.id).filter((id) => athletes.some((a) => a.id === id)))}>{g.name}</Button>
+              ))}</div>}
               <div className="max-h-56 space-y-1.5 overflow-y-auto">
                 {athletes.map((a) => (
                   <label key={a.id} className="flex cursor-pointer items-center gap-2 text-sm">
