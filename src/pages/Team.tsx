@@ -172,7 +172,7 @@ export default function Team() {
   return (
     <div className="space-y-4">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <h1 className="flex items-center gap-2 text-2xl font-bold tracking-tight">
+        <h1 className="flex items-center gap-2 text-3xl font-bold tracking-tight">
           <Users className="h-5 w-5" /> {t("team.title")}
         </h1>
         <div className="flex items-center gap-2">

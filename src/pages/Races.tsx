@@ -311,7 +311,7 @@ export default function Races() {
     <div className="space-y-4">
       <div className="flex items-center justify-between flex-wrap gap-2">
         <div>
-          <h2 className="text-2xl font-bold tracking-tight">{t("races.title")}</h2>
+          <h2 className="text-3xl font-bold tracking-tight">{t("races.title")}</h2>
           <p className="text-sm text-muted-foreground">{t("races.subtitle")}</p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
