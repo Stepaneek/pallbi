@@ -95,14 +95,15 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
     <div className="min-h-screen bg-background">
       <OnboardingModal />
       <header className="sticky top-0 z-40 border-b bg-card/95 shadow-sm backdrop-blur dark:shadow-none">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-2.5">
-          <div className="flex items-center gap-2">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-3 py-2.5 sm:px-4">
+          <div className="flex min-w-0 items-center gap-2">
+
             <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary text-primary-foreground">
               <Activity className="h-5 w-5" strokeWidth={2.5} />
             </div>
             <div className="min-w-0">
               <h1 className="text-base font-bold tracking-tight">PallBi</h1>
-              <p className="truncate text-[10px] uppercase tracking-wider text-muted-foreground max-w-[180px] sm:max-w-[260px]">
+              <p className="truncate text-[10px] uppercase tracking-wider text-muted-foreground max-w-[130px] sm:max-w-[260px]">
                 {club ?? roleLabel}
               </p>
             </div>
