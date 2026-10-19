@@ -427,6 +427,12 @@
       "tsbNeutral": "-10 až +5: Neutral / Vyrovnaný stav (udržování).",
       "tsbTraining": "-10 až -30: Produktivní trénink (optimální budování kondice).",
       "tsbRisk": "Pod -30: Zóna vysokého rizika (akutní přetížení / riziko zranění)."
+    },
+    "range": {
+      "label": "Rozsah",
+      "d30": "30 dní",
+      "d90": "90 dní",
+      "season": "Celá sezóna"
     }
   },
   "diary": {
