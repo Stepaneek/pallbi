@@ -5,6 +5,8 @@ import { format } from "date-fns";
 import { ChevronLeft, ChevronRight, Plus, Trash2, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
+import { EmptyState } from "@/components/ui/empty-state";
 import { Input } from "@/components/ui/input";
 import { useAuth } from "@/hooks/useAuth";
 import { useRole } from "@/hooks/useRole";
@@ -275,12 +277,21 @@ export default function Team() {
         onSaved={() => setReloadKey((k) => k + 1)}
       />
 
-      {loading && <p className="text-sm text-muted-foreground">{t("common.loading")}</p>}
+      {loading && rows.length === 0 && (
+        <div className="grid gap-3 md:grid-cols-2">
+          {[0, 1, 2, 3].map((i) => (
+            <Skeleton key={i} className="h-44 w-full rounded-2xl" />
+          ))}
+        </div>
+      )}
 
-      {rows.length === 0 ? (
-        <Card className="p-6 text-center">
-          <p className="text-sm text-muted-foreground">{t("common.noAthletes")}</p>
-        </Card>
+      {!loading && rows.length === 0 ? (
+        <EmptyState
+          icon={Users}
+          title={t("common.noAthletes")}
+          actionLabel={t("week.manageInvites")}
+          onAction={() => navigate("/profile")}
+        />
       ) : (
         <div className="grid gap-3 md:grid-cols-2">
           {rows.map((r) => (
