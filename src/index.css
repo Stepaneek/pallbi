@@ -38,6 +38,11 @@
     --ring: 224 76% 33%;
 
     --radius: 0.5rem;
+    --target-paper: 0 0% 97%;
+    --target-black: 0 0% 8%;
+    --target-grid: 0 0% 55%;
+    --target-shot: 199 95% 45%;
+    --target-shot-number: 0 0% 100%;
 
     /* Yarmill intensity zones */
     --zone-volna: 0 0% 92%;
@@ -101,6 +106,13 @@
 }
 
 @layer utilities {
+  .zeroing-target .target-paper { fill: hsl(var(--target-paper)); }
+  .zeroing-target .target-ring { fill: none; stroke: hsl(var(--target-black)); }
+  .zeroing-target .target-black { fill: hsl(var(--target-black)); }
+  .zeroing-target .target-grid { fill: none; stroke: hsl(var(--target-grid)); }
+  .zeroing-target .target-shot { fill: hsl(var(--target-shot)); stroke: hsl(var(--target-shot-number)); }
+  .zeroing-target .target-number { fill: hsl(var(--target-shot-number)); }
+  .zeroing-target .target-center { fill: none; stroke: hsl(var(--destructive)); }
   .zone-volna { background-color: hsl(210 40% 94%); color: hsl(215 25% 27%); border: 1px solid hsl(214 32% 86%); }
   .zone-I1   { background-color: hsl(142 76% 91%); color: hsl(142 72% 25%); border: 1px solid hsl(142 55% 78%); }
   .zone-I2   { background-color: hsl(187 85% 91%); color: hsl(190 82% 25%); border: 1px solid hsl(187 62% 78%); }

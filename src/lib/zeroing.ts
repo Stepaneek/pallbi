@@ -1,6 +1,10 @@
 /** Biathlon zeroing math. Coordinates in mm, origin = target centre, x → right, y → up. */
 export type ZeroStance = "prone" | "standing";
 export type Shot = { x: number; y: number };
+export const MAX_ZEROING_SHOTS = 10;
+export function appendZeroingShot(shots: Shot[], shot: Shot): Shot[] {
+  return shots.length >= MAX_ZEROING_SHOTS ? shots : [...shots, shot];
+}
 
 /** Diameter of the black aiming/hit area at 50 m. */
 export const BLACK_DIAMETER_MM: Record<ZeroStance, number> = { prone: 45, standing: 115 };

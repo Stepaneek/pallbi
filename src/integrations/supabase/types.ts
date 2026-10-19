@@ -295,6 +295,78 @@ export type Database = {
         }
         Relationships: []
       }
+      shooting_sessions: {
+        Row: {
+          athlete_id: string
+          author_id: string
+          center_x_mm: number
+          center_y_mm: number
+          click_mm: number
+          clicks_horizontal: number
+          clicks_vertical: number
+          clock_hour: number | null
+          created_at: string
+          id: string
+          item_type: string
+          notes: string | null
+          offset_mm: number
+          session_date: string
+          shots: Json
+          stance: string
+        }
+        Insert: {
+          athlete_id: string
+          author_id: string
+          center_x_mm?: number
+          center_y_mm?: number
+          click_mm?: number
+          clicks_horizontal?: number
+          clicks_vertical?: number
+          clock_hour?: number | null
+          created_at?: string
+          id?: string
+          item_type?: string
+          notes?: string | null
+          offset_mm?: number
+          session_date?: string
+          shots: Json
+          stance: string
+        }
+        Update: {
+          athlete_id?: string
+          author_id?: string
+          center_x_mm?: number
+          center_y_mm?: number
+          click_mm?: number
+          clicks_horizontal?: number
+          clicks_vertical?: number
+          clock_hour?: number | null
+          created_at?: string
+          id?: string
+          item_type?: string
+          notes?: string | null
+          offset_mm?: number
+          session_date?: string
+          shots?: Json
+          stance?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "shooting_sessions_athlete_id_fkey"
+            columns: ["athlete_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "shooting_sessions_author_id_fkey"
+            columns: ["author_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       shooting_zeroings: {
         Row: {
           athlete_id: string

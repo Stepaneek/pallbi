@@ -17,7 +17,7 @@ import StravaBadge from "@/components/StravaBadge";
 
 const baseLinks = [
   { to: "/", labelKey: "nav.week", icon: Calendar },
-  { to: "/zeroing", labelKey: "Střelba", icon: Target },
+  { to: "/zeroing", labelKey: "nav.zeroing", icon: Target },
   { to: "/summary", labelKey: "nav.summary", icon: BarChart3 },
   { to: "/analytics", labelKey: "nav.analytics", icon: LineChart },
   { to: "/races", labelKey: "nav.races", icon: Trophy },
@@ -108,7 +108,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
             </div>
           </div>
 
-          <nav className="hidden items-center gap-1 md:flex">
+          <nav className="hidden items-center gap-1 xl:flex">
             {links.map(({ to, labelKey, icon: Icon }) => (
               <NavLink
                 key={to}
@@ -160,7 +160,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         </div>
       </header>
 
-      <main className="mx-auto max-w-7xl px-4 py-4 pb-24 md:pb-6">
+      <main className="mx-auto max-w-7xl px-4 py-4 pb-24 xl:pb-6">
         {children}
         <div className="mt-6 flex justify-center border-t pt-3 md:hidden"><StravaBadge /></div>
       </main>
@@ -175,8 +175,8 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         </div>
       </footer>
 
-      <nav className="fixed bottom-0 left-0 right-0 z-40 border-t bg-card/95 backdrop-blur md:hidden">
-        <div className="mx-auto grid max-w-7xl" style={{ gridTemplateColumns: `repeat(${links.length + 1}, minmax(0, 1fr))` }}>
+      <nav className="fixed bottom-0 left-0 right-0 z-40 overflow-x-auto border-t bg-card/95 backdrop-blur xl:hidden">
+        <div className="mx-auto grid min-w-max max-w-7xl" style={{ gridTemplateColumns: `repeat(${links.length + 1}, minmax(64px, 1fr))` }}>
           {links.map(({ to, labelKey, icon: Icon }) => (
             <NavLink
               key={to}
