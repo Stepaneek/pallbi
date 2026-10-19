@@ -37,7 +37,7 @@
     --input: 214 32% 91%;
     --ring: 224 76% 33%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
     --target-paper: 0 0% 97%;
     --target-black: 0 0% 8%;
     --target-grid: 0 0% 55%;
@@ -87,8 +87,8 @@
     --destructive: 0 72% 51%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 217 33% 17%;            /* #1E293B (slate-800) */
-    --input: 217 33% 17%;
+    --border: 217 30% 15%;            /* jemný, téměř neviditelný okraj */
+    --input: 217 30% 18%;
     --ring: 224 76% 48%;
 
     --zone-volna: 217 33% 20%;
