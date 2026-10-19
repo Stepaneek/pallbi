@@ -47,7 +47,7 @@
     --target-shot-number: 0 0% 100%;
 
     /* Yarmill intensity zones */
-    --zone-volna: 0 0% 92%;
+    --zone-volna: 215 20% 65%;          /* #94A3B8 — čitelná šedá i na bílé (popisky, grafy) */
     --zone-volna-fg: 222 47% 11%;
     --zone-i1: 142 70% 45%;          /* green */
     --zone-i1-fg: 0 0% 100%;
