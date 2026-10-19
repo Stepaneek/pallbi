@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { Maximize2, X, Target, RotateCcw, Undo2, Save, History, Loader2, Trash2, BarChart3 } from "lucide-react";
@@ -121,11 +122,11 @@ export function ShootingZeroingView() {
         <div className="min-w-0 space-y-4">
           <div className="mx-auto max-w-[560px] overflow-hidden rounded-md border"><ZeroingTarget stance={stance} shots={shots} onShot={shot => { if (!saving) { navigator.vibrate?.(15); setShots(prev => appendZeroingShot(prev, shot)); } }} /></div>
           <Button variant="outline" className="w-full" onClick={() => setField(true)}><Maximize2 />{t("zeroing.fieldMode")}</Button>
-          {field && <div className="fixed inset-0 z-50 flex flex-col gap-3 bg-canvas p-3" role="dialog" aria-modal="true" aria-label={t("zeroing.fieldMode")}>
-            <div className="flex items-center justify-between"><span className="text-lg font-bold tabular-nums">{t(`zeroing.stances.${stance}`)} · {shots.length} / {MAX_ZEROING_SHOTS}</span><Button variant="ghost" size="icon" aria-label={t("zeroing.closeField")} onClick={() => setField(false)}><X className="h-6 w-6" /></Button></div>
-            <div className="mx-auto flex min-h-0 w-full max-w-[min(100%,70vh)] flex-1 items-center"><div className="w-full overflow-hidden rounded-md border"><ZeroingTarget stance={stance} shots={shots} onShot={shot => { if (!saving) { navigator.vibrate?.(15); setShots(prev => appendZeroingShot(prev, shot)); } }} /></div></div>
+          {field && createPortal(<div className="fixed inset-0 z-50 flex flex-col gap-3 bg-canvas p-3" role="dialog" aria-modal="true" aria-label={t("zeroing.fieldMode")}>
+            <div className="relative z-10 flex shrink-0 items-center justify-between"><span className="text-lg font-bold tabular-nums">{t(`zeroing.stances.${stance}`)} · {shots.length} / {MAX_ZEROING_SHOTS}</span><Button variant="ghost" size="icon" aria-label={t("zeroing.closeField")} onClick={() => setField(false)}><X className="h-6 w-6" /></Button></div>
+            <div className="flex min-h-0 flex-1 items-center justify-center"><div className="aspect-square w-full max-w-[min(100%,calc(100vh-170px))] overflow-hidden rounded-md border"><ZeroingTarget stance={stance} shots={shots} onShot={shot => { if (!saving) { navigator.vibrate?.(15); setShots(prev => appendZeroingShot(prev, shot)); } }} /></div></div>
             <div className="grid grid-cols-3 gap-2"><Button variant="outline" className="h-14 text-base" disabled={!shots.length || saving} onClick={() => setShots(prev => prev.slice(0, -1))}><Undo2 />{t("zeroing.undo")}</Button><Button variant="outline" className="h-14 text-base" disabled={!shots.length || saving} onClick={() => setShots([])}><RotateCcw />{t("zeroing.clear")}</Button><Button className="h-14 text-base" disabled={!center || !date || saving} onClick={async () => { await save(); setField(false); }}>{saving ? <Loader2 className="animate-spin" /> : <Save />}{t("zeroing.saveShort")}</Button></div>
-          </div>}
+          </div>, document.body)}
           <div className="flex items-center justify-between text-xs text-muted-foreground"><span>{t("zeroing.target")}</span><span>{shots.length} / {MAX_ZEROING_SHOTS}</span></div>
           <div className="border-t pt-3"><h3 className="mb-2 text-sm font-semibold">{t("zeroing.shots")}</h3>{!shots.length ? <p className="text-sm text-muted-foreground">{t("zeroing.noShots")}</p> : <ol className="grid grid-cols-2 gap-x-4 gap-y-2 text-xs tabular-nums sm:grid-cols-3">{shots.map((s, i) => <li key={i}>#{i + 1}: X {decimal(s.x)}, Y {decimal(s.y)} mm</li>)}</ol>}</div>
         </div>
