@@ -556,7 +556,7 @@ export default function Analytics() {
           <div ref={kmScrollRef} className="h-full overflow-x-auto overflow-y-hidden px-4">
             <div style={{ width: chartInnerWidth }} className="h-full">
               <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={kmData} margin={{ top: 8, right: 16, left: 0, bottom: 0 }}>
+                <BarChart data={kmData} barCategoryGap="32%" margin={{ top: 8, right: 16, left: 0, bottom: 0 }}>
                   <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
                   <XAxis dataKey="week" stroke="hsl(var(--muted-foreground))" fontSize={12} tick={<WeekTick />} height={40} interval={0} />
                   <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} unit="km" />
@@ -565,7 +565,15 @@ export default function Analytics() {
                   />
                   <Legend wrapperStyle={{ fontSize: 12 }} />
                   {KM_SPORTS.map((s) => (
-                    <Bar key={s.key} dataKey={s.key} stackId="km" fill={s.color} name={s.label} />
+                    <Bar
+                      key={s.key}
+                      dataKey={s.key}
+                      stackId="km"
+                      fill={s.color}
+                      name={s.label}
+                      maxBarSize={KM_BAR_MAX_SIZE}
+                      shape={(props: KmBarShapeProps) => kmStackedBarShape(props, s.key, kmData)}
+                    />
                   ))}
                 </BarChart>
               </ResponsiveContainer>
