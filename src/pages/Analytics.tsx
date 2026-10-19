@@ -396,7 +396,7 @@ export default function Analytics() {
 
     <div className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <h1 className="text-2xl font-bold tracking-tight">{t("analytics.title")}</h1>
+        <h1 className="text-3xl font-bold tracking-tight">{t("analytics.title")}</h1>
         <div className="flex items-center gap-2">
           {athletes.length > 1 && viewingAthleteId && (
             <Select value={viewingAthleteId} onValueChange={setViewingAthleteId}>
