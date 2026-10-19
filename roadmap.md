@@ -41,7 +41,7 @@
 - [x] Vybraný sportovec je sdílený napříč záložkami (už existovalo)
 - [x] Odznak Stravy u spárovaných bloků (už existovalo)
 - [x] Synchronizovaný crosshair (Forma + Kilometry) + filtry 30/90 dní/sezóna v Analytice
-- [ ] Mini-karta tréninku v tooltipu grafu
+- [x] Mini-karta tréninku v tooltipu grafu Forma
 - [x] Týmový denní checklist v Týmu
 - [x] Kopírování tréninku do jiného dne a více sportovcům najednou
 - [ ] Optimistické ukládání s Ctrl+Z
