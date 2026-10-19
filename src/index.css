@@ -161,6 +161,30 @@
     box-shadow: 0 1px 2px hsl(0 0% 0% / 0.4), 0 12px 32px -12px hsl(0 0% 0% / 0.5);
   }
 
+  /* Glass surface + soft hover glow */
+  .card-glass {
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    transition: box-shadow 200ms ease, border-color 200ms ease;
+  }
+  .card-glass:hover {
+    border-color: hsl(var(--primary) / 0.25);
+    box-shadow: 0 1px 2px hsl(222 47% 11% / 0.06), 0 10px 30px -12px hsl(var(--primary) / 0.22);
+  }
+  .dark .card-glass:hover {
+    box-shadow: 0 1px 2px hsl(0 0% 0% / 0.4), 0 12px 36px -12px hsl(var(--primary) / 0.28);
+  }
+
+  /* Page enter transition */
+  .page-enter { animation: page-enter 220ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+  @keyframes page-enter {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .page-enter { animation: none; }
+  }
+
   /* Primary action: gradient + glow on hover */
   .btn-primary {
     background-image: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));

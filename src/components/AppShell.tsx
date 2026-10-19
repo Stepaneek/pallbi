@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { Activity, Calendar, BarChart3, Trophy, User as UserIcon, LogOut, Moon, Sun, LineChart, MessageCircle, Users, Target } from "lucide-react";
 import { toast } from "sonner";
 import { useAuth } from "@/hooks/useAuth";
@@ -26,6 +26,7 @@ const baseLinks = [
 const coachLink = { to: "/team", labelKey: "nav.team", icon: Users };
 
 export default function AppShell({ children }: { children: React.ReactNode }) {
+  const location = useLocation();
   const { t } = useTranslation();
   const { user, signOut } = useAuth();
   const { isCoach, isAthlete } = useRole();
@@ -162,7 +163,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
       </header>
 
       <main className="mx-auto max-w-7xl px-4 py-4 pb-24 xl:pb-6">
-        {children}
+        <div key={location.pathname} className="page-enter">{children}</div>
         <div className="mt-6 flex justify-center border-t pt-3 md:hidden"><StravaBadge /></div>
       </main>
 

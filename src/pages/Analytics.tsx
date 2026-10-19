@@ -541,9 +541,17 @@ export default function Analytics() {
                 <ComposedChart data={formaData} margin={{ top: 8, right: 16, left: 0, bottom: 0 }}>
                   <defs>
                     <linearGradient id="formaGradient" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.35} />
+                      <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.5} />
                       <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0} />
                     </linearGradient>
+                  </defs>
+                  <defs>
+                    {KM_SPORTS.map((s) => (
+                      <linearGradient key={s.key} id={`km-grad-${s.key}`} x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor={s.color} stopOpacity={1} />
+                        <stop offset="100%" stopColor={s.color} stopOpacity={0.55} />
+                      </linearGradient>
+                    ))}
                   </defs>
                   <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
                   <XAxis dataKey="week" stroke="hsl(var(--muted-foreground))" fontSize={12} tick={<WeekTick />} height={40} interval={0} />
@@ -626,7 +634,7 @@ export default function Analytics() {
                       key={s.key}
                       dataKey={s.key}
                       stackId="km"
-                      fill={s.color}
+                      fill={`url(#km-grad-${s.key})`}
                       name={s.label}
                       maxBarSize={KM_BAR_MAX_SIZE}
                       shape={(props: KmBarShapeProps) => kmStackedBarShape(props, s.key, kmData)}
