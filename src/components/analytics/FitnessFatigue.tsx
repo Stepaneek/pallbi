@@ -117,7 +117,7 @@ export default function FitnessFatigue({
               <ComposedChart data={series} margin={{ top: 8, right: 8, left: 0, bottom: 0 }}>
                 <defs>
                   <linearGradient id="tsbGradient" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor={COLOR_TSB} stopOpacity={0.3} />
+                    <stop offset="5%" stopColor={COLOR_TSB} stopOpacity={0.45} />
                     <stop offset="95%" stopColor={COLOR_TSB} stopOpacity={0} />
                   </linearGradient>
                 </defs>
