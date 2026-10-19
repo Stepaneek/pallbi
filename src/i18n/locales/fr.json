@@ -724,16 +724,6 @@
     "newComment": "Nouveau commentaire du coach",
     "planUpdated": "Le coach a mis à jour le plan"
   },
-  "announcements": {
-    "title": "🚀 Nouvelles fonctionnalités dans PallBi !",
-    "close": "J'ai compris",
-    "points": [
-      "🎯 Analyse de tir avancée : Cartographie détaillée des erreurs sur un cadran d'horloge et cartes de chaleur cible séparées pour couché et debout.",
-      "📊 Analyse forme et fatigue (Modèle PMC) : Suivez votre forme à long terme (CTL), fatigue aiguë (ATL) et forme actuelle (TSB) directement dans l'onglet Analytique.",
-      "🔋 Suivi de la récupération : Saisissez le rythme cardiaque du matin et évaluez sommeil, fatigue et courbatures pour un retour d'information instantané.",
-      "👥 Groupes d'entraîneurs et planification groupée : Les entraîneurs peuvent filtrer les équipes par groupes et planifier des entraînements pour plusieurs athlètes à la fois."
-    ]
-  },
   "shooting": {
     "title": "Shooting",
     "stance": {

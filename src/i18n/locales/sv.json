@@ -724,16 +724,6 @@
     "newComment": "Ny tränarkommentar",
     "planUpdated": "Tränaren uppdaterade planen"
   },
-  "announcements": {
-    "title": "🚀 Nya funktioner i PallBi!",
-    "close": "Förstår",
-    "points": [
-      "🎯 Avancerad skytteanalys: Detaljerad kartläggning av missar på en urtavla och separata målvärmekartor för liggande och stående.",
-      "📊 Form- och trötthetsanalys (PMC-modell): Följ din långsiktiga kondition (CTL), akuta trötthet (ATL) och aktuella form (TSB) direkt i fliken Analys.",
-      "🔋 Beredskapsövervakning: Logga morgonpuls och betygsätt sömn, trötthet och muskelömmhet för omedelbar återhämtningsfeedback.",
-      "👥 Tränargrupper och bulkplanering: Tränare kan enkelt filtrera lag efter grupper och planera träningar för flera idrottare samtidigt."
-    ]
-  },
   "shooting": {
     "title": "Shooting",
     "stance": {

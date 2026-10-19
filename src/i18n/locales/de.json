@@ -724,16 +724,6 @@
     "newComment": "Neuer Trainerkommentar",
     "planUpdated": "Trainer hat den Plan aktualisiert"
   },
-  "announcements": {
-    "title": "🚀 Neue Funktionen in PallBi!",
-    "close": "Verstanden",
-    "points": [
-      "🎯 Erweiterte Schießanalyse: Detaillierte Fehlerkartierung auf einem Zifferblatt und separate Ziel-Heatmaps für Liegend und Stehend.",
-      "📊 Fitness- und Ermüdungsanalyse (PMC-Modell): Verfolge deine langfristige Fitness (CTL), akute Ermüdung (ATL) und aktuelle Form (TSB) direkt im Analyse-Tab.",
-      "🔋 Readiness-Monitoring: Erfasse morgendliche Herzfrequenz und bewerte Schlaf, Müdigkeit und Muskelkater für sofortiges Regenerationsfeedback.",
-      "👥 Trainergruppen & Massenplanung: Trainer können Teams einfach nach Gruppen filtern und Trainings für mehrere Athleten gleichzeitig planen."
-    ]
-  },
   "shooting": {
     "title": "Shooting",
     "stance": {

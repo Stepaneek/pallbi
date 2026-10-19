@@ -21,7 +21,6 @@ import DailyDetail from "@/components/biathlon/DailyDetail";
 import DayComments from "@/components/biathlon/DayComments";
 import BlockEditor from "@/components/biathlon/BlockEditor";
 import StravaBanner from "@/components/StravaBanner";
-import WhatsNewBanner from "@/components/WhatsNewBanner";
 import { exportWeekPdf } from "@/lib/pdfExport";
 import { computeReadiness, morningHrBaseline, READINESS_DOT } from "@/lib/readiness";
 import { toast } from "sonner";
@@ -394,8 +393,6 @@ export default function Week() {
         </div>
       </div>
 
-      {/* What's new banner */}
-      <WhatsNewBanner />
 
       {/* Strava connect banner */}
       <StravaBanner />

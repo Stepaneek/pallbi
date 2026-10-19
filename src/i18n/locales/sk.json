@@ -726,16 +726,6 @@
     "newComment": "Nový komentár trénera",
     "planUpdated": "Trénér upravil plán"
   },
-  "announcements": {
-    "title": "🚀 Nové funkcie v PallBi!",
-    "close": "Rozumiem",
-    "points": [
-      "🎯 Pokročilá analýza streľby: Detailné mapovanie chýb na hodinovom ciferníku a samostatné terčové diagramy (heat mapy) pre ležku aj stojku.",
-      "📊 Analýza formy a únavy (PMC Model): Sleduj svoju dlhodobú kondíciu (CTL), akútnu únavu (ATL) a aktuálnu formu (TSB) priamo v záložke Analytika.",
-      "🔋 Monitoring pripravenosti (Readiness): Zadávaj ranný tep a hodnoť spánok, únavu aj svalovku pre okamžitú spätnú väzbu k regenerácii.",
-      "👥 Trénerské skupiny a hromadný plán: Tréneri môžu ľahko filtrovať tímy podľa skupín a plánovať tréningy pre viacerých atlétov naraz."
-    ]
-  },
   "shooting": {
     "title": "Streľba",
     "stance": {

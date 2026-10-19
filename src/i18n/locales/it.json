@@ -724,16 +724,6 @@
     "newComment": "Nuovo commento dell'allenatore",
     "planUpdated": "L'allenatore ha aggiornato il piano"
   },
-  "announcements": {
-    "title": "🚀 Nuove funzionalità in PallBi!",
-    "close": "Ho capito",
-    "points": [
-      "🎯 Analisi del tiro avanzata: Mappatura dettagliata degli errori su un quadrante e heat map separate per posizione prona e in piedi.",
-      "📊 Analisi fitness e fatica (Modello PMC): Monitora il tuo fitness a lungo termine (CTL), la fatica acuta (ATL) e la forma attuale (TSB) direttamente nella scheda Analitica.",
-      "🔋 Monitoraggio della prontezza: Registra la FC mattutina e valuta sonno, fatica e dolori muscolari per un feedback immediato sul recupero.",
-      "👥 Gruppi di coach e pianificazione collettiva: I coach possono filtrare i team per gruppi e pianificare allenamenti per più atleti contemporaneamente."
-    ]
-  },
   "shooting": {
     "title": "Shooting",
     "stance": {

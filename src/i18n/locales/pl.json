@@ -724,16 +724,6 @@
     "newComment": "Nowy komentarz trenera",
     "planUpdated": "Trener zaktualizował plan"
   },
-  "announcements": {
-    "title": "🚀 Nowe funkcje w PallBi!",
-    "close": "Rozumiem",
-    "points": [
-      "🎯 Zaawansowana analiza strzelecka: Szczegółowe mapowanie błędów na tarczy zegara i oddzielne mapy cieplne celu dla pozycji leżącej i stojącej.",
-      "📊 Analiza formy i zmęczenia (Model PMC): Śledź swoją długoterminową kondycję (CTL), ostrą zmęczenie (ATL) i aktualną formę (TSB) bezpośrednio w zakładce Analityka.",
-      "🔋 Monitorowanie gotowości: Zapisuj poranne tętno i oceniaj sen, zmęczenie oraz bóle mięśniowe, aby uzyskać natychmiastową informację zwrotną dotyczącą regeneracji.",
-      "👥 Grupy trenerów i planowanie zbiorcze: Trenerzy mogą łatwo filtrować zespoły według grup i planować treningi dla wielu zawodników jednocześnie."
-    ]
-  },
   "shooting": {
     "title": "Shooting",
     "stance": {
