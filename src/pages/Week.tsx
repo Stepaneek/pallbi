@@ -10,6 +10,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { useRole } from "@/hooks/useRole";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { seasonWeek, weekRange, weekDays, isoDate, nextWeek, prevWeek, fromIso } from "@/lib/week";
 import { supabase } from "@/integrations/supabase/client";
@@ -69,6 +70,7 @@ export default function Week() {
   const [commentCounts, setCommentCounts] = useState<Record<string, number>>({});
   const [reloadKey, setReloadKey] = useState(0);
   const [loadError, setLoadError] = useState<string | null>(null);
+  const [blocksLoading, setBlocksLoading] = useState(false);
   const [dbTestResult, setDbTestResult] = useState<string | null>(null);
   const [exporting, setExporting] = useState(false);
 
@@ -133,6 +135,7 @@ export default function Week() {
     }
     (async () => {
       setLoadError(null);
+      setBlocksLoading(true);
       const { data, error } = await supabase.functions.invoke("training-week-load", {
         body: { athlete_id: athleteId, plan_or_real: planOrReal, start: startIso, end: endIso },
       });
@@ -140,6 +143,7 @@ export default function Week() {
       const payload = data as { blocks?: Block[]; commentCounts?: Record<string, number>; error?: string } | null;
       if (error || payload?.error) {
         setLoadError(payload?.error || error?.message || t("diary.trainingsLoadFailed"));
+        setBlocksLoading(false);
         return;
       }
       const entry: WeekCacheEntry = {
@@ -149,6 +153,7 @@ export default function Week() {
       weekCache.set(key, entry);
       setBlocks(entry.blocks);
       setCommentCounts(entry.commentCounts);
+      setBlocksLoading(false);
     })();
     return () => { cancelled = true; };
   }, [athleteId, planOrReal, start.getTime(), reloadKey]);
@@ -418,6 +423,7 @@ export default function Week() {
 
         {days.map((d, di) => {
           const isSel = isoDate(d) === isoDate(selectedDay);
+          const isToday = isoDate(d) === isoDate(new Date());
           const dayBlks = blocks.filter((b) => b.block_date === isoDate(d));
           const rd = readinessByDay[di];
           const ev = eventForDay(d);
@@ -431,7 +437,11 @@ export default function Week() {
               key={isoDate(d)}
               onClick={() => setSelectedDay(d)}
               className={`flex flex-col items-center rounded-md border px-1 py-1.5 text-xs shadow-sm transition-colors ${
-                isSel ? "border-primary bg-primary text-primary-foreground" : "bg-card hover:border-primary/30 hover:bg-accent/60"
+                isSel
+                  ? "border-primary bg-primary text-primary-foreground"
+                  : isToday
+                    ? "border-primary/60 bg-primary/10 ring-1 ring-primary/40 hover:border-primary"
+                    : "bg-card hover:border-primary/30 hover:bg-accent/60"
               }`}
             >
               {rd ? (
@@ -452,6 +462,12 @@ export default function Week() {
       </div>
 
       {/* Two-panel layout */}
+      {blocksLoading ? (
+        <div className="grid gap-4 lg:grid-cols-[minmax(0,2fr)_minmax(640px,3fr)]">
+          <Skeleton className="h-72 w-full rounded-2xl" />
+          <Skeleton className="h-72 w-full rounded-2xl" />
+        </div>
+      ) : (
       <div className="grid gap-4 lg:grid-cols-[minmax(0,2fr)_minmax(640px,3fr)]">
         <div className="min-w-0 space-y-3 overflow-hidden">
           <DailyDetail
@@ -498,6 +514,7 @@ export default function Week() {
           />
         )}
       </div>
+      )}
       </div>
 
 

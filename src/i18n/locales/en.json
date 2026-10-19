@@ -8,7 +8,7 @@
     "results": "Entry results", "shotCount": "Shot count", "center": "Center of impact", "offset": "Distance from center", "clock": "Clock direction", "correction": "Recommended correction",
     "up": "{{count}} up", "down": "{{count}} down", "left": "{{count}} left", "right": "{{count}} right", "noCorrection": "No correction",
     "calibration": "1 click = 1.5 mm at 50 m", "notes": "Notes (optional)", "save": "Save entry to diary", "saving": "Saving…", "saved": "Entry saved to diary.", "saveError": "Could not save the entry. Please try again.",
-"shots": "Recorded shots", "shotsShort": "shots", "noShots": "No shots", "loadError": "Could not load history.", "retry": "Try again", "emptyHistory": "No saved entries yet.", "previous": "Previous", "next": "Next",
+"shots": "Recorded shots", "shotsShort": "shots", "noShots": "No shots", "loadError": "Could not load history.", "retry": "Try again", "emptyHistory": "There are no entries here yet.", "emptyAction": "Add first entry", "previous": "Previous", "next": "Next",
     "delete": "Delete", "deleteTitle": "Delete entry?", "deleteConfirm": "The entry will be permanently removed from the diary. This action cannot be undone.", "cancel": "Cancel", "deleted": "Entry deleted.", "deleteError": "Could not delete the entry. Please try again."
   },
   "nav": {

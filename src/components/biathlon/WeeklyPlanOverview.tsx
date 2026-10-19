@@ -26,6 +26,7 @@ export default function WeeklyPlanOverview({ days, blocks, selectedDay, onSelect
         const iso = isoDate(d);
         const dayBlocks = blocks.filter((b) => b.block_date === iso);
         const isSel = iso === isoDate(selectedDay);
+        const isToday = iso === isoDate(new Date());
         const entries = SLOTS.map((key) => ({
           key,
           text: dayBlocks
@@ -40,7 +41,7 @@ export default function WeeklyPlanOverview({ days, blocks, selectedDay, onSelect
             key={iso}
             onClick={() => onSelectDay(d)}
             className={`cursor-pointer p-3 transition-colors ${
-              isSel ? "border-primary ring-1 ring-primary" : "hover:bg-accent/50"
+              isSel ? "border-primary ring-1 ring-primary" : isToday ? "border-primary/50 hover:bg-accent/50" : "hover:bg-accent/50"
             }`}
           >
             <p className={`text-sm font-semibold ${isSel ? "text-primary" : ""}`}>

@@ -1,5 +1,11 @@
 # Roadmap
 
+## UX vylepšení: dnešek, prázdné stavy, skeletony — hotovo
+- [x] Zvýraznění dnešního dne v týdenním přehledu (Week day strip: jemný modrý obrys + pozadí, když není vybraný; WeeklyPlanOverview: modrý okraj karty)
+- [x] Komponenta EmptyState (ikona, text, akce) — Tým (pozvání sportovce), Historie střelby („Přidat první záznam"), Analytika (donut bez dat); i18n cs/en (zeroing.emptyAction)
+- [x] Skeleton loadery — Week (přepínání týdnů), Tým (karty), Historie střelby (řádky), Analytika (statistiky + grafy Forma/Kilometry)
+- [x] Ověřeno v náhledu (dnešek nevybraný i vybraný, prázdná historie střelby) + typecheck čistý + build OK
+
 ## Modernizační redesign UI/UX — hotovo
 - [x] Karty: jemnější okraj, rounded-2xl, měkký stín (tokeny + card.tsx)
 - [x] Tmavý režim: jemnější, téměř neviditelný okraj karet

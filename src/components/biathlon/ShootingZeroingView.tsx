@@ -8,6 +8,8 @@ import { useAuth } from "@/hooks/useAuth";
 import { useRole } from "@/hooks/useRole";
 import { publicDb } from "@/lib/db";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
+import { EmptyState } from "@/components/ui/empty-state";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -118,7 +120,7 @@ export function ShootingZeroingView() {
           <div className="border-t pt-3"><h3 className="mb-2 text-sm font-semibold">{t("zeroing.shots")}</h3>{!shots.length ? <p className="text-sm text-muted-foreground">{t("zeroing.noShots")}</p> : <ol className="grid grid-cols-2 gap-x-4 gap-y-2 text-xs tabular-nums sm:grid-cols-3">{shots.map((s, i) => <li key={i}>#{i + 1}: X {decimal(s.x)}, Y {decimal(s.y)} mm</li>)}</ol>}</div>
         </div>
       </div> : <div className="space-y-4">
-        {history.isLoading ? <Loader2 className="h-6 w-6 animate-spin" /> : history.isError ? <div role="alert"><p>{t("zeroing.loadError")}</p><Button variant="outline" onClick={() => history.refetch()}>{t("zeroing.retry")}</Button></div> : !history.data?.rows.length ? <p className="py-12 text-center text-muted-foreground">{t("zeroing.emptyHistory")}</p> : history.data.rows.map(row => <details key={row.id} className="rounded-md border bg-card p-4">
+        {history.isLoading ? <div className="space-y-3">{[0, 1, 2].map(i => <Skeleton key={i} className="h-16 w-full rounded-xl" />)}</div> : history.isError ? <div role="alert"><p>{t("zeroing.loadError")}</p><Button variant="outline" onClick={() => history.refetch()}>{t("zeroing.retry")}</Button></div> : !history.data?.rows.length ? <EmptyState icon={Target} title={t("zeroing.emptyHistory")} actionLabel={t("zeroing.emptyAction")} onAction={() => setTab("zeroing")} /> : history.data.rows.map(row => <details key={row.id} className="rounded-md border bg-card p-4">
           <summary className="flex cursor-pointer flex-wrap items-center justify-between gap-2"><span className="inline-flex flex-wrap items-center gap-x-5 gap-y-2 text-sm"><span className="font-semibold">{format(new Date(`${row.session_date}T12:00:00`), "dd.MM.yyyy")}</span><span>{t(`zeroing.types.${row.item_type}`)} · {t(`zeroing.stances.${row.stance}`)}{row.intensity ? ` · ${row.intensity.toUpperCase()}` : ""}</span><span>{parseShots(row.shots).length} {t("zeroing.shotsShort")} · {decimal(row.offset_mm)} mm · {formatClock(row.clock_hour)}</span></span><Button variant="ghost" size="icon" className="h-8 w-8 shrink-0 text-muted-foreground hover:text-destructive" aria-label={t("zeroing.delete")} onClick={e => { e.preventDefault(); e.stopPropagation(); setDeleteId(row.id); }}><Trash2 className="h-4 w-4" /></Button></summary>
           <div className="mt-4 grid gap-4 sm:grid-cols-2"><div className="max-w-[320px] overflow-hidden rounded-md"><ZeroingTarget stance={row.stance === "standing" ? "standing" : "prone"} shots={parseShots(row.shots)} /></div><div className="space-y-3 text-sm"><p>{t("zeroing.center")}: X {decimal(row.center_x_mm)}, Y {decimal(row.center_y_mm)} mm</p><ol className="space-y-1 tabular-nums">{parseShots(row.shots).map((s, i) => <li key={i}>#{i + 1}: X {decimal(s.x)}, Y {decimal(s.y)} mm</li>)}</ol>{row.notes && <p className="whitespace-pre-wrap break-words text-muted-foreground">{row.notes}</p>}</div></div>
         </details>)}
