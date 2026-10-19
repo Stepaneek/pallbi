@@ -18,8 +18,10 @@ import {
   YAxis,
   Legend,
 } from "recharts";
-import { MapPin, Clock, TrendingUp, Trophy, Heart } from "lucide-react";
+import { MapPin, Clock, TrendingUp, Trophy, Heart, PieChart as PieChartIcon } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
+import { EmptyState } from "@/components/ui/empty-state";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useRole } from "@/hooks/useRole";
 import { publicDb } from "@/lib/db";
@@ -507,6 +509,13 @@ export default function Analytics() {
       {/* STATISTIKY */}
       <section>
         <h2 className="mb-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">{t("analytics.statistics")}</h2>
+         {loading ? (
+          <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-5">
+            {[0, 1, 2, 3, 4].map((i) => (
+              <Skeleton key={i} className="h-[74px] w-full rounded-2xl" />
+            ))}
+          </div>
+        ) : (
         <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-5">
           <StatCard label={t("analytics.totalKmSeason", { label: season.label })} value={seasonTotalKm.toFixed(1)} suffix="km" icon={MapPin} />
           <StatCard label={t("analytics.totalHoursSeason", { label: season.label })} value={(seasonTotalMin / 60).toFixed(1)} suffix="h" icon={Clock} />
@@ -514,6 +523,7 @@ export default function Analytics() {
           <StatCard label={t("analytics.longestWeek")} value={seasonWeekHours.toFixed(1)} suffix="h" icon={Trophy} />
           <StatCard label={t("analytics.avgMorningHr")} value={avgMorningHrThisMonth ?? "—"} suffix={avgMorningHrThisMonth ? t("analytics.bpm") : ""} icon={Heart} />
         </div>
+        )}
       </section>
 
       {/* FORMA V ČASE */}
@@ -522,6 +532,9 @@ export default function Analytics() {
           <CardTitle className="text-base">{t("analytics.formaTitle")}</CardTitle>
         </CardHeader>
         <CardContent className="h-[280px] p-0">
+          {loading ? (
+            <Skeleton className="m-4 h-[calc(100%-2rem)] rounded-xl" />
+          ) : (
           <div ref={formaScrollRef} className="h-full overflow-x-auto overflow-y-hidden px-4">
             <div style={{ width: chartInnerWidth }} className="h-full">
               <ResponsiveContainer width="100%" height="100%">
@@ -584,6 +597,7 @@ export default function Analytics() {
               </ResponsiveContainer>
             </div>
           </div>
+          )}
         </CardContent>
       </Card>
 
@@ -593,6 +607,9 @@ export default function Analytics() {
           <CardTitle className="text-base">{t("analytics.kmTitle")}</CardTitle>
         </CardHeader>
         <CardContent className="h-[300px] p-0">
+          {loading ? (
+            <Skeleton className="m-4 h-[calc(100%-2rem)] rounded-xl" />
+          ) : (
           <div ref={kmScrollRef} className="h-full overflow-x-auto overflow-y-hidden px-4">
             <div style={{ width: chartInnerWidth }} className="h-full">
               <ResponsiveContainer width="100%" height="100%">
@@ -619,6 +636,7 @@ export default function Analytics() {
               </ResponsiveContainer>
             </div>
           </div>
+          )}
         </CardContent>
       </Card>
 
@@ -632,7 +650,7 @@ export default function Analytics() {
           </CardHeader>
           <CardContent className="h-[300px]">
             {zoneData.length === 0 ? (
-              <p className="flex h-full items-center justify-center text-sm text-muted-foreground">{t("analytics.noData")}</p>
+              <EmptyState icon={PieChartIcon} title={t("analytics.noData")} className="h-full border-none bg-transparent" />
             ) : (
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
@@ -695,8 +713,6 @@ export default function Analytics() {
       <VolumeComparison athleteId={viewingAthleteId ?? null} />
 
 
-
-      {loading && <p className="text-center text-xs text-muted-foreground">{t("analytics.loading")}</p>}
     </div>
   );
 }
