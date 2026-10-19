@@ -1,10 +1,8 @@
 import { useTheme } from "@/hooks/useTheme";
 import { cn } from "@/lib/utils";
 import poweredOrange from "@/assets/strava/powered-orange.svg.asset.json";
-import poweredWhite from "@/assets/strava/powered-white.svg.asset.json";
 import poweredOrangeDark from "@/assets/strava/powered-orange-dark.svg.asset.json";
 import compatibleOrange from "@/assets/strava/compatible-orange.svg.asset.json";
-import compatibleWhite from "@/assets/strava/compatible-white.svg.asset.json";
 import compatibleOrangeDark from "@/assets/strava/compatible-orange-dark.svg.asset.json";
 
 type Props = { variant?: "powered" | "compatible"; className?: string };
