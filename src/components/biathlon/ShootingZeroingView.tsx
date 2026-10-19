@@ -130,7 +130,7 @@ export function ShootingZeroingView() {
             </AlertDialogHeader>
             <AlertDialogFooter>
               <AlertDialogCancel disabled={deleting}>{t("zeroing.cancel")}</AlertDialogCancel>
-              <AlertDialogAction onClick={e => { e.preventDefault(); confirmDelete(); }} className="bg-destructive text-white hover:bg-destructive/90" disabled={deleting}>{deleting ? <Loader2 className="animate-spin" /> : <Trash2 className="h-4 w-4" />}{t("zeroing.delete")}</AlertDialogAction>
+              <AlertDialogAction onClick={e => { e.preventDefault(); confirmDelete(); }} className="bg-destructive text-destructive-foreground hover:bg-destructive/90" disabled={deleting}>{deleting ? <Loader2 className="animate-spin" /> : <Trash2 className="h-4 w-4" />}{t("zeroing.delete")}</AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
