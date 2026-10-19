@@ -32,3 +32,16 @@
 - [x] Nové assety powered-orange-dark.svg / compatible-orange-dark.svg (oficiální logo, jen popisek bíle místo černé, slovo STRAVA zůstává oficiální oranžová #FC5200)
 - [x] StravaBadge používá v tmavém režimu tyto varianty (dřív čistě bílé), ve světlém bez změny
 - [x] Ověřeno: tmavý režim volí new asset, raster na tmavém pozadí = bílý popisek + oranžové STRAVA; typecheck čistý
+
+## Revize UX (bez 1A)
+- [x] Lišta svěřenců s iniciálami a tečkou stavu dneška (Týden, Střelba)
+- [x] Zkratky T (dnes) a P (plán/skutečnost) v Týdnu
+- [x] Vibrace při zápisu rány na terči (mobil)
+- [x] EN překlad „Ø čas 1. rány"
+- [x] Vybraný sportovec je sdílený napříč záložkami (už existovalo)
+- [x] Odznak Stravy u spárovaných bloků (už existovalo)
+- [ ] Synchronizovaný crosshair + mini-karta v tooltipu + filtry 30/90 dní v Analytice
+- [ ] Týmový denní checklist v Týmu
+- [ ] Kopírování tréninku do jiného dne/sportovce, šablony pro skupinu
+- [ ] Optimistické ukládání s Ctrl+Z
+- [ ] Celoobrazovkový režim terče, tmavší texty pastelových štítků ve světlém režimu
