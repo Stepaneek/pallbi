@@ -14,10 +14,10 @@ describe("zeroing", () => {
   it("black diameters are 45 mm prone and 115 mm standing", () => {
     expect(BLACK_DIAMETER_MM).toEqual({ prone: 45, standing: 115 });
   });
-  it("accepts shots 1–10 and rejects the eleventh", () => {
+  it("accepts shots 1–5 and rejects the sixth", () => {
     let shots: { x: number; y: number }[] = [];
-    for (let i = 0; i < 10; i++) shots = appendZeroingShot(shots, { x: i, y: 0 });
-    expect(shots).toHaveLength(10);
+    for (let i = 0; i < 5; i++) shots = appendZeroingShot(shots, { x: i, y: 0 });
+    expect(shots).toHaveLength(5);
     expect(appendZeroingShot(shots, { x: 99, y: 99 })).toEqual(shots);
   });
   it("rounds clock direction to half hours", () => {
