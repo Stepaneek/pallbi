@@ -24,9 +24,9 @@ import { isSeasonSeedBlock } from "@/lib/seasonSeed";
 
 type Block = Database["public"]["Tables"]["training_blocks"]["Row"];
 
-const COLOR_CTL = "#3B82F6";
-const COLOR_ATL = "#EF4444";
-const COLOR_TSB = "#84CC16";
+const COLOR_CTL = "#60A5FA";
+const COLOR_ATL = "#FB7185";
+const COLOR_TSB = "#A3E635";
 
 const STATE_CLASS: Record<string, string> = {
   fresh: "text-sky-600 dark:text-sky-400",
