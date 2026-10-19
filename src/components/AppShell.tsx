@@ -55,45 +55,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
     return () => { cancelled = true; };
   }, [user?.id]);
 
-  const { sync } = useStravaSync(user?.id);
-  const syncingRef = useRef(false);
-  useEffect(() => {
-    if (!user?.id) return;
-    const KEY = "strava_last_sync_v4";
-    const INTERVAL_MS = 4 * 60 * 60 * 1000; // 4 h
-    const TICK_MS = 5 * 60 * 1000; // check every 5 min
-
-    const maybeSync = async () => {
-      if (syncingRef.current) return;
-      const last = Number(localStorage.getItem(KEY) || 0);
-      if (Date.now() - last < INTERVAL_MS) return;
-      syncingRef.current = true;
-      const toastId = toast.loading(t("strava.syncing"));
-      try {
-        const result = await sync(true);
-        if (result === "ok") {
-          localStorage.setItem(KEY, String(Date.now()));
-          toast.success(t("strava.synced"), { id: toastId });
-        } else {
-          toast.dismiss(toastId);
-        }
-      } finally {
-        syncingRef.current = false;
-      }
-    };
-
-    maybeSync();
-    const intervalId = window.setInterval(() => { maybeSync(); }, TICK_MS);
-    const onVisibility = () => {
-      if (document.visibilityState === "visible") { maybeSync(); }
-    };
-    document.addEventListener("visibilitychange", onVisibility);
-
-    return () => {
-      window.clearInterval(intervalId);
-      document.removeEventListener("visibilitychange", onVisibility);
-    };
-  }, [user?.id, sync, t]);
+  // Strava sync no longer runs automatically on app start; users trigger it manually in Profile.
 
   const roleLabel = isCoach && isAthlete ? t("roles.athleteCoach") : isCoach ? t("roles.coach") : t("roles.athlete");
 
