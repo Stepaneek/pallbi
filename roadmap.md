@@ -19,3 +19,11 @@
 - [x] Mezery mezi týdny (barCategoryGap + maxBarSize), segmenty u sebe bez spár
 - [x] Pastelové barvy ze 2. verze zachovány beze změny
 - [x] Ověřeno v náhledu (29 sloupců, všechny s čepičkou, spoje ploché) + typecheck čistý
+
+## Světlý režim: výraznější kontrast — hotovo
+- [x] Nový token --canvas = #E2E8F0 (šedé pozadí aplikace); --background zůstává bílý pro povrchy (inputs, dialogy, popisky, záložky)
+- [x] Tělo stránky (body) + AppShell, Auth, AcceptInvite, Terms, Privacy používají bg-canvas
+- [x] --border/--input = #CBD5E1 (slate-300), karty bílé s viditelným okrajem a středně silným stínem (.card-shadow)
+- [x] Týdenní tabulka: bílé tělo, šedé hlavičky (bg-muted), šedý nádech sloupce Celkem, zaoblení + shadow-md
+- [x] Popisek VOLNÁ v grafech čitelný (--zone-volna v light = #94A3B8)
+- [x] Ověřeno v náhledu (light: body #E2E8F0, karta bílá s #CBD5E1; dark beze změny) + typecheck čistý

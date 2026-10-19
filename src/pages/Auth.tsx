@@ -160,7 +160,7 @@ export default function Auth() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col bg-background">
+    <div className="flex min-h-screen flex-col bg-canvas">
       <div className="flex justify-end px-4 pt-4 md:px-8">
         <LanguageSwitcher />
       </div>
@@ -185,7 +185,7 @@ export default function Auth() {
             </p>
           </div>
 
-          <div className="rounded-xl border bg-card p-6 shadow-sm">
+          <div className="rounded-2xl border border-border bg-card p-6 card-shadow">
             {recoveryMode ? (
               <form onSubmit={handleSetNewPassword} className="space-y-4">
                 <div>

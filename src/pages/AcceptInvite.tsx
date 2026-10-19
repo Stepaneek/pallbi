@@ -16,8 +16,8 @@ export default function AcceptInvite() {
   }, [token]);
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-background">
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-background to-background" />
+    <div className="relative min-h-screen overflow-hidden bg-canvas">
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-canvas to-canvas" />
       <div className="relative flex min-h-screen items-center justify-center px-4 py-10">
         <Card className="w-full max-w-md p-6 text-center shadow-sm">
           <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-primary text-primary-foreground">
