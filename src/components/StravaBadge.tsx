@@ -12,9 +12,11 @@ type Props = { variant?: "powered" | "compatible"; className?: string };
 export default function StravaBadge({ variant = "powered", className }: Props) {
   const { theme } = useTheme();
   const compatible = variant === "compatible";
+  // Dark surfaces: white secondary text with the official orange wordmark.
+  // Light surfaces: official black/orange two-tone artwork.
   const asset = compatible
-    ? theme === "dark" ? compatibleWhite : compatibleOrange
-    : theme === "dark" ? poweredWhite : poweredOrange;
+    ? theme === "dark" ? compatibleOrangeDark : compatibleOrange
+    : theme === "dark" ? poweredOrangeDark : poweredOrange;
   const label = compatible ? "Compatible with Strava" : "Powered by Strava";
   return (
     <a href="https://www.strava.com" target="_blank" rel="noopener noreferrer" aria-label={label}
