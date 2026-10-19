@@ -1,5 +1,11 @@
 # Roadmap
 
+## UX vylepšení: dnešek, prázdné stavy, skeletony — rozpracováno
+- [ ] Zvýraznění dnešního dne v týdenním přehledu (Week day strip + WeeklyPlanOverview)
+- [ ] Komponenta EmptyState (ikona, text, akce) — Tým, Historie střelby, Analytika (donut)
+- [ ] Skeleton loadery — Week (přepínání týdnů), Tým, Historie střelby, Analytika (statistiky + grafy)
+- [ ] Ověřit v náhledu + typecheck
+
 ## Modernizační redesign UI/UX — hotovo
 - [x] Karty: jemnější okraj, rounded-2xl, měkký stín (tokeny + card.tsx)
 - [x] Tmavý režim: jemnější, téměř neviditelný okraj karet
