@@ -1,4 +1,5 @@
 import i18n from "@/i18n";
+import { clockHour, isTargetHit, parseZeroingShots } from "@/lib/zeroing";
 
 export type Stance = "prone" | "standing";
 
@@ -77,6 +78,21 @@ export function collectShootingEntries(
   return out.sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0));
 }
 
+/** Digital entries remain separate from training blocks to avoid duplicate shot counts. */
+export function collectDigitalShootingEntries(sessions: {
+  session_date: string; stance: string; shots: unknown; intensity?: unknown;
+}[]): ShootingEntry[] {
+  return sessions.flatMap(session => {
+    const shots = parseZeroingShots(session.shots);
+    if (!shots.length) return [];
+    const stance: Stance = session.stance === "standing" ? "standing" : "prone";
+    const misses = shots.filter(shot => !isTargetHit(shot, stance));
+    return [{ date: session.session_date, stance, shots: shots.length, misses: misses.length,
+      miss_clock: misses.map(shot => Math.round(clockHour(shot) ?? 12) % 12 || 12),
+      intensity: isShootingIntensity(session.intensity) ? session.intensity : null }];
+  });
+}
+
 /** Count misses per clock direction (index 1..12 = o'clock). Index 0 is unused. */
 export function missDistribution(sets: ShootingSet[]): number[] {
   const counts = new Array(13).fill(0) as number[];
@@ -94,8 +110,9 @@ export function shootingStats(sets: ShootingSet[]) {
   let totalSum = 0;
   let totalN = 0;
   for (const s of sets) {
-    shots += DEFAULT_SHOTS;
-    misses += Math.min(DEFAULT_SHOTS, s.misses);
+    const shotCount = s.shots ?? DEFAULT_SHOTS;
+    shots += shotCount;
+    misses += Math.min(shotCount, Math.max(0, s.misses));
     if (s.first_shot_seconds != null) {
       firstSum += s.first_shot_seconds;
       firstN += 1;

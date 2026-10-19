@@ -12,6 +12,7 @@ import {
   ShootingEntry,
   Stance,
   collectShootingEntries,
+  collectDigitalShootingEntries,
   missDistribution,
   shootingStats,
   stanceLabel,
@@ -27,6 +28,7 @@ type Timeframe = "week" | "month" | "season";
 
 interface Props {
   blocks: Block[];
+  sessions: Database["public"]["Tables"]["shooting_sessions"]["Row"][];
   seasonStart: Date;
   seasonEnd: Date;
 }
@@ -170,7 +172,7 @@ function StanceSection({ stance, entries }: { stance: Stance; entries: ShootingE
   );
 }
 
-export default function ShootingAnalytics({ blocks, seasonStart, seasonEnd }: Props) {
+export default function ShootingAnalytics({ blocks, sessions, seasonStart, seasonEnd }: Props) {
   const { t } = useTranslation();
   const [timeframe, setTimeframe] = useState<Timeframe>("season");
   const [intensityFilter, setIntensityFilter] = useState<string>("all");
@@ -187,10 +189,15 @@ export default function ShootingAnalytics({ blocks, seasonStart, seasonEnd }: Pr
       const d = parseISO(b.block_date);
       return d >= range.start && d <= range.end;
     });
-    const all = collectShootingEntries(inRange as { block_date: string; shooting_sets?: unknown }[]);
+    const digital = sessions.filter(session => {
+      const d = parseISO(session.session_date);
+      return d >= range.start && d <= range.end;
+    });
+    const all = [...collectShootingEntries(inRange), ...collectDigitalShootingEntries(digital)]
+      .sort((a, b) => b.date.localeCompare(a.date));
     if (intensityFilter === "all") return all;
     return all.filter((e) => e.intensity === intensityFilter);
-  }, [blocks, range.start, range.end, intensityFilter]);
+  }, [blocks, sessions, range.start, range.end, intensityFilter]);
 
   const prone = useMemo(() => entries.filter((e) => e.stance === "prone"), [entries]);
   const standing = useMemo(() => entries.filter((e) => e.stance === "standing"), [entries]);
@@ -226,8 +233,12 @@ export default function ShootingAnalytics({ blocks, seasonStart, seasonEnd }: Pr
       </div>
 
       <Card className="dark:border-white/[0.08]">
-        <CardContent className="grid grid-cols-2 gap-2 p-3 md:grid-cols-5">
+        <CardContent className="grid grid-cols-2 gap-2 p-3 md:grid-cols-4">
           {[
+            { label: t("shooting.shots"), value: all.shots },
+            { label: t("zeroing.hits"), value: all.hits },
+            { label: t("shooting.misses"), value: all.misses },
+            { label: t("zeroing.missPercentage"), value: pct(all.shots ? all.misses / all.shots * 100 : null) },
             { label: `${t("shooting.accuracy")} — ${t("shooting.allStances")}`, value: pct(all.accuracy) },
             { label: `${t("shooting.accuracy")} — ${stanceLabel("prone")}`, value: pct(proneStats.accuracy) },
             { label: `${t("shooting.accuracy")} — ${stanceLabel("standing")}`, value: pct(standingStats.accuracy) },

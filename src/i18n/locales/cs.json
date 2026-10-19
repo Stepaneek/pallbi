@@ -1,5 +1,6 @@
 {
   "zeroing": {
+    "intensity": "Intenzita zátěže", "hits": "Zásahy", "missPercentage": "Podíl minel", "analyticsError": "Střelecké položky se nepodařilo načíst do analytiky.",
     "title": "Střelecký nástřel a záznamník", "new": "Nová položka", "history": "Historie",
     "target": "Terč · 50 m", "athlete": "Sportovec", "selectAthlete": "Vyberte sportovce", "unnamedAthlete": "Sportovec bez jména", "noAthlete": "Nejprve propojte účet se sportovcem v sekci Tým.",
     "date": "Datum", "type": "Druh střelby", "types": { "zeroing": "Nástřel", "training": "Trénink", "race": "Závod" },

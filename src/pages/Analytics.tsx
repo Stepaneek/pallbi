@@ -31,6 +31,7 @@ import { MetaData } from "@/hooks/useWeeklyMeta";
 import VolumeComparison from "@/components/analytics/VolumeComparison";
 import FitnessFatigue from "@/components/analytics/FitnessFatigue";
 import ShootingAnalytics from "@/components/analytics/ShootingAnalytics";
+import { useShootingSessions } from "@/hooks/useShootingSessions";
 import { parseShootingSets } from "@/lib/shooting";
 import { isSeasonSeedBlock } from "@/lib/seasonSeed";
 import { useTranslation } from "react-i18next";
@@ -158,6 +159,8 @@ export default function Analytics() {
     return { start, end };
   }, [season.start, season.end, last30Days, last12Weeks]);
 
+  const shootingSessions = useShootingSessions(viewingAthleteId, isoDate(fetchRange.start), isoDate(fetchRange.end));
+
   useEffect(() => {
     if (!viewingAthleteId) return;
     let cancelled = false;
@@ -190,8 +193,8 @@ export default function Analytics() {
   }, [viewingAthleteId, fetchRange.start.getTime(), fetchRange.end.getTime()]);
 
   const hasShooting = useMemo(
-    () => blocks.some((b) => parseShootingSets((b as { shooting_sets?: unknown }).shooting_sets).length > 0),
-    [blocks],
+    () => (shootingSessions.data?.length ?? 0) > 0 || blocks.some((b) => parseShootingSets((b as { shooting_sets?: unknown }).shooting_sets).length > 0),
+    [blocks, shootingSessions.data],
   );
 
   // ---------- STATISTIKY ----------
@@ -596,8 +599,9 @@ export default function Analytics() {
       <FitnessFatigue blocks={blocks} start={season.start} end={season.end} />
 
       {hasShooting && (
-        <ShootingAnalytics blocks={blocks} seasonStart={season.start} seasonEnd={season.end} />
+        <ShootingAnalytics blocks={blocks} sessions={shootingSessions.data ?? []} seasonStart={season.start} seasonEnd={season.end} />
       )}
+      {shootingSessions.isError && <p role="alert" className="text-destructive">{t("zeroing.analyticsError")}</p>}
 
       <VolumeComparison athleteId={viewingAthleteId ?? null} />
 

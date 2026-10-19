@@ -14,10 +14,10 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ZeroingTarget } from "./ZeroingTarget";
-import { appendZeroingShot, groupCenter, offsetMm, clockHour, formatClock, corrections, DEFAULT_CLICK_MM, MAX_ZEROING_SHOTS, type Shot, type ZeroStance } from "@/lib/zeroing";
+import { appendZeroingShot, groupCenter, offsetMm, clockHour, formatClock, parseZeroingShots, MAX_ZEROING_SHOTS, type Shot, type ZeroStance } from "@/lib/zeroing";
 
 type ItemType = "zeroing" | "training" | "race";
-const parseShots = (raw: unknown): Shot[] => Array.isArray(raw) ? raw.filter((s): s is Shot => !!s && typeof s === "object" && typeof s.x === "number" && typeof s.y === "number") : [];
+const parseShots = parseZeroingShots;
 const decimal = (n: number) => n.toFixed(1);
 
 export function ShootingZeroingView() {
@@ -30,11 +30,12 @@ export function ShootingZeroingView() {
   const [shots, setShots] = useState<Shot[]>([]);
   const [tab, setTab] = useState("zeroing");
   const [itemType, setItemType] = useState<ItemType>("zeroing");
+  const [intensity, setIntensity] = useState<string | null>(null);
   const [date, setDate] = useState(() => format(new Date(), "yyyy-MM-dd"));
   const [notes, setNotes] = useState("");
   const [saving, setSaving] = useState(false);
   const [page, setPage] = useState(0);
-  useEffect(() => { setShots([]); setNotes(""); setPage(0); }, [athleteId]);
+  useEffect(() => { setShots([]); setNotes(""); setIntensity(null); setPage(0); }, [athleteId]);
   const history = useQuery({
     queryKey: ["shooting-sessions", athleteId, page],
     enabled: !!athleteId && tab === "history",
@@ -47,26 +48,18 @@ export function ShootingZeroingView() {
     },
   });
   const center = groupCenter(shots);
-  const correctionText = (vertical: number, horizontal: number) => {
-    const parts = [];
-    if (vertical) parts.push(t(vertical > 0 ? "zeroing.up" : "zeroing.down", { count: Math.abs(vertical) }));
-    if (horizontal) parts.push(t(horizontal > 0 ? "zeroing.right" : "zeroing.left", { count: Math.abs(horizontal) }));
-    return parts.join(", ") || t("zeroing.noCorrection");
-  };
-  const fix = center ? corrections(center) : null;
   const save = async () => {
     if (!user || !athleteId || !center || !date || saving) return;
     setSaving(true);
     try {
-      const clicks = corrections(center);
       const { error } = await publicDb.from("shooting_sessions").insert({
         athlete_id: athleteId, author_id: user.id, session_date: date, item_type: itemType, stance,
         shots, center_x_mm: center.x, center_y_mm: center.y, offset_mm: offsetMm(center), clock_hour: clockHour(center),
-        click_mm: DEFAULT_CLICK_MM, clicks_vertical: clicks.vertical, clicks_horizontal: clicks.horizontal, notes: notes.trim() || null,
+        intensity: itemType === "training" ? intensity : null, notes: notes.trim() || null,
       });
       if (error) throw error;
       await client.invalidateQueries({ queryKey: ["shooting-sessions", athleteId] });
-      setShots([]); setNotes(""); setPage(0); setTab("history");
+      setShots([]); setNotes(""); setIntensity(null); setPage(0); setTab("history");
       toast.success(t("zeroing.saved"));
     } catch { toast.error(t("zeroing.saveError")); }
     finally { setSaving(false); }
@@ -87,6 +80,7 @@ export function ShootingZeroingView() {
             <div className="space-y-1.5"><Label htmlFor="zeroing-date">{t("zeroing.date")}</Label><Input id="zeroing-date" type="date" value={date} onChange={e => setDate(e.target.value)} disabled={saving} /></div>
             <div className="space-y-1.5"><Label htmlFor="zeroing-type">{t("zeroing.type")}</Label><Select value={itemType} onValueChange={v => setItemType(v as ItemType)} disabled={saving}><SelectTrigger id="zeroing-type"><SelectValue /></SelectTrigger><SelectContent>{(["zeroing", "training", "race"] as const).map(type => <SelectItem key={type} value={type}>{t(`zeroing.types.${type}`)}</SelectItem>)}</SelectContent></Select></div>
           </div>
+          {itemType === "training" && <div className="space-y-2"><Label>{t("zeroing.intensity")}</Label><div className="grid grid-cols-5 gap-1" role="group" aria-label={t("zeroing.intensity")}>{["i1", "i2", "i3", "i4", "i5"].map(value => <Button key={value} variant={intensity === value ? "default" : "outline"} disabled={saving} aria-pressed={intensity === value} onClick={() => setIntensity(value)}>{value.toUpperCase()}</Button>)}</div></div>}
           <div className="space-y-2"><Label>{t("zeroing.stance")}</Label><div className="grid grid-cols-2 gap-2">{(["prone", "standing"] as const).map(s => <Button key={s} variant={stance === s ? "default" : "outline"} className="h-auto min-h-14 flex-col gap-0.5 whitespace-normal" disabled={saving} aria-pressed={stance === s} onClick={() => { if (s !== stance) { setStance(s); setShots([]); } }}><span>{t(`zeroing.stances.${s}`)}</span><span className="text-xs font-normal">{s === "prone" ? "45" : "115"} mm</span></Button>)}</div></div>
           <div className="flex gap-2"><Button variant="outline" className="flex-1" disabled={!shots.length || saving} onClick={() => setShots(prev => prev.slice(0, -1))}><Undo2 />{t("zeroing.undo")}</Button><Button variant="outline" className="flex-1" disabled={!shots.length || saving} onClick={() => setShots([])}><RotateCcw />{t("zeroing.clear")}</Button></div>
           <div className="border-y py-4">
@@ -97,7 +91,6 @@ export function ShootingZeroingView() {
               <div className="flex justify-between gap-2"><dt className="text-muted-foreground">{t("zeroing.offset")}</dt><dd className="font-semibold">{center ? `${decimal(offsetMm(center))} mm` : "—"}</dd></div>
               <div className="flex justify-between gap-2"><dt className="text-muted-foreground">{t("zeroing.clock")}</dt><dd className="font-semibold">{center ? formatClock(clockHour(center)) : "—"}</dd></div>
             </dl>
-            <div className="mt-4 border-t pt-3"><p className="text-sm text-muted-foreground">{t("zeroing.correction")}</p><p className="mt-1 text-lg font-bold text-primary" aria-live="polite">{fix ? correctionText(fix.vertical, fix.horizontal) : "—"}</p><p className="mt-1 text-xs text-muted-foreground">{t("zeroing.calibration")}</p></div>
           </div>
           <div className="space-y-1.5"><Label htmlFor="zeroing-notes">{t("zeroing.notes")}</Label><Textarea id="zeroing-notes" value={notes} onChange={e => setNotes(e.target.value)} disabled={saving} rows={2} /></div>
           <Button className="w-full whitespace-normal" disabled={!center || !date || saving} onClick={save}>{saving ? <Loader2 className="animate-spin" /> : <Save />}{t(saving ? "zeroing.saving" : "zeroing.save")}</Button>
@@ -109,7 +102,7 @@ export function ShootingZeroingView() {
         </div>
       </div> : <div className="space-y-4">
         {history.isLoading ? <Loader2 className="h-6 w-6 animate-spin" /> : history.isError ? <div role="alert"><p>{t("zeroing.loadError")}</p><Button variant="outline" onClick={() => history.refetch()}>{t("zeroing.retry")}</Button></div> : !history.data?.rows.length ? <p className="py-12 text-center text-muted-foreground">{t("zeroing.emptyHistory")}</p> : history.data.rows.map(row => <details key={row.id} className="rounded-md border bg-card p-4">
-          <summary className="cursor-pointer"><span className="inline-flex flex-wrap items-center gap-x-5 gap-y-2 text-sm"><span className="font-semibold">{format(new Date(`${row.session_date}T12:00:00`), "dd.MM.yyyy")}</span><span>{t(`zeroing.types.${row.item_type}`)} · {t(`zeroing.stances.${row.stance}`)}</span><span>{parseShots(row.shots).length} {t("zeroing.shotsShort")} · {decimal(row.offset_mm)} mm · {formatClock(row.clock_hour)}</span><span className="font-semibold text-primary">{correctionText(row.clicks_vertical, row.clicks_horizontal)}</span></span></summary>
+          <summary className="cursor-pointer"><span className="inline-flex flex-wrap items-center gap-x-5 gap-y-2 text-sm"><span className="font-semibold">{format(new Date(`${row.session_date}T12:00:00`), "dd.MM.yyyy")}</span><span>{t(`zeroing.types.${row.item_type}`)} · {t(`zeroing.stances.${row.stance}`)}{row.intensity ? ` · ${row.intensity.toUpperCase()}` : ""}</span><span>{parseShots(row.shots).length} {t("zeroing.shotsShort")} · {decimal(row.offset_mm)} mm · {formatClock(row.clock_hour)}</span></span></summary>
           <div className="mt-4 grid gap-4 sm:grid-cols-2"><div className="max-w-[320px] overflow-hidden rounded-md"><ZeroingTarget stance={row.stance === "standing" ? "standing" : "prone"} shots={parseShots(row.shots)} /></div><div className="space-y-3 text-sm"><p>{t("zeroing.center")}: X {decimal(row.center_x_mm)}, Y {decimal(row.center_y_mm)} mm</p><ol className="space-y-1 tabular-nums">{parseShots(row.shots).map((s, i) => <li key={i}>#{i + 1}: X {decimal(s.x)}, Y {decimal(s.y)} mm</li>)}</ol>{row.notes && <p className="whitespace-pre-wrap break-words text-muted-foreground">{row.notes}</p>}</div></div>
         </details>)}
         {(history.data?.count ?? 0) > 20 && <div className="flex items-center justify-center gap-4"><Button variant="outline" disabled={page === 0} onClick={() => setPage(p => p - 1)}>{t("zeroing.previous")}</Button><span>{page + 1}</span><Button variant="outline" disabled={(page + 1) * 20 >= (history.data?.count ?? 0)} onClick={() => setPage(p => p + 1)}>{t("zeroing.next")}</Button></div>}
