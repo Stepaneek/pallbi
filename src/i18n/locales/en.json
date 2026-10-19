@@ -77,7 +77,8 @@
     "lightMode": "Switch to light mode",
     "darkMode": "Switch to dark mode",
     "language": "Language",
-    "team": "Team"
+    "team": "Team",
+    "more": "More"
   },
   "roles": {
     "athlete": "Athlete",
@@ -720,7 +721,12 @@
     "useBikeZones": "Use separate zones for cycling",
     "bikeZones": "Heart rate zones – cycling",
     "bikeZonesHint": "Thresholds used for cycling activities instead of the general zones when computing time in zones.",
-    "bikeZonesSaved": "Cycling zones saved"
+    "bikeZonesSaved": "Cycling zones saved",
+    "proDiscount": "EARLY BIRD 33 % OFF",
+    "proB1": "Unlimited shooting & history",
+    "proB2": "Form analytics (TSB)",
+    "proB3": "Strava sync",
+    "proB4": "PDF exports"
   },
   "races": {
     "title": "Race calendar",

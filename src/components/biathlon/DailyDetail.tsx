@@ -59,22 +59,26 @@ function RatingRow({
         {hint && <span className="text-[10px] text-muted-foreground/70">{hint}</span>}
       </div>
       <div className="flex gap-1">
-        {[1, 2, 3, 4, 5].map((n) => (
+        {[1, 2, 3, 4, 5].map((n) => {
+          const tone = ["bg-emerald-500 border-emerald-500", "bg-lime-500 border-lime-500", "bg-amber-500 border-amber-500", "bg-orange-500 border-orange-500", "bg-red-500 border-red-500"][n - 1];
+          return (
           <button
             key={n}
             type="button"
             disabled={disabled}
             aria-label={`${label} ${n}`}
+            aria-pressed={value === n}
             onClick={() => onChange(value === n ? 0 : n)}
-            className={`h-7 w-7 rounded-md border text-xs font-semibold transition-colors ${
+            className={`h-7 w-7 rounded-md border text-xs font-semibold transition-all duration-150 ${
               value === n
-                ? "border-primary bg-primary text-primary-foreground"
+                ? `${tone} scale-110 text-primary-foreground shadow-md`
                 : "bg-background hover:bg-accent"
             } disabled:cursor-default disabled:opacity-60`}
           >
             {n}
           </button>
-        ))}
+          );
+        })}
       </div>
     </div>
   );

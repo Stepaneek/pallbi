@@ -64,30 +64,30 @@ const TYPE_STYLE: Record<
   { bar: string; dot: string; chip: string; ring: string; color: string }
 > = {
   zavod: {
-    bar: "bg-red-500 text-white",
+    bar: "border-l-[3px] border-red-500 bg-red-500/15 text-red-800 dark:text-red-200",
     dot: "bg-red-500",
-    chip: "bg-red-500 hover:bg-red-600 text-white",
+    chip: "border border-red-500/40 bg-red-500/15 text-red-800 hover:bg-red-500/25 dark:text-red-200",
     ring: "ring-red-700",
     color: "#EF4444",
   },
   soustredeni: {
-    bar: "bg-blue-500 text-white",
+    bar: "border-l-[3px] border-blue-500 bg-blue-500/15 text-blue-800 dark:text-blue-200",
     dot: "bg-blue-500",
-    chip: "bg-blue-500 hover:bg-blue-600 text-white",
+    chip: "border border-blue-500/40 bg-blue-500/15 text-blue-800 hover:bg-blue-500/25 dark:text-blue-200",
     ring: "ring-blue-700",
     color: "#3B82F6",
   },
   volno: {
-    bar: "bg-emerald-500 text-white",
+    bar: "border-l-[3px] border-emerald-500 bg-emerald-500/15 text-emerald-800 dark:text-emerald-200",
     dot: "bg-emerald-500",
-    chip: "bg-emerald-500 hover:bg-emerald-600 text-white",
+    chip: "border border-emerald-500/40 bg-emerald-500/15 text-emerald-800 hover:bg-emerald-500/25 dark:text-emerald-200",
     ring: "ring-emerald-700",
     color: "#22C55E",
   },
   ostatni: {
-    bar: "bg-violet-600 text-white",
+    bar: "border-l-[3px] border-violet-500 bg-violet-500/15 text-violet-800 dark:text-violet-200",
     dot: "bg-violet-600",
-    chip: "bg-violet-600 hover:bg-violet-700 text-white",
+    chip: "border border-violet-500/40 bg-violet-500/15 text-violet-800 hover:bg-violet-500/25 dark:text-violet-200",
     ring: "ring-violet-800",
     color: "#7C3AED",
   },

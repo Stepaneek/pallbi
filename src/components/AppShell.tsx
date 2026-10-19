@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
-import { Activity, Calendar, BarChart3, Trophy, User as UserIcon, LogOut, Moon, Sun, LineChart, MessageCircle, Users, Target } from "lucide-react";
+import { Activity, Calendar, BarChart3, Trophy, User as UserIcon, LogOut, Moon, Sun, LineChart, MessageCircle, Users, Target, MoreHorizontal } from "lucide-react";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { toast } from "sonner";
 import { useAuth } from "@/hooks/useAuth";
 import { useRole } from "@/hooks/useRole";
@@ -34,6 +35,10 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   const navigate = useNavigate();
   const [club, setClub] = useState<string | null>(null);
   const links = isCoach ? [baseLinks[0], baseLinks[1], coachLink, ...baseLinks.slice(2)] : baseLinks;
+  const primaryKeys = ["/", "/zeroing", isCoach ? "/team" : "/analytics", "/profile"];
+  const primaryLinks = primaryKeys.map((k) => links.find((l) => l.to === k)!).filter(Boolean);
+  const secondaryLinks = links.filter((l) => !primaryKeys.includes(l.to));
+  const moreActive = secondaryLinks.some((l) => l.to === location.pathname);
 
   useEffect(() => {
     let cancelled = false;
@@ -177,33 +182,52 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         </div>
       </footer>
 
-      <nav className="fixed bottom-0 left-0 right-0 z-40 overflow-x-auto border-t bg-card/95 backdrop-blur xl:hidden">
-        <div className="mx-auto grid min-w-max max-w-7xl" style={{ gridTemplateColumns: `repeat(${links.length + 1}, minmax(64px, 1fr))` }}>
-          {links.map(({ to, labelKey, icon: Icon }) => (
+      <nav className="fixed bottom-0 left-0 right-0 z-40 border-t bg-card/95 pb-[env(safe-area-inset-bottom)] backdrop-blur xl:hidden">
+        <div className="mx-auto grid max-w-xl grid-cols-5">
+          {primaryLinks.map(({ to, labelKey, icon: Icon }) => (
             <NavLink
               key={to}
               to={to}
               end={to === "/"}
               className={({ isActive }) =>
                 cn(
-                   "flex flex-col items-center gap-1 py-3 text-xs transition-colors",
-                   isActive ? "bg-primary text-primary-foreground" : "text-muted-foreground",
+                  "relative flex flex-col items-center gap-1 py-2.5 text-[11px] font-medium transition-colors",
+                  isActive ? "text-primary" : "text-muted-foreground",
                 )
               }
             >
-              <Icon className="h-5 w-5" />
-              {labelKey.startsWith("nav.") ? t(labelKey) : labelKey}
+              {({ isActive }) => (
+                <>
+                  <span className={cn("flex h-8 w-12 items-center justify-center rounded-full transition-all", isActive && "bg-primary/15 shadow-[0_0_16px_hsl(var(--primary)/0.35)]")}>
+                    <Icon className="h-5 w-5" />
+                  </span>
+                  <span className="truncate">{t(labelKey)}</span>
+                </>
+              )}
             </NavLink>
           ))}
-          <a
-            href="https://tally.so/r/gDzjYK"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex flex-col items-center gap-1 py-3 text-xs text-muted-foreground"
-          >
-            <MessageCircle className="h-5 w-5" />
-            {t("nav.feedback")}
-          </a>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <button type="button" className={cn("flex flex-col items-center gap-1 py-2.5 text-[11px] font-medium", moreActive ? "text-primary" : "text-muted-foreground")}>
+                <span className={cn("flex h-8 w-12 items-center justify-center rounded-full", moreActive && "bg-primary/15")}>
+                  <MoreHorizontal className="h-5 w-5" />
+                </span>
+                {t("nav.more", { defaultValue: "Více" })}
+              </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" side="top" className="w-52">
+              {secondaryLinks.map(({ to, labelKey, icon: Icon }) => (
+                <DropdownMenuItem key={to} onSelect={() => navigate(to)} className={cn("gap-2 py-2.5", location.pathname === to && "text-primary")}>
+                  <Icon className="h-4 w-4" /> {t(labelKey)}
+                </DropdownMenuItem>
+              ))}
+              <DropdownMenuItem asChild className="gap-2 py-2.5">
+                <a href="https://tally.so/r/gDzjYK" target="_blank" rel="noopener noreferrer">
+                  <MessageCircle className="h-4 w-4" /> {t("nav.feedback")}
+                </a>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       </nav>
     </div>
