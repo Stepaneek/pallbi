@@ -178,7 +178,7 @@
   }
 
   /* PallBi data tables: row hover highlight (wins over sticky bg-card/bg-muted cells) */
-  .pallbi-table td { transition: background-color 0.15s ease; }
+  .pallbi-table td { transition: background-color 0.15s ease; font-variant-numeric: tabular-nums; }
   .pallbi-table thead th { background-color: hsl(var(--muted)); color: hsl(var(--foreground)); }
   .pallbi-table .data-row:hover > td {
     background-color: hsl(214 95% 97%);
