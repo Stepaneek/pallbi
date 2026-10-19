@@ -306,12 +306,16 @@ export type Database = {
           clicks_vertical: number
           clock_hour: number | null
           created_at: string
+          hits_count: number | null
           id: string
+          intensity: string | null
           item_type: string
+          misses_count: number | null
           notes: string | null
           offset_mm: number
           session_date: string
           shots: Json
+          shots_count: number | null
           stance: string
         }
         Insert: {
@@ -324,12 +328,16 @@ export type Database = {
           clicks_vertical?: number
           clock_hour?: number | null
           created_at?: string
+          hits_count?: number | null
           id?: string
+          intensity?: string | null
           item_type?: string
+          misses_count?: number | null
           notes?: string | null
           offset_mm?: number
           session_date?: string
           shots: Json
+          shots_count?: number | null
           stance: string
         }
         Update: {
@@ -342,12 +350,16 @@ export type Database = {
           clicks_vertical?: number
           clock_hour?: number | null
           created_at?: string
+          hits_count?: number | null
           id?: string
+          intensity?: string | null
           item_type?: string
+          misses_count?: number | null
           notes?: string | null
           offset_mm?: number
           session_date?: string
           shots?: Json
+          shots_count?: number | null
           stance?: string
         }
         Relationships: [
@@ -645,6 +657,10 @@ export type Database = {
       }
       redeem_coach_invite: { Args: { _token: string }; Returns: Json }
       reload_public_schema_cache: { Args: never; Returns: Json }
+      shooting_session_hits: {
+        Args: { _shots: Json; _stance: string }
+        Returns: number
+      }
     }
     Enums: {
       app_role: "athlete" | "coach"
