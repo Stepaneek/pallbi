@@ -1,13 +1,11 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { Activity, Calendar, BarChart3, Trophy, User as UserIcon, LogOut, Moon, Sun, LineChart, MessageCircle, Users, Target, MoreHorizontal } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { toast } from "sonner";
 import { useAuth } from "@/hooks/useAuth";
 import { useRole } from "@/hooks/useRole";
 import { useTheme } from "@/hooks/useTheme";
-import { useStravaSync } from "@/hooks/useStravaSync";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { supabase } from "@/integrations/supabase/client";
@@ -55,45 +53,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
     return () => { cancelled = true; };
   }, [user?.id]);
 
-  const { sync } = useStravaSync(user?.id);
-  const syncingRef = useRef(false);
-  useEffect(() => {
-    if (!user?.id) return;
-    const KEY = "strava_last_sync_v4";
-    const INTERVAL_MS = 4 * 60 * 60 * 1000; // 4 h
-    const TICK_MS = 5 * 60 * 1000; // check every 5 min
-
-    const maybeSync = async () => {
-      if (syncingRef.current) return;
-      const last = Number(localStorage.getItem(KEY) || 0);
-      if (Date.now() - last < INTERVAL_MS) return;
-      syncingRef.current = true;
-      const toastId = toast.loading(t("strava.syncing"));
-      try {
-        const result = await sync(true);
-        if (result === "ok") {
-          localStorage.setItem(KEY, String(Date.now()));
-          toast.success(t("strava.synced"), { id: toastId });
-        } else {
-          toast.dismiss(toastId);
-        }
-      } finally {
-        syncingRef.current = false;
-      }
-    };
-
-    maybeSync();
-    const intervalId = window.setInterval(() => { maybeSync(); }, TICK_MS);
-    const onVisibility = () => {
-      if (document.visibilityState === "visible") { maybeSync(); }
-    };
-    document.addEventListener("visibilitychange", onVisibility);
-
-    return () => {
-      window.clearInterval(intervalId);
-      document.removeEventListener("visibilitychange", onVisibility);
-    };
-  }, [user?.id, sync, t]);
+  // Strava sync no longer runs automatically on app start; users trigger it manually in Profile.
 
   const roleLabel = isCoach && isAthlete ? t("roles.athleteCoach") : isCoach ? t("roles.coach") : t("roles.athlete");
 
