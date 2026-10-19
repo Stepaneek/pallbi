@@ -329,6 +329,7 @@ export default function Week() {
 
   return (
     <div className="space-y-4">
+      {athletes.length > 1 && <AthleteBar athletes={athletes} value={athleteId} onChange={setViewingAthleteId} />}
 
 
       {/* Top toolbar */}
