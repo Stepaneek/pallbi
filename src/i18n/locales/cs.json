@@ -1,5 +1,16 @@
 {
+  "zeroing": {
+    "title": "Střelecký nástřel a záznamník", "new": "Nová položka", "history": "Historie",
+    "target": "Terč · 50 m", "athlete": "Sportovec", "selectAthlete": "Vyberte sportovce", "unnamedAthlete": "Sportovec bez jména", "noAthlete": "Nejprve propojte účet se sportovcem v sekci Tým.",
+    "date": "Datum", "type": "Druh střelby", "types": { "zeroing": "Nástřel", "training": "Trénink", "race": "Závod" },
+    "stance": "Poloha", "stances": { "prone": "Ležka", "standing": "Stoje" }, "undo": "Zpět", "clear": "Vyčistit",
+    "results": "Výsledky položky", "shotCount": "Počet ran", "center": "Střední zásah", "offset": "Vzdálenost od středu", "clock": "Hodinová odchylka", "correction": "Doporučená korekce",
+    "up": "{{count}} nahoru", "down": "{{count}} dolů", "left": "{{count}} doleva", "right": "{{count}} doprava", "noCorrection": "Bez korekce",
+    "calibration": "1 klik = 1,5 mm na 50 m", "notes": "Poznámka (volitelná)", "save": "Uložit položku do deníku", "saving": "Ukládám…", "saved": "Položka uložena do deníku.", "saveError": "Položku se nepodařilo uložit. Zkuste to znovu.",
+    "shots": "Zaznamenané rány", "shotsShort": "ran", "noShots": "Žádné rány", "loadError": "Historii se nepodařilo načíst.", "retry": "Zkusit znovu", "emptyHistory": "Zatím žádné uložené položky.", "previous": "Předchozí", "next": "Další"
+  },
   "nav": {
+    "zeroing": "Střelba",
     "week": "Týden",
     "summary": "Souhrn",
     "analytics": "Analytika",

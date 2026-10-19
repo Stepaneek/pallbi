@@ -1,5 +1,16 @@
 {
+  "zeroing": {
+    "title": "Shooting zeroing and log", "new": "New entry", "history": "History",
+    "target": "Target · 50 m", "athlete": "Athlete", "selectAthlete": "Select an athlete", "unnamedAthlete": "Unnamed athlete", "noAthlete": "Link an athlete in the Team section first.",
+    "date": "Date", "type": "Shooting type", "types": { "zeroing": "Zeroing", "training": "Training", "race": "Race" },
+    "stance": "Position", "stances": { "prone": "Prone", "standing": "Standing" }, "undo": "Undo", "clear": "Clear",
+    "results": "Entry results", "shotCount": "Shot count", "center": "Center of impact", "offset": "Distance from center", "clock": "Clock direction", "correction": "Recommended correction",
+    "up": "{{count}} up", "down": "{{count}} down", "left": "{{count}} left", "right": "{{count}} right", "noCorrection": "No correction",
+    "calibration": "1 click = 1.5 mm at 50 m", "notes": "Notes (optional)", "save": "Save entry to diary", "saving": "Saving…", "saved": "Entry saved to diary.", "saveError": "Could not save the entry. Please try again.",
+    "shots": "Recorded shots", "shotsShort": "shots", "noShots": "No shots", "loadError": "Could not load history.", "retry": "Try again", "emptyHistory": "No saved entries yet.", "previous": "Previous", "next": "Next"
+  },
   "nav": {
+    "zeroing": "Shooting",
     "week": "Week",
     "summary": "Summary",
     "analytics": "Analytics",
