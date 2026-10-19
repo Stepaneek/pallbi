@@ -36,6 +36,13 @@
       "when": 1792390396502,
       "tag": "0004_create_shooting_sessions",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1792391036805,
+      "tag": "0005_shooting_session_intensity_and_accuracy",
+      "breakpoints": true
     }
   ]
 }

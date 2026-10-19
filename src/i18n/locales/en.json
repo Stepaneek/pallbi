@@ -1,5 +1,6 @@
 {
   "zeroing": {
+    "intensity": "Training intensity", "hits": "Hits", "missPercentage": "Miss percentage", "analyticsError": "Could not load shooting log entries for analytics.",
     "title": "Shooting zeroing and log", "new": "New entry", "history": "History",
     "target": "Target · 50 m", "athlete": "Athlete", "selectAthlete": "Select an athlete", "unnamedAthlete": "Unnamed athlete", "noAthlete": "Link an athlete in the Team section first.",
     "date": "Date", "type": "Shooting type", "types": { "zeroing": "Zeroing", "training": "Training", "race": "Race" },

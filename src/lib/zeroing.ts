@@ -20,6 +20,16 @@ export function groupCenter(shots: Shot[]): Shot | null {
 
 export const offsetMm = (p: Shot) => Math.hypot(p.x, p.y);
 
+export function isTargetHit(shot: Shot, stance: ZeroStance): boolean {
+  return offsetMm(shot) <= BLACK_DIAMETER_MM[stance] / 2;
+}
+
+export function parseZeroingShots(raw: unknown): Shot[] {
+  if (!Array.isArray(raw)) return [];
+  return raw.filter((s): s is Shot => !!s && typeof s === "object" &&
+    typeof s.x === "number" && Number.isFinite(s.x) && typeof s.y === "number" && Number.isFinite(s.y));
+}
+
 /** Clock direction 1–12 rounded to half hours (12 = straight up, 3 = right). */
 export function clockHour(p: Shot): number | null {
   if (offsetMm(p) < 0.5) return null;
