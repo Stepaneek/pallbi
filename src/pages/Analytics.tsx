@@ -61,6 +61,47 @@ const KM_SPORTS: { key: Sport; label: string; color: string }[] = [
   { key: "ostatni", label: SPORT_ROW_LABEL.ostatni, color: SPORT_COLOR.ostatni },
 ];
 
+// ---- Sloupcový graf "Kilometry v čase": vzhled sloupců ----
+// Rohy se zaoblijí jen nahoře (u horního segmentu stohu), takže sloupec vypadá
+// jako jeden zaoblený celek a přitom přesně sedí na ose.
+const KM_BAR_RADIUS = 7;
+const KM_BAR_MAX_SIZE = 36;
+
+type KmBarShapeProps = {
+  x?: number;
+  y?: number;
+  width?: number;
+  height?: number;
+  fill?: string;
+  index?: number | string;
+  payload?: Record<string, string | number>;
+};
+
+function kmStackedBarShape(
+  props: KmBarShapeProps,
+  dataKey: Sport,
+  data?: { [key: string]: string | number }[],
+) {
+  const x = Number(props.x) || 0;
+  const y = Number(props.y) || 0;
+  const w = Number(props.width) || 0;
+  const h = Number(props.height) || 0;
+  if (w <= 0 || h <= 0) return <g />;
+
+  const row = props.payload ?? data?.[Number(props.index)] ?? {};
+  // horní segment stohu = poslední sport s nenulovou hodnotou v pořadí Bar
+  let topKey: Sport | null = null;
+  for (const s of KM_SPORTS) if (Number(row[s.key]) > 0) topKey = s.key;
+
+  const r = topKey === dataKey ? Math.min(KM_BAR_RADIUS, w / 2, h) : 0;
+  const d =
+    r > 0
+      ? `M${x},${y + h}L${x},${y + r}Q${x},${y} ${x + r},${y}L${x + w - r},${y}Q${x + w},${y} ${x + w},${y + r}L${x + w},${y + h}Z`
+      : `M${x},${y}L${x + w},${y}L${x + w},${y + h}L${x},${y + h}Z`;
+  return <path d={d} fill={props.fill} stroke="none" />;
+}
+
+
 function blockSegments(b: Block): { zone: Zone; duration_minutes: number }[] {
   const raw = (b as unknown as { segments?: unknown }).segments;
   if (!Array.isArray(raw) || raw.length === 0) return [];
