@@ -1,18 +1,20 @@
 import { useTheme } from "@/hooks/useTheme";
 import { cn } from "@/lib/utils";
 import poweredOrange from "@/assets/strava/powered-orange.svg.asset.json";
-import poweredWhite from "@/assets/strava/powered-white.svg.asset.json";
+import poweredOrangeDark from "@/assets/strava/powered-orange-dark.svg.asset.json";
 import compatibleOrange from "@/assets/strava/compatible-orange.svg.asset.json";
-import compatibleWhite from "@/assets/strava/compatible-white.svg.asset.json";
+import compatibleOrangeDark from "@/assets/strava/compatible-orange-dark.svg.asset.json";
 
 type Props = { variant?: "powered" | "compatible"; className?: string };
 
 export default function StravaBadge({ variant = "powered", className }: Props) {
   const { theme } = useTheme();
   const compatible = variant === "compatible";
+  // Dark surfaces: white secondary text with the official orange wordmark.
+  // Light surfaces: official black/orange two-tone artwork.
   const asset = compatible
-    ? theme === "dark" ? compatibleWhite : compatibleOrange
-    : theme === "dark" ? poweredWhite : poweredOrange;
+    ? theme === "dark" ? compatibleOrangeDark : compatibleOrange
+    : theme === "dark" ? poweredOrangeDark : poweredOrange;
   const label = compatible ? "Compatible with Strava" : "Powered by Strava";
   return (
     <a href="https://www.strava.com" target="_blank" rel="noopener noreferrer" aria-label={label}
