@@ -37,17 +37,17 @@ export default function AthleteBar({ athletes, value, onChange }: { athletes: At
             title={`${a.name ?? "—"} · ${t(done ? "athleteBar.done" : "athleteBar.pending")}`}
             onClick={() => onChange(a.id)}
             className={cn(
-              "flex shrink-0 items-center gap-2.5 rounded-full border py-1.5 pl-1.5 pr-4 text-sm font-semibold transition-colors active:scale-95",
+              "flex shrink-0 items-center gap-2 rounded-full border py-1 pl-1 pr-3.5 text-[13px] font-semibold transition-colors active:scale-95",
               active ? "border-primary bg-primary/10 text-foreground" : "border-border bg-card text-muted-foreground hover:text-foreground",
             )}
           >
-            <span className="relative flex h-9 w-9 items-center justify-center rounded-full bg-muted text-xs font-bold text-foreground">
+            <span className="relative flex h-8 w-8 items-center justify-center rounded-full bg-muted text-[11px] font-bold text-foreground">
               {initials(a.name)}
               {status.data && (
-                <span className={cn("absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full border-2 border-card", done ? "bg-success" : "bg-warning")} />
+                <span className={cn("absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full border-2 border-card", done ? "bg-success" : "bg-warning")} />
               )}
             </span>
-            <span className="max-w-[160px] truncate">{a.name ?? "—"}</span>
+            <span className="max-w-[140px] truncate">{a.name ?? "—"}</span>
           </button>
         );
       })}
