@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -22,7 +23,7 @@ import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, Command
 import { toast } from "sonner";
 import { Switch } from "@/components/ui/switch";
 import { z } from "zod";
-import { Copy, Trash2, Check, ChevronsUpDown, RefreshCw, Unlink, HelpCircle } from "lucide-react";
+import { Copy, Trash2, Check, ChevronsUpDown, RefreshCw, Unlink, HelpCircle, Clock } from "lucide-react";
 import { IntensityLegend } from "@/lib/intensityText";
 import { useStravaSync } from "@/hooks/useStravaSync";
 import StravaBadge from "@/components/StravaBadge";
@@ -721,13 +722,36 @@ export default function Profile() {
             }
 
             return (
-              <div className="grid gap-3 sm:grid-cols-2">
-                <Button onClick={() => startCheckout("monthly")} disabled={subLoading}>
-                  {t("profile.monthlyPlanPrice")}
-                </Button>
-                <Button onClick={() => startCheckout("yearly")} disabled={subLoading} variant="secondary">
-                  {t("profile.yearlyPlanPrice")}
-                </Button>
+              <div className="space-y-4">
+                <Badge className="w-full justify-center gap-1.5 border-warning/45 bg-warning/15 py-1.5 text-warning sm:w-auto">
+                  <Clock className="h-3.5 w-3.5" />
+                  {t("profile.earlyBirdBadge")}
+                </Badge>
+                <div className="grid gap-3 sm:grid-cols-2">
+                  <Button
+                    onClick={() => startCheckout("monthly")}
+                    disabled={subLoading}
+                    className="h-auto flex-col items-start gap-1.5 py-3"
+                  >
+                    <span className="text-sm font-semibold">{t("profile.monthlyPlan")}</span>
+                    <span className="flex items-baseline gap-2">
+                      <span className="text-lg font-bold leading-none">{t("profile.monthlySale")}</span>
+                      <span className="text-xs font-normal leading-none line-through opacity-70">{t("profile.monthlyRegular")}</span>
+                    </span>
+                  </Button>
+                  <Button
+                    onClick={() => startCheckout("yearly")}
+                    disabled={subLoading}
+                    variant="secondary"
+                    className="h-auto flex-col items-start gap-1.5 py-3"
+                  >
+                    <span className="text-sm font-semibold">{t("profile.yearlyPlan")}</span>
+                    <span className="flex items-baseline gap-2">
+                      <span className="text-lg font-bold leading-none">{t("profile.yearlySale")}</span>
+                      <span className="text-xs font-normal leading-none line-through opacity-70">{t("profile.yearlyRegular")}</span>
+                    </span>
+                  </Button>
+                </div>
               </div>
             );
           })()}
