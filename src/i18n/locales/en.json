@@ -773,7 +773,15 @@
     "completion": "Completion",
     "sessions": "{{done}} of {{planned}} planned sessions",
     "openDiary": "Open diary",
-    "weekProgress": "Week progress"
+    "weekProgress": "Week progress",
+    "roster": {
+      "title": "Daily checklist",
+      "athlete": "Athlete",
+      "readiness": "Readiness",
+      "plan": "Plan",
+      "real": "Actual",
+      "shooting": "Shooting"
+    }
   },
   "pdf": {
     "planVsActual": "Plan vs. actual",
