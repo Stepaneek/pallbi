@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { Maximize2, X, Target, RotateCcw, Undo2, Save, History, Loader2, Trash2, BarChart3 } from "lucide-react";
