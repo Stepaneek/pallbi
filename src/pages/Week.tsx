@@ -363,11 +363,11 @@ export default function Week() {
               variant="ghost"
               size="sm"
               onClick={() => setPlanOrReal("plan")}
-              className={`h-7 flex-1 rounded px-3.5 text-xs sm:flex-none ${
+              className={`h-7 flex-1 rounded-lg px-3.5 text-xs sm:flex-none ${
 
                 planOrReal === "plan"
-                  ? "bg-primary text-primary-foreground shadow-sm hover:bg-primary/90 hover:text-primary-foreground"
-                  : "text-muted-foreground hover:bg-accent/60 hover:text-foreground"
+                  ? "btn-primary text-primary-foreground hover:text-primary-foreground"
+                   : "text-muted-foreground hover:bg-accent/60 hover:text-foreground"
               }`}
             >
               {t("common.plan")}
@@ -377,9 +377,9 @@ export default function Week() {
               variant="ghost"
               size="sm"
               onClick={() => setPlanOrReal("real")}
-              className={`h-7 flex-1 rounded px-3.5 text-xs sm:flex-none ${
+               className={`h-7 flex-1 rounded-lg px-3.5 text-xs sm:flex-none ${
                 planOrReal === "real"
-                  ? "bg-primary text-primary-foreground shadow-sm hover:bg-primary/90 hover:text-primary-foreground"
+                  ? "btn-primary text-primary-foreground hover:text-primary-foreground"
                   : "text-muted-foreground hover:bg-accent/60 hover:text-foreground"
               }`}
             >
