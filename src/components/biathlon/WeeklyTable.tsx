@@ -5,7 +5,7 @@ import { SPORT_COLOR, sportRowLabel, Sport } from "@/lib/sports";
 import { aggregateBlocks, totalByZone, rowSum, SPORT_TABLE_ORDER, aggregateKm, totalKmPerDay, aggregateMinutesForSport } from "@/lib/aggregate";
 import { seasonWeek, weekDays, isoDate, fmtMin } from "@/lib/week";
 import { TRAINING_ZONES, zoneLabel, Zone, zoneClass } from "@/lib/zones";
-import { MetaData, ensureArr } from "@/hooks/useWeeklyMeta";
+import { MetaData, ensureArr, regeneraceValue } from "@/hooks/useWeeklyMeta";
 
 type Block = Database["public"]["Tables"]["training_blocks"]["Row"];
 
@@ -58,25 +58,6 @@ export default function WeeklyTable({ weekStart, planOrReal, blocks, canEdit, me
           </tr>
         </thead>
         <tbody className="[&>tr:nth-child(even)]:bg-muted/50">
-          {/* Counter rows */}
-          {([
-            ["NEMOC", "table.nemoc"],
-            ["BIA.START", "table.biaStart"],
-          ] as const).map(([key, labelKey]) => (
-            <CounterRow key={key} label={t(labelKey)}
-              values={ensureArr(meta[key])}
-              onChange={(d, v) => setMetaCell(key, d, v)}
-              canEdit={canEdit} selectedDayIndex={selectedDayIndex} />
-          ))}
-
-          <SectionRow label={t("table.regeneration")} />
-          <CounterRow label={t("table.regActive")} indent
-            values={ensureArr(meta["REG.aktivni"])}
-            onChange={(d, v) => setMetaCell("REG.aktivni", d, v)} canEdit={canEdit} selectedDayIndex={selectedDayIndex} />
-          <CounterRow label={t("table.regPassive")} indent
-            values={ensureArr(meta["REG.pasivni"])}
-            onChange={(d, v) => setMetaCell("REG.pasivni", d, v)} canEdit={canEdit} selectedDayIndex={selectedDayIndex} />
-
           <SectionRow label={t("table.loadHours")} />
           <ZoneRow label={zoneLabel("VOLNA")} zone="VOLNA" values={zoneTotals.VOLNA} selectedDayIndex={selectedDayIndex} />
           {TRAINING_ZONES.map((z) => (
@@ -89,6 +70,16 @@ export default function WeeklyTable({ weekStart, planOrReal, blocks, canEdit, me
             )}
             selectedDayIndex={selectedDayIndex}
           />
+
+          <CounterRow label={t("table.regeneration")}
+            values={regeneraceValue(meta)}
+            onChange={(d, v) => setMetaCell("REG", d, v)} canEdit={canEdit} selectedDayIndex={selectedDayIndex} />
+          <CounterRow label={t("table.biaStart")}
+            values={ensureArr(meta["BIA.START"])}
+            onChange={(d, v) => setMetaCell("BIA.START", d, v)} canEdit={canEdit} selectedDayIndex={selectedDayIndex} />
+          <CounterRow label={t("table.nemoc")}
+            values={ensureArr(meta.NEMOC)}
+            onChange={(d, v) => setMetaCell("NEMOC", d, v)} canEdit={canEdit} selectedDayIndex={selectedDayIndex} />
 
           {/* Sport breakdowns */}
           {SPORT_TABLE_ORDER.map(({ key }) => (

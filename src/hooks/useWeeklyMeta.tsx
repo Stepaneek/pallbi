@@ -8,6 +8,8 @@ export type MetaData = {
   DZ?: number[]; JZ?: number[]; NEMOC?: number[]; ZO?: number[];
   "KT.START"?: number[]; "BIA.START"?: number[];
   "REG.aktivni"?: number[]; "REG.pasivni"?: number[];
+  /** Single merged recovery row (replaces the active/passive split). */
+  REG?: number[];
   "OSI.postura"?: number[]; "OSI.sila"?: number[];
   "SSI.I1"?: number[]; "SSI.I2"?: number[]; "SSI.I3"?: number[]; "SSI.I4"?: number[]; "SSI.I5"?: number[];
   "VN.klid"?: number[]; "VN.I12"?: number[]; "VN.I3"?: number[]; "VN.I45"?: number[]; "VN.suchy"?: number[];
@@ -21,6 +23,17 @@ const ZEROS = () => [0, 0, 0, 0, 0, 0, 0];
 export const ensureArr = (v: unknown): number[] => {
   if (Array.isArray(v) && v.length === 7) return v.map((x) => Number(x) || 0);
   return ZEROS();
+};
+
+/**
+ * Recovery row value: the merged REG key once it exists, otherwise the sum of
+ * the legacy active + passive rows so older weeks keep showing their numbers.
+ */
+export const regeneraceValue = (meta: MetaData): number[] => {
+  if (Array.isArray(meta.REG)) return ensureArr(meta.REG);
+  const active = ensureArr(meta["REG.aktivni"]);
+  const passive = ensureArr(meta["REG.pasivni"]);
+  return active.map((v, i) => v + (passive[i] || 0));
 };
 
 export function useWeeklyMeta(athleteId: string | null, weekStart: Date, planOrReal: "plan" | "real", canEdit: boolean) {
