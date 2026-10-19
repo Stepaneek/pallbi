@@ -49,7 +49,7 @@ export default function DailyRoster({ rows, blocks, dayIso, dayIndex, onOpen }: 
                       <span className="inline-flex items-center gap-1.5">
                         {real.length ? <Check className="h-4 w-4 shrink-0 text-success" /> : plan.length ? <Clock className="h-4 w-4 shrink-0 text-warning" /> : null}
                         {summary(real)}
-                        {real.some((b) => b.strava_activity_id) && <span className="text-xs font-semibold text-[hsl(var(--strava,20_100%_50%))]">Strava</span>}
+                        {real.some((b) => b.strava_activity_id) && <span className="text-xs font-semibold text-primary">Strava</span>}
                       </span>
                     </td>
                     <td className="whitespace-nowrap px-4 py-2.5 tabular-nums">{shots ? `${hits}/${shots} · ${Math.round((hits / shots) * 100)} %` : "—"}</td>
