@@ -25,16 +25,16 @@ export const SPORT_ROW_LABEL: Record<Sport, string> = {
   osi: "OSI",
 };
 
-// Bold, vibrant sport palette — distinguishable in both light and dark mode.
+// Modern, refined sport palette — softer premium shades, distinguishable in both light and dark mode.
 export const SPORT_COLOR: Record<Sport, string> = {
-  beh: "#EF4444",            // bold red-orange/coral
-  kolo: "#06B6D4",           // vibrant cyan
-  kolobezka_lyze: "#8B5CF6", // vivid purple
-  lyze: "#84CC16",           // bright lime
-  plavani: "#3B82F6",        // electric blue
-  ostatni: "#64748B",        // neutral slate
-  osi: "#F59E0B",            // vibrant amber
-  strelba: "#A1A1AA",        // muted zinc (rarely shown)
+  beh: "#FB7185",            // soft rose/coral
+  kolo: "#22D3EE",           // fresh cyan
+  kolobezka_lyze: "#A78BFA", // soft violet
+  lyze: "#A3E635",           // modern lime
+  plavani: "#60A5FA",        // soft sky blue
+  ostatni: "#94A3B8",        // light slate
+  osi: "#FBBF24",            // soft amber
+  strelba: "#9CA3AF",        // muted gray (rarely shown)
 };
 
 // Map Strava sport_type → our sport
