@@ -28,7 +28,7 @@ function monthsList(t: (k: string) => string): string[] {
   return Array.from({ length: 12 }, (_, i) => t(`analytics.volume.months.${i}`));
 }
 
-const SERIES_COLORS = ["#EF4444", "#06B6D4", "#8B5CF6", "#F59E0B", "#84CC16"];
+const SERIES_COLORS = ["#FB7185", "#22D3EE", "#A78BFA", "#FBBF24", "#A3E635"];
 const HOURS_COLOR = "#38bdf8"; // sky blue
 const KM_COLOR = "#ef4444"; // red
 
