@@ -249,7 +249,7 @@
     "dayOff": "Volno",
     "deleted": "Smazáno",
     "blockTotal": "Celkem",
-    "shortcutsHint": "← → přepínání dnů · N nový trénink"
+    "shortcutsHint": "← → dny · T dnes · P plán/skutečnost · N nový"
   },
   "table": {
     "nemoc": "NEMOC",
@@ -828,7 +828,9 @@
       "pripravna": "Přípravná"
     },
     "intensityAll": "Všechny intenzity",
-    "tableIntensity": "Intenzita"
+    "tableIntensity": "Intenzita",
+    "avgFirstShot": "Ø čas 1. rány",
+    "firstShotTime": "Čas 1. rány (s)"
   },
   "readiness": {
     "title": "Připravenost",
@@ -884,5 +886,10 @@
       "group": "Skupina",
       "custom": "Vybraní"
     }
+  },
+  "athleteBar": {
+    "done": "Dnes zapsáno",
+    "pending": "Dnes zatím nic",
+    "label": "Svěřenci"
   }
 }
