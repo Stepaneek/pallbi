@@ -174,8 +174,8 @@ function ZoneLabel({ zone, label }: { zone: Zone; label: string }) {
   };
   return (
     <span
-      className="inline-block px-1.5 py-0.5 text-[10px] font-bold"
-      style={{ color: colorMap[zone] }}
+      className="label-ink inline-block px-1.5 py-0.5 text-[10px] font-bold"
+      style={{ "--ink": colorMap[zone] } as React.CSSProperties}
     >
       {label}
     </span>
@@ -187,16 +187,17 @@ function SectionRow({ label, color }: { label: string; color?: string }) {
     <tr>
       <td
         colSpan={9}
-        className="sticky left-0 border-y border-border/80 bg-primary/10 px-2 py-2 text-[11px] font-bold uppercase tracking-wider text-primary dark:bg-slate-800/50"
+        className={`sticky left-0 border-y ${color ? "label-ink" : ""} border-border/80 bg-primary/10 px-2 py-2 text-[11px] font-bold uppercase tracking-wider text-primary dark:bg-slate-800/50`}
         style={
           color
             ? {
                 borderLeft: `4px solid ${color}`,
-                color,
+                "--ink": color,
                 backgroundColor: `${color}22`,
-              }
+              } as React.CSSProperties
             : undefined
         }
+       
       >
         {label}
       </td>

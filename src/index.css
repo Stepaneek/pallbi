@@ -217,3 +217,7 @@
 
 }
 
+
+/* Pastel accent text: darkened in light mode for legibility, original hue in dark mode. */
+.label-ink { color: color-mix(in srgb, var(--ink) 55%, hsl(222 47% 11%)); }
+.dark .label-ink { color: var(--ink); }
