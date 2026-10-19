@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-import { Target, RotateCcw, Undo2, Save, History, Loader2, Trash2 } from "lucide-react";
+import { Target, RotateCcw, Undo2, Save, History, Loader2, Trash2, BarChart3 } from "lucide-react";
+import { ShootingAnalyticsPanel } from "./ShootingAnalyticsPanel";
 import { toast } from "sonner";
 import { format } from "date-fns";
 import { useAuth } from "@/hooks/useAuth";
@@ -32,6 +33,7 @@ export function ShootingZeroingView() {
   const [stance, setStance] = useState<ZeroStance>("prone");
   const [shots, setShots] = useState<Shot[]>([]);
   const [tab, setTab] = useState("zeroing");
+  const [section, setSection] = useState<"record" | "analytics">("record");
   const [itemType, setItemType] = useState<ItemType>("zeroing");
   const [intensity, setIntensity] = useState<string | null>(null);
   const [date, setDate] = useState(() => format(new Date(), "yyyy-MM-dd"));
@@ -85,13 +87,16 @@ export function ShootingZeroingView() {
   return <section className="space-y-5">
     <div className="flex flex-wrap items-center justify-between gap-3 border-b pb-4">
       <h2 className="flex items-center gap-2 text-xl font-bold"><Target className="h-6 w-6 text-primary" />{t("zeroing.title")}</h2>
-      <Tabs value={tab} onValueChange={setTab}><TabsList><TabsTrigger value="zeroing">{t("zeroing.new")}</TabsTrigger><TabsTrigger value="history"><History className="mr-2 h-4 w-4" />{t("zeroing.history")}</TabsTrigger></TabsList></Tabs>
+      <Tabs value={section} onValueChange={v => setSection(v as "record" | "analytics")}><TabsList><TabsTrigger value="record"><History className="mr-2 h-4 w-4" />{t("zeroing.sectionRecord", { defaultValue: "Záznam & Historie" })}</TabsTrigger><TabsTrigger value="analytics"><BarChart3 className="mr-2 h-4 w-4" />{t("zeroing.sectionAnalytics", { defaultValue: "Střelecká analytika" })}</TabsTrigger></TabsList></Tabs>
     </div>
-    {isCoach && <div className="max-w-sm space-y-1.5"><Label htmlFor="zeroing-athlete">{t("zeroing.athlete")}</Label>
+    <div className="flex flex-wrap items-end justify-between gap-3">
+    {isCoach ? <div className="w-full max-w-sm space-y-1.5"><Label htmlFor="zeroing-athlete">{t("zeroing.athlete")}</Label>
       <Select value={athleteId ?? ""} onValueChange={setViewingAthleteId} disabled={saving || loading}><SelectTrigger id="zeroing-athlete"><SelectValue placeholder={t("zeroing.selectAthlete")} /></SelectTrigger>
         <SelectContent>{athletes.map(a => <SelectItem key={a.id} value={a.id}>{a.name ?? t("zeroing.unnamedAthlete")}</SelectItem>)}</SelectContent></Select>
-    </div>}
-    {loading ? <Loader2 className="h-6 w-6 animate-spin" /> : !athleteId ? <p className="text-muted-foreground">{t("zeroing.noAthlete")}</p> : tab === "zeroing" ?
+    </div> : <div />}
+    {section === "record" && <Tabs value={tab} onValueChange={setTab}><TabsList><TabsTrigger value="zeroing">{t("zeroing.new")}</TabsTrigger><TabsTrigger value="history">{t("zeroing.history")}</TabsTrigger></TabsList></Tabs>}
+    </div>
+    {loading ? <Loader2 className="h-6 w-6 animate-spin" /> : !athleteId ? <p className="text-muted-foreground">{t("zeroing.noAthlete")}</p> : section === "analytics" ? <ShootingAnalyticsPanel athleteId={athleteId} /> : tab === "zeroing" ?
       <div className="grid gap-6 lg:grid-cols-[minmax(260px,340px)_minmax(0,1fr)]">
         <div className="space-y-5">
           <div className="grid grid-cols-2 gap-3">

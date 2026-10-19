@@ -33,7 +33,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   const { theme, toggle } = useTheme();
   const navigate = useNavigate();
   const [club, setClub] = useState<string | null>(null);
-  const links = isCoach ? [baseLinks[0], coachLink, ...baseLinks.slice(1)] : baseLinks;
+  const links = isCoach ? [baseLinks[0], baseLinks[1], coachLink, ...baseLinks.slice(2)] : baseLinks;
 
   useEffect(() => {
     let cancelled = false;
