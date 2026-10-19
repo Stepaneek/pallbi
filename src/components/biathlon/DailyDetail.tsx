@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Database } from "@/integrations/supabase/types";
-import { sportLabel, Sport } from "@/lib/sports";
+import { sportLabel, Sport, SPORT_COLOR } from "@/lib/sports";
 import { dateLocale } from "@/lib/dateLocale";
 import { Zone, zoneBarClass, zoneShort } from "@/lib/zones";
 import { minutesToDuration, getBlockSegments } from "./BlockEditor";
@@ -135,6 +135,9 @@ export default function DailyDetail({ date, blocks, onAdd, onOpen, onCopy, canEd
                     const segs = getBlockSegments(b);
                     return (
                     <div key={b.id} className="group relative">
+                    {b.plan_or_real === "real" && (
+                      <span aria-hidden className="pointer-events-none absolute inset-y-1 left-0 z-10 w-[3px] rounded-r-full" style={{ background: SPORT_COLOR[b.sport as Sport] }} />
+                    )}
                     <button
                       type="button"
                       onClick={() => onOpen(b)}

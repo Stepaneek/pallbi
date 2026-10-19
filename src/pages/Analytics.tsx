@@ -646,7 +646,7 @@ export default function Analytics() {
           <div ref={kmScrollRef} className="h-full overflow-x-auto overflow-y-hidden px-4">
             <div style={{ width: chartInnerWidth }} className="h-full">
               <ResponsiveContainer width="100%" height="100%">
-                <BarChart syncId="season-weeks" data={kmData} barCategoryGap="20%" margin={{ top: 8, right: 16, left: 0, bottom: 0 }}>
+                <BarChart syncId="season-weeks" data={kmData} barCategoryGap="20%" margin={{ top: 8, right: 16, left: 16, bottom: 0 }}>
                   <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
                   <XAxis dataKey="week" stroke="hsl(var(--muted-foreground))" fontSize={12} tick={<WeekTick />} height={40} interval={0} />
                   <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} unit="km" />
