@@ -70,6 +70,11 @@ export default function Week() {
   const [events, setEvents] = useState<Array<{ id: string; event_type: string; title: string; start_date: string; end_date: string }>>([]);
   const [commentCounts, setCommentCounts] = useState<Record<string, number>>({});
   const [reloadKey, setReloadKey] = useState(0);
+  useEffect(() => {
+    const onSynced = () => { invalidateWeekCache(); setReloadKey((k) => k + 1); };
+    window.addEventListener("pallbi:strava-synced", onSynced);
+    return () => window.removeEventListener("pallbi:strava-synced", onSynced);
+  }, []);
   const [loadError, setLoadError] = useState<string | null>(null);
   const [blocksLoading, setBlocksLoading] = useState(false);
   const [dbTestResult, setDbTestResult] = useState<string | null>(null);

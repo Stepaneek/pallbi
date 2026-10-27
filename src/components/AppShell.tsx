@@ -6,6 +6,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { useAuth } from "@/hooks/useAuth";
 import { useRole } from "@/hooks/useRole";
 import { useTheme } from "@/hooks/useTheme";
+import { useStravaSync } from "@/hooks/useStravaSync";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { supabase } from "@/integrations/supabase/client";
@@ -28,6 +29,31 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   const location = useLocation();
   const { t } = useTranslation();
   const { user, signOut } = useAuth();
+  const { sync: stravaSync } = useStravaSync(user?.id);
+  useEffect(() => {
+    if (!user?.id) return;
+    const KEY = "strava_last_silent_sync";
+    const INTERVAL_MS = 30 * 60 * 1000;
+    let running = false;
+    const maybeSync = async () => {
+      if (running || document.visibilityState !== "visible") return;
+      if (Date.now() - Number(localStorage.getItem(KEY) || 0) < INTERVAL_MS) return;
+      running = true;
+      localStorage.setItem(KEY, String(Date.now()));
+      try {
+        const r = await stravaSync(true);
+        if (r === "ok") window.dispatchEvent(new Event("pallbi:strava-synced"));
+      } catch { /* silent */ } finally { running = false; }
+    };
+    const startId = window.setTimeout(maybeSync, 3000);
+    const intervalId = window.setInterval(maybeSync, 5 * 60 * 1000);
+    document.addEventListener("visibilitychange", maybeSync);
+    return () => {
+      window.clearTimeout(startId);
+      window.clearInterval(intervalId);
+      document.removeEventListener("visibilitychange", maybeSync);
+    };
+  }, [user?.id, stravaSync]);
   const { isCoach, isAthlete } = useRole();
   const { theme, toggle } = useTheme();
   const navigate = useNavigate();
