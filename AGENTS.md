@@ -1,4 +1,5 @@
 # Architecture rules
+- Coordinate automatic Strava imports through the browser lifecycle scheduler, record cooldowns only after success per user, and share in-flight imports across manual and automatic callers; this avoids failed-start lockouts and duplicate diary writes.
 - Keep zeroing math in lib/zeroing and reuse ZeroingTarget for entry and history; coordinate conversion must use the SVG screen matrix so recorded millimetres match the rendered target.
 - Store digital shooting entries in shooting_sessions with athlete/author ownership and linked-coach RLS; retain shooting_zeroings only as deprecated legacy storage.
 - Derive digital hit/miss counts in generated database columns and merge digital entries with block shooting sets only when reading analytics; this keeps statistics synchronized without duplicating diary records. Use actual digital shot counts and leave missing timings absent.

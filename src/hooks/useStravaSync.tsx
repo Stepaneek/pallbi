@@ -7,6 +7,7 @@ import type { Zone } from "@/lib/zones";
 
 const LAST_SYNC_KEY = "biathlon.lastStravaSync";
 const SYNC_INTERVAL_MS = 24 * 60 * 60 * 1000;
+const activeSyncs = new Map<string, Promise<SyncStatus>>();
 
 interface StravaActivity {
   id: number;
@@ -99,7 +100,7 @@ export type SyncStatus = "idle" | "syncing" | "ok" | "error" | "not_connected";
 export function useStravaSync(athleteId: string | undefined, onChange?: () => void) {
   const [status, setStatus] = useState<SyncStatus>("idle");
 
-  const sync = useCallback(async (force = false): Promise<SyncStatus> => {
+  const performSync = useCallback(async (force = false): Promise<SyncStatus> => {
     if (!athleteId) return "idle";
 
     if (!force) {
@@ -141,7 +142,9 @@ export function useStravaSync(athleteId: string | undefined, onChange?: () => vo
         const free = num(p?.[prefix === "" ? "max_hr_free" : "bike_max_hr_free"]);
         const i = [1, 2, 3, 4, 5].map((n) => num(p?.[`${prefix}hr_i${n}_max`]));
         if (i.some((v) => v == null)) return null;
-        return { vol: free, i1: i[0]!, i2: i[1]!, i3: i[2]!, i4: i[3]!, i5: i[4]! };
+        const [i1, i2, i3, i4, i5] = i;
+        if (i1 == null || i2 == null || i3 == null || i4 == null || i5 == null) return null;
+        return { vol: free, i1, i2, i3, i4, i5 };
       };
       const th = build("");
       const bikeTh = p?.use_bike_hr_zones === true ? build("bike_") : null;
@@ -336,8 +339,26 @@ export function useStravaSync(athleteId: string | undefined, onChange?: () => vo
     }
   }, [athleteId, onChange]);
 
-  // Auto-sync disabled — Strava sync only runs when explicitly triggered
-  // (e.g. manual button), capped at once per 24h via SYNC_INTERVAL_MS.
+  const sync = useCallback(async (force = false): Promise<SyncStatus> => {
+    if (!athleteId) return "idle";
+    const active = activeSyncs.get(athleteId);
+    if (active) {
+      setStatus("syncing");
+      const result = await active;
+      setStatus(result);
+      onChange?.();
+      return result;
+    }
+    const pending = performSync(force);
+    activeSyncs.set(athleteId, pending);
+    try {
+      const result = await pending;
+      if (result === "ok") window.dispatchEvent(new Event("pallbi:strava-synced"));
+      return result;
+    } finally {
+      activeSyncs.delete(athleteId);
+    }
+  }, [athleteId, performSync, onChange]);
 
   return { status, sync };
 }

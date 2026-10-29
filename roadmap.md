@@ -1,5 +1,9 @@
 # Roadmap
 
+## Automatická Strava na telefonu
+- [x] Opravit čekání po neúspěšné synchronizaci a návrat do mobilní aplikace; úspěšné kontroly po 5 minutách, chyby se opakují bez 30minutového blokování.
+- [x] Ověřit automatické stažení, obnovení týdne a regresní testy: 7 testů prošlo; mobilní náhled 390×844 skutečně stáhl Stravu (200), obnovil týden a zobrazil běh z 28. 10. bez ručního tlačítka či dialogu.
+
 ## UX vylepšení: dnešek, prázdné stavy, skeletony — hotovo
 - [x] Zvýraznění dnešního dne v týdenním přehledu (Week day strip: jemný modrý obrys + pozadí, když není vybraný; WeeklyPlanOverview: modrý okraj karty)
 - [x] Komponenta EmptyState (ikona, text, akce) — Tým (pozvání sportovce), Historie střelby („Přidat první záznam"), Analytika (donut bez dat); i18n cs/en (zeroing.emptyAction)
