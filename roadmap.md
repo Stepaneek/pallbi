@@ -1,5 +1,9 @@
 # Roadmap
 
+## Automatická Strava na telefonu
+- [ ] Opravit čekání po neúspěšné synchronizaci a návrat do mobilní aplikace.
+- [ ] Ověřit automatické stažení, obnovení týdne a regresní testy.
+
 ## UX vylepšení: dnešek, prázdné stavy, skeletony — hotovo
 - [x] Zvýraznění dnešního dne v týdenním přehledu (Week day strip: jemný modrý obrys + pozadí, když není vybraný; WeeklyPlanOverview: modrý okraj karty)
 - [x] Komponenta EmptyState (ikona, text, akce) — Tým (pozvání sportovce), Historie střelby („Přidat první záznam"), Analytika (donut bez dat); i18n cs/en (zeroing.emptyAction)
