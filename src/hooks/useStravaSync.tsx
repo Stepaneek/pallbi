@@ -314,12 +314,20 @@ export function useStravaSync(athleteId: string | undefined, onChange?: () => vo
             console.warn("Strava insert error:", insErr);
             setStatus("error"); return "error";
           }
+          // Show newly imported trainings immediately, before refreshing older ones.
+          window.dispatchEvent(new Event("pallbi:strava-synced"));
         }
 
-        for (const { id, row } of rowsToUpdate) {
-          const { error: updErr } = await withSchemaRetry(() =>
-            publicDb.from("training_blocks").update(row).eq("id", id).eq("athlete_id", athleteId),
+        const BATCH = 8;
+        for (let i = 0; i < rowsToUpdate.length; i += BATCH) {
+          const results = await Promise.all(
+            rowsToUpdate.slice(i, i + BATCH).map(({ id, row }) =>
+              withSchemaRetry(() =>
+                publicDb.from("training_blocks").update(row).eq("id", id).eq("athlete_id", athleteId),
+              ),
+            ),
           );
+          const updErr = results.find((r) => r.error)?.error;
           if (updErr) {
             console.warn("Strava update error:", updErr);
             setStatus("error"); return "error";
