@@ -763,7 +763,10 @@
     "date": "Termín:",
     "close": "Zavřít",
     "delete": "Smazat",
-    "more": "další"
+    "more": "další",
+    "edit": "Upravit",
+    "editEvent": "Upravit událost",
+    "eventUpdated": "Událost upravena"
   },
   "comments": {
     "title": "Komentáře trenéra",

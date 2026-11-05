@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { ChevronLeft, ChevronRight, Trash2, CalendarDays, FileDown } from "lucide-react";
+import { ChevronLeft, ChevronRight, Trash2, Pencil, CalendarDays, FileDown } from "lucide-react";
 import {
   addMonths,
   eachDayOfInterval,
@@ -268,18 +268,20 @@ export default function Races() {
       toast({ title: t("races.endBeforeStart"), variant: "destructive" });
       return;
     }
-    const { error } = await supabase.from("events").insert({
-      athlete_id: user.id,
+    const payload = {
       event_type: editing.event_type,
       title: editing.title,
       start_date: editing.start_date,
       end_date: editing.end_date,
-    });
+    };
+    const { error } = editing.id
+      ? await supabase.from("events").update(payload).eq("id", editing.id).eq("athlete_id", user.id)
+      : await supabase.from("events").insert({ ...payload, athlete_id: user.id });
     if (error) {
       toast({ title: t("races.saveError"), description: error.message, variant: "destructive" });
       return;
     }
-    toast({ title: t("races.eventAdded") });
+    toast({ title: editing.id ? t("races.eventUpdated", { defaultValue: "Událost upravena" }) : t("races.eventAdded") });
     setFormOpen(false);
     setEditing(null);
     load();
@@ -441,7 +443,7 @@ export default function Races() {
       <Dialog open={formOpen} onOpenChange={setFormOpen}>
         <DialogContent className="max-w-md">
           <DialogHeader>
-            <DialogTitle>{t("races.newEvent")}</DialogTitle>
+            <DialogTitle>{editing?.id ? t("races.editEvent", { defaultValue: "Upravit událost" }) : t("races.newEvent")}</DialogTitle>
           </DialogHeader>
           {editing && (
             <div className="grid gap-3 py-2">
@@ -541,6 +543,18 @@ export default function Races() {
             <Button variant="outline" onClick={() => setDetailOpen(false)}>
               {t("races.close")}
             </Button>
+            {canEdit && detail && (
+              <Button
+                variant="secondary"
+                onClick={() => {
+                  setEditing({ ...detail });
+                  setDetailOpen(false);
+                  setFormOpen(true);
+                }}
+              >
+                <Pencil className="mr-2 h-4 w-4" /> {t("races.edit", { defaultValue: "Upravit" })}
+              </Button>
+            )}
             <Button variant="destructive" onClick={handleDelete}>
               <Trash2 className="mr-2 h-4 w-4" /> {t("races.delete")}
             </Button>
