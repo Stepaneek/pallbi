@@ -763,7 +763,10 @@
     "date": "Date:",
     "close": "Close",
     "delete": "Delete",
-    "more": "more"
+    "more": "more",
+    "edit": "Edit",
+    "editEvent": "Edit event",
+    "eventUpdated": "Event updated"
   },
   "comments": {
     "title": "Coach feedback",
