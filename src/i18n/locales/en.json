@@ -766,7 +766,8 @@
     "more": "more",
     "edit": "Edit",
     "editEvent": "Edit event",
-    "eventUpdated": "Event updated"
+    "eventUpdated": "Event updated",
+    "includeFree": "Fill in free days between events"
   },
   "comments": {
     "title": "Coach feedback",

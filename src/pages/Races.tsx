@@ -36,6 +36,8 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuCheckboxItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { toast } from "@/hooks/use-toast";
@@ -120,6 +122,7 @@ export default function Races() {
   const [loading, setLoading] = useState(true);
   const [debugFetchLog, setDebugFetchLog] = useState<DebugFetchLog | null>(null);
   const [activeFilter, setActiveFilter] = useState<EventType | null>(null);
+  const [includeFree, setIncludeFree] = useState(false);
 
   const [formOpen, setFormOpen] = useState(false);
   const [editing, setEditing] = useState<Partial<CalEvent> | null>(null);
@@ -201,6 +204,7 @@ export default function Races() {
       title: t("races.title"),
       subtitle: label,
       events: monthEvents,
+      freeRange: includeFree ? { from: isoDate(startOfMonth(month)), to: isoDate(endOfMonth(month)) } : null,
       fileName: `pallbi-terminovka-${format(month, "yyyy-MM")}.pdf`,
     });
   };
@@ -210,6 +214,7 @@ export default function Races() {
       title: `${t("races.title")} – ${t("races.season", { defaultValue: "Sezóna" })} ${seasonStartYear}/${seasonStartYear + 1}`,
       subtitle: `1. 4. ${seasonStartYear} – 31. 3. ${seasonStartYear + 1}`,
       events: seasonEvents,
+      freeRange: includeFree ? { from: `${seasonStartYear}-04-01`, to: `${seasonStartYear + 1}-03-31` } : null,
       groupByMonth: true,
       monthLabel: (iso) => format(parseISO(iso), "LLLL yyyy", { locale }),
       fileName: `pallbi-terminovka-sezona-${seasonStartYear}-${seasonStartYear + 1}.pdf`,
@@ -228,6 +233,7 @@ export default function Races() {
       title: `${t("races.title")} – Od ${todayLabel} do 31. 3. ${seasonStartYear + 1}`,
       subtitle: `${t("races.fromToday", { defaultValue: "Od dnešního data do konce sezóny" })}`,
       events: fromTodayEvents,
+      freeRange: includeFree ? { from: isoDate(new Date()), to: `${seasonStartYear + 1}-03-31` } : null,
       groupByMonth: true,
       monthLabel: (iso) => format(parseISO(iso), "LLLL yyyy", { locale }),
       fileName: `pallbi-terminovka-od-dnes-${isoDate(new Date())}.pdf`,
@@ -362,6 +368,14 @@ export default function Races() {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
+              <DropdownMenuCheckboxItem
+                checked={includeFree}
+                onCheckedChange={(v) => setIncludeFree(!!v)}
+                onSelect={(e) => e.preventDefault()}
+              >
+                {t("races.includeFree", { defaultValue: "Doplnit volné dny mezi akcemi" })}
+              </DropdownMenuCheckboxItem>
+              <DropdownMenuSeparator />
               <DropdownMenuItem onClick={handleExportPdf}>
                 {format(month, "LLLL yyyy", { locale })}
               </DropdownMenuItem>
