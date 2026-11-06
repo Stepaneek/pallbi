@@ -766,7 +766,8 @@
     "more": "další",
     "edit": "Upravit",
     "editEvent": "Upravit událost",
-    "eventUpdated": "Událost upravena"
+    "eventUpdated": "Událost upravena",
+    "includeFree": "Doplnit volné dny mezi akcemi"
   },
   "comments": {
     "title": "Komentáře trenéra",
