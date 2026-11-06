@@ -2,6 +2,7 @@ import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import i18n from "@/i18n";
 import type { CalEvent } from "@/lib/events";
+import { fillFreeGaps } from "@/lib/freeGaps";
 
 const FONT = "DejaVuSans";
 let fontCache: { regular: string; bold: string } | null = null;
@@ -53,6 +54,8 @@ export async function exportEventsPdf(args: {
   /** Insert month subheadings inside the table (season export). */
   groupByMonth?: boolean;
   monthLabel?: (iso: string) => string;
+  /** Fill uncovered days in this range with "Volno" rows. */
+  freeRange?: { from: string; to: string } | null;
 }) {
   const t = i18n.t.bind(i18n);
   const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
@@ -67,7 +70,9 @@ export async function exportEventsPdf(args: {
   doc.text(args.subtitle, 14, 22);
   doc.setTextColor(0);
 
-  const sorted = [...args.events].sort((a, b) => a.start_date.localeCompare(b.start_date));
+  const sorted = args.freeRange
+    ? fillFreeGaps(args.events, args.freeRange.from, args.freeRange.to, t("eventTypes.volno"))
+    : [...args.events].sort((a, b) => a.start_date.localeCompare(b.start_date));
 
   const row = (ev: CalEvent) => [
     ev.title,
